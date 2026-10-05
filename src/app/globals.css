@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #12345B;
+  --color-navy-dark: #0A2340;
+  --color-navy-deep: #061628;
+  --color-rust: #B84D1B;
+  --color-rust-light: #D86A2D;
+  --color-warm-white: #F7F5F0;
+  --color-ice-blue: #EEF5F8;
+  --color-ice-blue-border: #D8E6ED;
+  --color-text-primary: #202B35;
+  --color-text-muted: #66717C;
+  --color-border-subtle: #E3E8EC;
+
+  --font-heading: var(--font-roboto-slab), Georgia, serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+:root {
+  --navy: #12345B;
+  --navy-dark: #0A2340;
+  --navy-deep: #061628;
+  --rust: #B84D1B;
+  --rust-light: #D86A2D;
+  --warm-white: #F7F5F0;
+  --ice-blue: #EEF5F8;
+  --text-primary: #202B35;
+  --text-muted: #66717C;
+}
+
+body {
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #202B35;
+  background-color: #FFFFFF;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-roboto-slab), Georgia, serif;
+  letter-spacing: -0.015em;
+}
+
+/* Architectural background grids */
+.arch-grid-pattern {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(18, 52, 91, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 52, 91, 0.04) 1px, transparent 1px);
+}
+
+.arch-grid-pattern-dark {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+/* Clean restrained radius */
+.btn-radius {
+  border-radius: 7px;
+}
+
+.card-radius {
+  border-radius: 12px;
+}
+
+.img-radius {
+  border-radius: 10px;
+}
