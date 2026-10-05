@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { HomeHero } from "@/components/home/HomeHero";
 import { HomeIntro } from "@/components/home/HomeIntro";
-import { HomeCapabilities } from "@/components/home/HomeCapabilities";
+import { HomeServicesPreview } from "@/components/home/HomeServicesPreview";
 import { HomeFacility } from "@/components/home/HomeFacility";
 import { HomeWhyPillars } from "@/components/home/HomeWhyPillars";
 import { HomeVisualBleed } from "@/components/home/HomeVisualBleed";
@@ -54,25 +54,25 @@ export default function Home() {
         <Navbar />
 
         <main className="flex-1">
-          {/* 1. Curated Editorial Hero */}
+          {/* 1. Large Industrial Hero */}
           <HomeHero />
 
-          {/* 2. Brand Statement */}
+          {/* 2. Large Editorial Statement */}
           <HomeIntro />
 
-          {/* 3. Capabilities Overview */}
-          <HomeCapabilities />
+          {/* 3. Designed Editorial Services List */}
+          <HomeServicesPreview />
 
-          {/* 4. Facility Overview */}
+          {/* 4. Large Facility Showcase */}
           <HomeFacility />
 
           {/* 5. Editorial Why Us Pillars */}
           <HomeWhyPillars />
 
-          {/* 6. Full Bleed Photography */}
+          {/* 6. Full-Bleed Atmospheric Visual */}
           <HomeVisualBleed />
 
-          {/* 7. Simple Bold CTA */}
+          {/* 7. Impactful Bold CTA */}
           <HomeCTA />
         </main>
 
