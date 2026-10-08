@@ -39,10 +39,12 @@ export const SITE_CONFIG = {
   companyName: "Tahseen Jaber",
   tagline: "Cold Storage",
   fullName: "Tahseen Jaber Cold Storage",
-  phone: "+1 (555) 019-2834", // Editable placeholder
-  phoneDisplay: "+1 (555) 019-2834",
-  email: "contact@tahseenjaber.com", // Editable placeholder
-  address: "Industrial Logistics Corridor, Cold Chain District", // Editable placeholder
+  phone: "+9647768677775",
+  phoneDisplay: "+964 776 867 7775",
+  email: "info@tahseenjaber.com",
+  secondaryEmail: "Shuaib@tahseenjaber.com",
+  emails: ["info@tahseenjaber.com", "Shuaib@tahseenjaber.com"],
+  address: "Industrial Logistics Corridor, Cold Chain District",
   hours: "Monday – Saturday: 07:00 – 19:00 | Receiving: 24/7 By Appointment",
   logoPath: "/tahseenjaber-logo.jpeg",
 };

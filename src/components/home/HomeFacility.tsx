@@ -44,7 +44,7 @@ export function HomeFacility() {
           <div className="lg:col-span-7 order-1 lg:order-2">
             <div className="relative rounded-[12px] overflow-hidden border border-[#12345B]/15 shadow-xl bg-slate-100 aspect-16/11 group">
               <Image
-                src="/images/facility-exterior.jpg"
+                src="/images/facility-exterior-wide.png"
                 alt="Tahseen Jaber Cold Storage Distribution Logistics Facility Exterior"
                 fill
                 sizes="(max-width: 1024px) 100vw, 60vw"

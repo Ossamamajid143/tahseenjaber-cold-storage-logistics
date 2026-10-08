@@ -1,20 +1,92 @@
 "use client";
 
-import React, { useState } from "react";
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle2, Truck } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import {
+  Thermometer,
+  ShieldCheck,
+  PackageCheck,
+  CheckCircle2,
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+} from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { PageHero } from "@/components/PageHero";
 import { SITE_CONFIG } from "@/data/site-content";
+import { useLanguage } from "@/context/LanguageContext";
+
+// Smooth Counting Number Component triggered by scroll visibility
+function CountUpNumber({
+  end,
+  duration = 1800,
+  isVisible,
+}: {
+  end: number;
+  duration?: number;
+  isVisible: boolean;
+}) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    let startTime: number | null = null;
+    let animationFrameId: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      // Ease out cubic
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(easeOut * end));
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [end, duration, isVisible]);
+
+  return <span>{count}</span>;
+}
 
 export default function ContactPage() {
+  const { t } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
+  const [countersVisible, setCountersVisible] = useState(false);
+  const counterRef = useRef<HTMLDivElement | null>(null);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    company: "",
     message: "",
   });
+
+  // Intersection Observer to trigger number count up when scrolled into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setCountersVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,217 +98,365 @@ export default function ContactPage() {
       <Navbar />
 
       <main className="flex-1">
-        {/* Page Hero */}
-        <section className="bg-white pt-16 pb-12 sm:pt-20 sm:pb-16 border-b border-[#E3E8EC]">
+        {/* =====================================================================
+            1. HERO SECTION
+        ====================================================================== */}
+        <PageHero
+          title={t.contact.title}
+          description={t.contact.desc}
+          imageSrc="/images/facility-entrance-signage.png"
+          imagePosition="center 40%"
+          breadcrumbPosition="right"
+        />
+
+        {/* =====================================================================
+            2. BENEFITS 3-COLUMN SECTION (Clean & Unboxed)
+        ====================================================================== */}
+        <section className="py-20 sm:py-28 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#B84D1B] mb-4">
-                <span className="w-5 h-[2px] bg-[#B84D1B] inline-block" />
-                <span>Get in Touch</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+              {/* Feature 1 */}
+              <div className="flex items-start gap-5">
+                <div className="shrink-0 text-[#B84D1B] mt-1">
+                  <Thermometer className="w-10 h-10 stroke-[1.75]" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl font-bold text-[#202B35] mb-3">
+                    {t.contact.benefits[0].title}
+                  </h3>
+                  <p className="text-sm text-[#66717C] leading-relaxed">
+                    {t.contact.benefits[0].desc}
+                  </p>
+                </div>
               </div>
-              <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0A2340] leading-tight tracking-tight">
-                Let&apos;s talk about your{" "}
-                <span className="text-[#B84D1B] block sm:inline">
-                  storage needs.
-                </span>
-              </h1>
-              <p className="mt-6 text-lg text-[#66717C] leading-relaxed">
-                Whether you require seasonal agricultural allocation or ongoing commercial
-                cold-chain warehousing, our operations team is ready to assist.
-              </p>
+
+              {/* Feature 2 */}
+              <div className="flex items-start gap-5">
+                <div className="shrink-0 text-[#B84D1B] mt-1">
+                  <ShieldCheck className="w-10 h-10 stroke-[1.75]" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl font-bold text-[#202B35] mb-3">
+                    {t.contact.benefits[1].title}
+                  </h3>
+                  <p className="text-sm text-[#66717C] leading-relaxed">
+                    {t.contact.benefits[1].desc}
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 3 */}
+              <div className="flex items-start gap-5">
+                <div className="shrink-0 text-[#B84D1B] mt-1">
+                  <PackageCheck className="w-10 h-10 stroke-[1.75]" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl font-bold text-[#202B35] mb-3">
+                    {t.contact.benefits[2].title}
+                  </h3>
+                  <p className="text-sm text-[#66717C] leading-relaxed">
+                    {t.contact.benefits[2].desc}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Editorial Contact Body (Spacious 2-column layout, not a tiny card) */}
-        <section className="py-20 sm:py-28 bg-[#F7F5F0]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
-              
-              {/* Left Column: Direct Contact & Facility Details */}
-              <div className="lg:col-span-5 space-y-12">
-                <div>
-                  <h2 className="font-heading text-2xl font-bold text-[#0A2340] mb-6">
-                    Operational Inquiries & Dispatch
-                  </h2>
-                  <p className="text-base text-[#66717C] leading-relaxed">
-                    Contact our facility dispatch directly for pallet rates, receiving
-                    schedules, or freight transit coordination.
-                  </p>
-                </div>
-
-                <div className="space-y-6 text-sm text-[#202B35]">
-                  <div className="flex items-start gap-4">
-                    <Phone className="w-5 h-5 text-[#B84D1B] shrink-0 mt-1" />
-                    <div>
-                      <span className="text-xs uppercase tracking-wider text-[#66717C] block font-semibold">
-                        Direct Phone
-                      </span>
-                      <a
-                        href={`tel:${SITE_CONFIG.phone}`}
-                        className="text-base font-bold text-[#0A2340] hover:text-[#B84D1B] transition-colors"
-                      >
-                        {SITE_CONFIG.phone}
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <Mail className="w-5 h-5 text-[#B84D1B] shrink-0 mt-1" />
-                    <div>
-                      <span className="text-xs uppercase tracking-wider text-[#66717C] block font-semibold">
-                        Email Address
-                      </span>
-                      <a
-                        href={`mailto:${SITE_CONFIG.email}`}
-                        className="text-base font-bold text-[#0A2340] hover:text-[#B84D1B] transition-colors"
-                      >
-                        {SITE_CONFIG.email}
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <MapPin className="w-5 h-5 text-[#B84D1B] shrink-0 mt-1" />
-                    <div>
-                      <span className="text-xs uppercase tracking-wider text-[#66717C] block font-semibold">
-                        Facility Location
-                      </span>
-                      <p className="text-base text-[#0A2340]">
-                        {SITE_CONFIG.address}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <Clock className="w-5 h-5 text-[#B84D1B] shrink-0 mt-1" />
-                    <div>
-                      <span className="text-xs uppercase tracking-wider text-[#66717C] block font-semibold">
-                        Operating Hours
-                      </span>
-                      <p className="text-sm text-[#0A2340] leading-relaxed">
-                        {SITE_CONFIG.hours}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Logistics Gate Note */}
-                <div className="pt-6 border-t border-[#E3E8EC] flex items-start gap-3 text-xs text-[#66717C]">
-                  <Truck className="w-4 h-4 text-[#B84D1B] shrink-0 mt-0.5" />
-                  <span>
-                    Heavy transport rigs and refrigerated semi-trailers receive direct dock bay
-                    staging. Inquire for turn-in gate instructions.
-                  </span>
-                </div>
-              </div>
-
-              {/* Right Column: Clean Editorial Form */}
-              <div className="lg:col-span-7 bg-white p-8 sm:p-12 rounded-[12px] border border-[#E3E8EC] shadow-sm">
-                <h3 className="font-heading text-2xl font-bold text-[#0A2340] mb-2">
-                  Send an Inquiry
-                </h3>
-                <p className="text-sm text-[#66717C] mb-8">
-                  Provide your product details and our team will get in touch promptly.
+        {/* =====================================================================
+            3. "REACH OUT TODAY" SECTION
+        ====================================================================== */}
+        <section className="bg-white border-t border-[#E3E8EC]">
+          <div className="w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch min-h-[580px]">
+              {/* Left Column: Clean Form */}
+              <div className="lg:col-span-6 flex flex-col justify-center px-6 sm:px-12 lg:px-20 py-16 lg:py-20 max-w-2xl mx-auto lg:mr-0 rtl:lg:mr-auto rtl:lg:ml-0 w-full">
+                <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#B84D1B] mb-4">
+                  {t.contact.formHeading}
+                </h2>
+                <p className="text-sm sm:text-base text-[#66717C] leading-relaxed mb-8">
+                  {t.contact.formDesc}
                 </p>
 
                 {submitted ? (
-                  <div className="py-12 text-center bg-[#EEF5F8] rounded-[8px] p-6 border border-[#D8E6ED]">
-                    <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto mb-3" />
-                    <h4 className="font-heading text-xl font-bold text-[#0A2340] mb-2">
-                      Inquiry Received
-                    </h4>
-                    <p className="text-sm text-[#66717C] max-w-sm mx-auto">
-                      Thank you for contacting Tahseen Jaber Cold Storage. We will review your
-                      specifications and reach out shortly.
+                  <div className="py-8 text-left rtl:text-right bg-[#EEF5F8] rounded-lg p-6 border border-[#D8E6ED]">
+                    <div className="flex items-center gap-3 mb-2">
+                      <CheckCircle2 className="w-6 h-6 text-emerald-600" />
+                      <h3 className="font-heading text-lg font-bold text-[#0A2340]">
+                        {t.contact.successTitle}
+                      </h3>
+                    </div>
+                    <p className="text-sm text-[#66717C] leading-relaxed mb-4">
+                      {t.contact.successDesc}
                     </p>
+                    <button
+                      type="button"
+                      onClick={() => setSubmitted(false)}
+                      className="text-xs font-semibold text-[#B84D1B] hover:text-[#A34215] underline cursor-pointer"
+                    >
+                      {t.contact.sendAnother}
+                    </button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className="block text-xs font-semibold text-[#0A2340] uppercase tracking-wider mb-2">
-                          Your Name *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="e.g. John Doe"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full text-sm px-4 py-3 rounded-[7px] border border-[#D8E6ED] bg-white text-[#202B35] focus:outline-hidden focus:ring-2 focus:ring-[#B84D1B]"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-[#0A2340] uppercase tracking-wider mb-2">
-                          Email Address *
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          placeholder="e.g. john@company.com"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full text-sm px-4 py-3 rounded-[7px] border border-[#D8E6ED] bg-white text-[#202B35] focus:outline-hidden focus:ring-2 focus:ring-[#B84D1B]"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className="block text-xs font-semibold text-[#0A2340] uppercase tracking-wider mb-2">
-                          Phone Number *
-                        </label>
-                        <input
-                          type="tel"
-                          required
-                          placeholder="e.g. +1 (555) 000-0000"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          className="w-full text-sm px-4 py-3 rounded-[7px] border border-[#D8E6ED] bg-white text-[#202B35] focus:outline-hidden focus:ring-2 focus:ring-[#B84D1B]"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-[#0A2340] uppercase tracking-wider mb-2">
-                          Company Name
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="e.g. Farm Logistics Ltd."
-                          value={formData.company}
-                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          className="w-full text-sm px-4 py-3 rounded-[7px] border border-[#D8E6ED] bg-white text-[#202B35] focus:outline-hidden focus:ring-2 focus:ring-[#B84D1B]"
-                        />
-                      </div>
-                    </div>
-
+                  <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                      <label className="block text-xs font-semibold text-[#0A2340] uppercase tracking-wider mb-2">
-                        Message & Storage Requirements *
-                      </label>
-                      <textarea
-                        rows={5}
+                      <input
+                        type="text"
                         required
-                        placeholder="Tell us about your commodity type, estimated pallet volume, preferred temperatures, or timing..."
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full text-sm px-4 py-3 rounded-[7px] border border-[#D8E6ED] bg-white text-[#202B35] focus:outline-hidden focus:ring-2 focus:ring-[#B84D1B] resize-y"
+                        placeholder={t.contact.namePlaceholder}
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full py-3.5 border-b border-[#D1D7DD] bg-transparent text-sm text-[#202B35] placeholder:text-[#8895A2] focus:outline-hidden focus:border-[#B84D1B] transition-colors"
                       />
                     </div>
 
-                    <button
-                      type="submit"
-                      className="group inline-flex items-center gap-2 bg-[#B84D1B] hover:bg-[#A34215] text-white font-semibold text-sm px-7 py-3.5 rounded-[7px] transition-all shadow-xs hover:shadow-md"
-                    >
-                      <span>Submit Inquiry</span>
-                      <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </button>
+                    <div>
+                      <input
+                        type="email"
+                        required
+                        placeholder={t.contact.emailPlaceholder}
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full py-3.5 border-b border-[#D1D7DD] bg-transparent text-sm text-[#202B35] placeholder:text-[#8895A2] focus:outline-hidden focus:border-[#B84D1B] transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <textarea
+                        rows={5}
+                        required
+                        placeholder={t.contact.messagePlaceholder}
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        className="w-full py-3.5 border-b border-[#D1D7DD] bg-transparent text-sm text-[#202B35] placeholder:text-[#8895A2] focus:outline-hidden focus:border-[#B84D1B] transition-colors resize-none"
+                      />
+                    </div>
+
+                    <div>
+                      <button
+                        type="submit"
+                        className="w-full sm:w-auto bg-[#B84D1B] hover:bg-[#A34215] text-white font-semibold text-sm px-10 py-3.5 rounded-xs transition-colors cursor-pointer shadow-xs active:scale-[0.99]"
+                      >
+                        {t.contact.sendBtn}
+                      </button>
+                    </div>
+
+                    <p className="text-xs text-[#8A95A0] pt-2">
+                      {t.contact.confidential}
+                    </p>
                   </form>
                 )}
               </div>
 
+              {/* Right Column: Full-Height Clean Image beside form */}
+              <div className="lg:col-span-6 relative min-h-[400px] lg:min-h-[580px] bg-slate-900 overflow-hidden">
+                <Image
+                  src="/images/contact-dock-forklift.jpg"
+                  alt="Tahseen Jaber Facility Operations"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-center"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================================
+            4. 5-COLUMN COUNTER SECTION
+        ====================================================================== */}
+        <section
+          ref={counterRef}
+          className="relative bg-[#1A1A1A] text-white py-10 sm:py-14 overflow-hidden"
+        >
+          <div className="absolute inset-0 z-0 opacity-15">
+            <Image
+              src="/images/facility-exterior-wide.png"
+              alt="Cold Storage Metrics"
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-4 text-center">
+              {/* Metric 1 */}
+              <div className="flex flex-col items-center">
+                <span className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  <CountUpNumber end={80} isVisible={countersVisible} />+
+                </span>
+                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 font-normal leading-snug max-w-[150px]">
+                  {t.contact.metrics.m1}
+                </p>
+              </div>
+
+              {/* Metric 2 */}
+              <div className="flex flex-col items-center">
+                <span className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  <CountUpNumber end={48} isVisible={countersVisible} />+
+                </span>
+                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 font-normal leading-snug max-w-[150px]">
+                  {t.contact.metrics.m2}
+                </p>
+              </div>
+
+              {/* Metric 3 */}
+              <div className="flex flex-col items-center col-span-2 sm:col-span-1">
+                <span className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  <CountUpNumber end={304} isVisible={countersVisible} />+
+                </span>
+                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 font-normal leading-snug max-w-[150px]">
+                  {t.contact.metrics.m3}
+                </p>
+              </div>
+
+              {/* Metric 4 */}
+              <div className="flex flex-col items-center">
+                <span className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  <CountUpNumber end={46} isVisible={countersVisible} />+
+                </span>
+                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 font-normal leading-snug max-w-[150px]">
+                  {t.contact.metrics.m4}
+                </p>
+              </div>
+
+              {/* Metric 5 */}
+              <div className="flex flex-col items-center">
+                <span className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  <CountUpNumber end={127} isVisible={countersVisible} />+
+                </span>
+                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 font-normal leading-snug max-w-[150px]">
+                  {t.contact.metrics.m5}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================================
+            5. "GET IN TOUCH" WITH MAP INTEGRATION
+        ====================================================================== */}
+        <section className="bg-white border-b border-[#E3E8EC]">
+          <div className="w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch min-h-[600px] lg:min-h-[720px]">
+              {/* Left Column: Interactive Map */}
+              <div className="lg:col-span-6 relative min-h-[480px] lg:min-h-[720px] w-full bg-slate-100">
+                <iframe
+                  title="Tahseen Jaber Facility Location Map"
+                  src="https://www.google.com/maps?q=London&z=15&output=embed&t=m"
+                  className="w-full h-full min-h-[480px] lg:min-h-[720px] border-0"
+                  style={{
+                    filter: "grayscale(100%) contrast(1.15) brightness(1.02)",
+                  }}
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Right Column: Contact Details */}
+              <div className="lg:col-span-6 flex flex-col justify-center px-8 sm:px-14 lg:px-20 py-16 lg:py-24 max-w-2xl mx-auto lg:ml-0 rtl:lg:ml-auto rtl:lg:mr-0 w-full">
+                <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-[#B84D1B] mb-5 tracking-tight">
+                  {t.contact.getInTouchHeading}
+                </h2>
+
+                <p className="text-base text-[#66717C] leading-relaxed mb-8 max-w-xl">
+                  {t.contact.getInTouchDesc}
+                </p>
+
+                {/* Clean Contact Item List */}
+                <div className="space-y-5 text-sm sm:text-base text-[#202B35]">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-semibold text-[#0A2340]">
+                        {t.contact.locationLabel}{" "}
+                      </span>
+                      <span className="text-[#66717C]">
+                        London, UK • {t.footer.address}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <Mail className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-semibold text-[#0A2340]">
+                        {t.contact.emailLabel}{" "}
+                      </span>
+                      <span className="text-[#66717C]">
+                        <a
+                          href={`mailto:${SITE_CONFIG.email}`}
+                          className="hover:text-[#B84D1B] transition-colors"
+                        >
+                          {SITE_CONFIG.email}
+                        </a>
+                        {" • "}
+                        <a
+                          href={`mailto:${SITE_CONFIG.secondaryEmail}`}
+                          className="hover:text-[#B84D1B] transition-colors"
+                        >
+                          {SITE_CONFIG.secondaryEmail}
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <Phone className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-semibold text-[#0A2340]">
+                        {t.contact.phoneLabel}{" "}
+                      </span>
+                      <a
+                        href={`tel:${SITE_CONFIG.phone}`}
+                        className="text-[#66717C] hover:text-[#B84D1B] transition-colors font-medium"
+                      >
+                        {SITE_CONFIG.phoneDisplay}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <Clock className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" />
+                    <div>
+                      <span className="font-semibold text-[#0A2340]">
+                        {t.contact.hoursLabel}{" "}
+                      </span>
+                      <span className="text-[#66717C]">{t.footer.hours}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =====================================================================
+            6. TESTIMONIAL BANNER (UNBOXED, SINGLE-LINE QUOTE)
+        ====================================================================== */}
+        <section className="py-12 sm:py-16 bg-[#061628] text-white text-center relative overflow-hidden arch-grid-pattern-dark">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center">
+            {/* Single line quote */}
+            <h3 className="font-heading text-sm sm:text-base lg:text-lg text-slate-100 font-normal leading-relaxed text-center whitespace-normal lg:whitespace-nowrap">
+              {t.contact.testimonialQuote}
+            </h3>
+
+            {/* Subtitle below */}
+            <p className="mt-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#D86A2D]">
+              {t.contact.testimonialSub}
+            </p>
+
+            {/* Company Real Logo below */}
+            <div className="mt-5 w-12 h-12 rounded-full bg-white p-0.5 border border-[#D86A2D] shadow-md flex items-center justify-center overflow-hidden">
+              <Image
+                src={SITE_CONFIG.logoPath}
+                alt="Tahseen Jaber Logo"
+                width={44}
+                height={44}
+                className="object-contain rounded-full"
+              />
             </div>
           </div>
         </section>

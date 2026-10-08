@@ -1,63 +1,90 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 
 export function HomeHero() {
+  const { t } = useLanguage();
+
   return (
-    <section className="relative bg-white pt-12 pb-16 sm:pt-16 sm:pb-24 lg:pt-20 lg:pb-28 border-b border-[#E3E8EC]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Editorial Top Headline Area */}
-        <div className="max-w-3xl mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#B84D1B] mb-4">
-            <span className="w-5 h-[2px] bg-[#B84D1B] inline-block" />
-            <span>Industrial Cold Storage</span>
+    <section className="relative bg-[#0A2340] text-white overflow-hidden">
+      {/* Background Image — cinematic full-bleed, centre-perspective composition */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/facility-exterior-wide.png"
+          alt="Tahseen Jaber Cold Storage Industrial Facility"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: "center 45%" }}
+        />
+        {/* Subtle dark overlay — preserves image brightness & details while keeping text crisp */}
+        <div className="absolute inset-0 bg-[#0A2340]/40" />
+
+        {/* Soft white base gradient behind fog for seamless blend */}
+        <div
+          className="absolute bottom-0 left-0 right-0 pointer-events-none"
+          style={{
+            height: "140px",
+            background:
+              "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.4) 35%, transparent 100%)",
+          }}
+        />
+
+        {/* Bottom Atmospheric Cloud / Fog Mist matching reference screenshot */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-[85px] sm:h-[105px] lg:h-[120px] pointer-events-none"
+          style={{
+            backgroundImage: "url('/images/bg-fog-bottom.png')",
+            backgroundRepeat: "repeat-x",
+            backgroundPosition: "center bottom",
+            backgroundSize: "auto 100%",
+          }}
+        />
+      </div>
+
+      {/* Main Hero Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-24 sm:pt-32 sm:pb-32 lg:pt-40 lg:pb-36">
+        <RevealOnScroll animation="fade-up" duration={850}>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
+            {/* Left Title: Company Name */}
+            <div className="lg:col-span-5 lg:text-right">
+              <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
+                {t.home.hero.title}
+              </h1>
+              <p className="font-heading text-lg sm:text-xl text-[#D86A2D] mt-2 font-semibold tracking-wider uppercase lg:text-right">
+                {t.home.hero.tagline}
+              </p>
+            </div>
+
+            {/* Desktop Vertical Divider */}
+            <div className="hidden lg:flex lg:col-span-2 justify-center items-center">
+              <div className="w-[1.5px] h-36 bg-white/30" />
+            </div>
+
+            {/* Right Description */}
+            <div className="lg:col-span-5 lg:text-left">
+              <p className="text-base sm:text-lg lg:text-[18px] text-slate-200 leading-relaxed max-w-xl">
+                {t.home.hero.desc}
+              </p>
+            </div>
           </div>
 
-          <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#0A2340] leading-[1.12] tracking-tight">
-            Reliable Cold Storage.{" "}
-            <span className="text-[#B84D1B] block sm:inline">
-              Built to Protect What Matters.
-            </span>
-          </h1>
-
-          <p className="mt-5 text-base sm:text-lg text-[#66717C] leading-relaxed max-w-2xl">
-            Dependable temperature-controlled warehousing designed to preserve product
-            freshness, protect perishables, and support efficient supply chains.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          {/* Centered Action Button */}
+          <div className="mt-12 sm:mt-16 lg:mt-20 text-center">
             <Link
               href="/services"
-              className="group inline-flex items-center gap-2 bg-[#B84D1B] hover:bg-[#A34215] text-white font-semibold text-sm sm:text-base px-6 py-3.5 rounded-[7px] transition-all duration-200 shadow-xs hover:shadow-md hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center border-2 border-white/90 hover:border-white text-white hover:bg-white hover:text-[#0A2340] px-8 py-3.5 text-sm sm:text-base font-semibold tracking-wide rounded-[4px] transition-all duration-200 shadow-md hover:shadow-xl hover:scale-102"
             >
-              <span>Explore Services</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 bg-[#EEF5F8] hover:bg-[#E2EDF3] text-[#12345B] border border-[#D8E6ED] font-semibold text-sm sm:text-base px-6 py-3.5 rounded-[7px] transition-colors"
-            >
-              <span>Get in Touch</span>
+              {t.home.hero.cta}
             </Link>
           </div>
-        </div>
-
-        {/* Large Powerful Industrial Photography */}
-        <div className="relative rounded-[12px] overflow-hidden border border-[#12345B]/15 shadow-xl bg-slate-100 aspect-16/9 sm:aspect-21/9 group">
-          <Image
-            src="/images/hero-warehouse.jpg"
-            alt="Tahseen Jaber Industrial Cold Storage Facility Racking and Aisles"
-            fill
-            priority
-            sizes="(max-width: 1280px) 100vw, 1280px"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-101"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A2340]/40 via-transparent to-transparent pointer-events-none" />
-        </div>
-
+        </RevealOnScroll>
       </div>
     </section>
   );

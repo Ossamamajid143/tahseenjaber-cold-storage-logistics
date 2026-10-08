@@ -1,12 +1,12 @@
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { HomeHero } from "@/components/home/HomeHero";
-import { HomeIntro } from "@/components/home/HomeIntro";
-import { HomeServicesPreview } from "@/components/home/HomeServicesPreview";
-import { HomeFacility } from "@/components/home/HomeFacility";
-import { HomeWhyPillars } from "@/components/home/HomeWhyPillars";
-import { HomeVisualBleed } from "@/components/home/HomeVisualBleed";
-import { HomeCTA } from "@/components/home/HomeCTA";
+import { HomePillars3Col } from "@/components/home/HomePillars3Col";
+import { HomeGetInTouchSplit } from "@/components/home/HomeGetInTouchSplit";
+import { HomeBenefitsCards } from "@/components/home/HomeBenefitsCards";
+import { HomeComprehensiveServices } from "@/components/home/HomeComprehensiveServices";
+import { HomeSolutionsShowcase } from "@/components/home/HomeSolutionsShowcase";
+import { HomeContactSection } from "@/components/home/HomeContactSection";
 import { Footer } from "@/components/Footer";
 import { SITE_CONFIG } from "@/data/site-content";
 
@@ -17,7 +17,7 @@ export default function Home() {
     name: SITE_CONFIG.fullName,
     description:
       "Tahseen Jaber Cold Storage provides dependable cold-storage solutions designed to preserve product quality and support efficient supply chains.",
-    image: "https://tahseenjaber.com/images/hero-warehouse.jpg",
+    image: "https://tahseenjaber.com/images/facility-exterior-wide.png",
     telephone: SITE_CONFIG.phone,
     email: SITE_CONFIG.email,
     address: {
@@ -54,26 +54,26 @@ export default function Home() {
         <Navbar />
 
         <main className="flex-1">
-          {/* 1. Large Industrial Hero */}
+          {/* 1. Industrial Hero with Vertical Split & Chevron Notch */}
           <HomeHero />
 
-          {/* 2. Large Editorial Statement */}
-          <HomeIntro />
+          {/* 2. Three-Column Precision Highlights (Screenshot 1) */}
+          <HomePillars3Col />
 
-          {/* 3. Designed Editorial Services List */}
-          <HomeServicesPreview />
+          {/* 3. Split Get in Touch Feature (Screenshot 4) */}
+          <HomeGetInTouchSplit />
 
-          {/* 4. Large Facility Showcase */}
-          <HomeFacility />
+          {/* 4. Four Value Proposition & Capability Cards */}
+          <HomeBenefitsCards />
 
-          {/* 5. Editorial Why Us Pillars */}
-          <HomeWhyPillars />
+          {/* 5. Dark Split Feature: Comprehensive Service Offerings */}
+          <HomeComprehensiveServices />
 
-          {/* 6. Full-Bleed Atmospheric Visual */}
-          <HomeVisualBleed />
+          {/* 7. Cold Storage Solutions & Fresh Produce Showcase */}
+          <HomeSolutionsShowcase />
 
-          {/* 7. Impactful Bold CTA */}
-          <HomeCTA />
+          {/* 8. Get in Touch Interactive Inquiry Form */}
+          <HomeContactSection />
         </main>
 
         <Footer />

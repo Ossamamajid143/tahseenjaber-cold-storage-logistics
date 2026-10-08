@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Roboto_Slab, Inter } from "next/font/google";
+import { Roboto_Slab, Inter, Cairo } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const robotoSlab = Roboto_Slab({
   variable: "--font-roboto-slab",
@@ -12,6 +13,13 @@ const robotoSlab = Roboto_Slab({
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -36,7 +44,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/images/hero-warehouse.jpg",
+        url: "/images/facility-exterior-wide.png",
         width: 1200,
         height: 675,
         alt: "Tahseen Jaber Cold Storage Facility",
@@ -56,10 +64,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${robotoSlab.variable} ${inter.variable} scroll-smooth`}
+      className={`${robotoSlab.variable} ${inter.variable} ${cairo.variable} scroll-smooth`}
     >
       <body className="min-h-full font-sans antialiased text-[#202B35] bg-[#FFFFFF] selection:bg-[#B84D1B]/15 selection:text-[#0A2340]">
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );
