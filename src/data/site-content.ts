@@ -44,7 +44,11 @@ export const SITE_CONFIG = {
   email: "info@tahseenjaber.com",
   secondaryEmail: "Shuaib@tahseenjaber.com",
   emails: ["info@tahseenjaber.com", "Shuaib@tahseenjaber.com"],
-  address: "Industrial Logistics Corridor, Cold Chain District",
+  address: "Iraq",
+  googleMapsLocation: {
+    latitude: 33.1701875,
+    longitude: 44.3539003,
+  },
   hours: "Monday – Saturday: 07:00 – 19:00 | Receiving: 24/7 By Appointment",
   logoPath: "/tahseenjaber-logo.jpeg",
 };
@@ -53,7 +57,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Facilities", href: "/facilities" },
+  { label: "Why Choose Us", href: "/why-choose-us" },
   { label: "Contact", href: "/contact" },
 ];
 

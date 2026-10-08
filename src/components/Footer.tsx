@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUp, Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
+import { Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
 import { SITE_CONFIG } from "@/data/site-content";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -14,7 +14,7 @@ export function Footer() {
     { label: t.nav.home, href: "/" },
     { label: t.nav.about, href: "/about" },
     { label: t.nav.services, href: "/services" },
-    { label: t.nav.facilities, href: "/facilities" },
+    { label: t.nav.facilities, href: "/why-choose-us" },
     { label: t.nav.contact, href: "/contact" },
   ];
 
@@ -110,7 +110,7 @@ export function Footer() {
           </div>
 
           {/* Col 4: Facility Contact Summary (2 cols) */}
-          <div className="lg:col-span-2">
+          <div id="footer-contact-location" className="lg:col-span-2 scroll-mt-24">
             <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#D86A2D] mb-4">
               {t.footer.contactTitle}
             </h4>
@@ -138,12 +138,15 @@ export function Footer() {
                     {isArabic ? "البريد الإلكتروني" : "Email Inquiries"}
                   </span>
                   <div className="space-y-0.5" dir="ltr">
-                    <a
-                      href={`mailto:${SITE_CONFIG.email}`}
-                      className="hover:text-white font-medium block"
-                    >
-                      {SITE_CONFIG.email}
-                    </a>
+                    {SITE_CONFIG.emails.map((email) => (
+                      <a
+                        key={email}
+                        href={`mailto:${email}`}
+                        className="hover:text-white font-medium block whitespace-nowrap"
+                      >
+                        {email}
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -155,6 +158,12 @@ export function Footer() {
                     {isArabic ? "عنوان المنشأة" : "Facility Address"}
                   </span>
                   <p>{t.footer.address}</p>
+                  <Link
+                    href="/contact#contact-location"
+                    className="hover:text-white font-medium block mt-0.5"
+                  >
+                    {t.contact.directionsLink}
+                  </Link>
                 </div>
               </div>
             </div>
@@ -163,24 +172,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright & Back to Top */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-          <p>
-            &copy; {new Date().getFullYear()} {t.footer.copyright}
-          </p>
-
-          <div className="flex items-center gap-6">
-            <span className="text-slate-500">
-              {isArabic ? "هندسة لوجستية لسلسلة التبريد الحديثة" : "Modern Cold-Chain Architecture"}
-            </span>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors"
-              aria-label="Back to home"
-            >
-              <span>{isArabic ? "العودة للأعلى" : "Back to Top"}</span>
-              <ArrowUp className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+        <div className="pt-8 flex justify-center text-xs sm:text-sm text-slate-400 text-center">
+          <p>© 2026 Tahseen Jaber Cold Storage. All rights reserved.</p>
         </div>
 
       </div>

@@ -30,7 +30,7 @@ export function HomeFacility() {
 
             <div>
               <Link
-                href="/facilities"
+                href="/why-choose-us"
                 className="group inline-flex items-center gap-2 text-sm font-semibold text-[#12345B] hover:text-[#B84D1B] transition-colors"
               >
                 <span>Explore our facilities</span>

@@ -13,39 +13,28 @@ import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 export function HomeGetInTouchSplit() {
   const { t } = useLanguage();
 
-  const scrollToContact = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const contactEl = document.getElementById("contact");
-    if (contactEl) {
-      contactEl.scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.location.href = "/contact";
-    }
-  };
-
   return (
-    <section className="bg-white py-16 sm:py-24 lg:py-32 border-b border-[#E3E8EC]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* Left Column: Image Box matching Screenshot 4 */}
-          <div className="lg:col-span-6">
-            <RevealOnScroll animation="slide-left" duration={800}>
-              <div className="relative rounded-[10px] overflow-hidden shadow-lg border border-[#12345B]/15 bg-slate-100 aspect-4/3 group">
-                <Image
-                  src="/images/refrigeration-tech.jpg"
-                  alt="Tahseen Jaber Advanced Cold Storage & Refrigeration Facility"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-102"
-                />
-                <div className="absolute inset-0 bg-linear-to-tr from-[#12345B]/15 via-transparent to-transparent pointer-events-none" />
-              </div>
-            </RevealOnScroll>
-          </div>
+    <section className="bg-white border-b border-[#E3E8EC]">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        {/* Large, edge-to-edge image column */}
+        <RevealOnScroll
+          animation="image-reveal"
+          duration={800}
+          className="group relative aspect-[4/3] overflow-hidden bg-slate-100 lg:aspect-[1.1/1]"
+        >
+          <Image
+            src="/images/refrigeration-tech.jpg"
+            alt="Tahseen Jaber Advanced Cold Storage & Refrigeration Facility"
+            fill
+            sizes="(max-width: 1023px) 100vw, 50vw"
+            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-102 motion-reduce:transition-none motion-reduce:scale-100 motion-reduce:transform-none"
+          />
+        </RevealOnScroll>
 
-          {/* Right Column: Content matching Screenshot 4 */}
-          <div className="lg:col-span-6 lg:pl-4 flex flex-col justify-center">
-            <RevealOnScroll animation="fade-up" duration={800} delay={150}>
+        {/* Separate content column, vertically centered */}
+        <div className="flex items-center px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-16 xl:px-20 2xl:px-36">
+          <RevealOnScroll animation="fade-up" duration={800} delay={150}>
+            <div className="max-w-xl">
               <h2 className="font-heading text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#B84D1B] leading-tight mb-3">
                 {t.home.getInTouch.title}
               </h2>
@@ -78,17 +67,16 @@ export function HomeGetInTouchSplit() {
               </div>
 
               <div className="mt-8">
-                <a
-                  href="#contact"
-                  onClick={scrollToContact}
+                <Link
+                  href="/contact#contact-location"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-[#12345B] hover:text-[#B84D1B] transition-colors group cursor-pointer"
                 >
                   <span>{t.home.getInTouch.cta}</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180" />
-                </a>
+                </Link>
               </div>
-            </RevealOnScroll>
-          </div>
+            </div>
+          </RevealOnScroll>
         </div>
       </div>
     </section>

@@ -17,6 +17,7 @@ import { Footer } from "@/components/Footer";
 import { PageHero } from "@/components/PageHero";
 import { SITE_CONFIG } from "@/data/site-content";
 import { useLanguage } from "@/context/LanguageContext";
+import { GoogleMapsLocation } from "@/components/GoogleMapsLocation";
 
 // Smooth Counting Number Component triggered by scroll visibility
 function CountUpNumber({
@@ -104,9 +105,8 @@ export default function ContactPage() {
         <PageHero
           title={t.contact.title}
           description={t.contact.desc}
-          imageSrc="/images/facility-entrance-signage.png"
+          imageSrc="/images/services-contact-warehouse.jpg"
           imagePosition="center 40%"
-          breadcrumbPosition="right"
         />
 
         {/* =====================================================================
@@ -251,8 +251,8 @@ export default function ContactPage() {
               {/* Right Column: Full-Height Clean Image beside form */}
               <div className="lg:col-span-6 relative min-h-[400px] lg:min-h-[580px] bg-slate-900 overflow-hidden">
                 <Image
-                  src="/images/contact-dock-forklift.jpg"
-                  alt="Tahseen Jaber Facility Operations"
+                  src="/images/warehouse-inventory.jpg"
+                  alt="Warehouse professional organizing inventory on shelves"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -336,96 +336,61 @@ export default function ContactPage() {
         </section>
 
         {/* =====================================================================
-            5. "GET IN TOUCH" WITH MAP INTEGRATION
+            5. "GET IN TOUCH" AND FACILITY DIRECTIONS
         ====================================================================== */}
-        <section className="bg-white border-b border-[#E3E8EC]">
-          <div className="w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch min-h-[600px] lg:min-h-[720px]">
-              {/* Left Column: Interactive Map */}
-              <div className="lg:col-span-6 relative min-h-[480px] lg:min-h-[720px] w-full bg-slate-100">
-                <iframe
-                  title="Tahseen Jaber Facility Location Map"
-                  src="https://www.google.com/maps?q=London&z=15&output=embed&t=m"
-                  className="w-full h-full min-h-[480px] lg:min-h-[720px] border-0"
-                  style={{
-                    filter: "grayscale(100%) contrast(1.15) brightness(1.02)",
-                  }}
-                  allowFullScreen
-                  loading="lazy"
-                />
-              </div>
-
-              {/* Right Column: Contact Details */}
-              <div className="lg:col-span-6 flex flex-col justify-center px-8 sm:px-14 lg:px-20 py-16 lg:py-24 max-w-2xl mx-auto lg:ml-0 rtl:lg:ml-auto rtl:lg:mr-0 w-full">
-                <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-[#B84D1B] mb-5 tracking-tight">
-                  {t.contact.getInTouchHeading}
-                </h2>
-
-                <p className="text-base text-[#66717C] leading-relaxed mb-8 max-w-xl">
-                  {t.contact.getInTouchDesc}
-                </p>
-
-                {/* Clean Contact Item List */}
-                <div className="space-y-5 text-sm sm:text-base text-[#202B35]">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-semibold text-[#0A2340]">
-                        {t.contact.locationLabel}{" "}
-                      </span>
-                      <span className="text-[#66717C]">
-                        London, UK • {t.footer.address}
-                      </span>
-                    </div>
+        <section
+          id="contact-location"
+          aria-labelledby="contact-location-heading"
+          className="bg-white border-b border-[#E3E8EC] scroll-mt-24"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
+            <div className="w-full min-h-[360px] sm:min-h-[460px] lg:min-h-[100svh] bg-[#F1F5F9]">
+              <GoogleMapsLocation
+                title={t.contact.directionsHeading}
+                directionsLabel={t.contact.mapDirectionsLabel}
+                showDirections={false}
+                grayscale
+                mapClassName="h-[360px] sm:h-[460px] lg:h-[100svh] border-0 rounded-none"
+              />
+            </div>
+            <div className="flex flex-col justify-center px-6 sm:px-10 lg:px-14 xl:px-20 py-12 sm:py-16 lg:py-20">
+              <h2 id="contact-location-heading" className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-[#B84D1B] mb-5 tracking-tight">
+                {t.contact.getInTouchHeading}
+              </h2>
+              <p className="text-base text-[#66717C] leading-relaxed mb-8 max-w-xl">
+                {t.contact.getInTouchDesc}
+              </p>
+              <div className="space-y-5 text-sm sm:text-base text-[#202B35]">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" aria-hidden="true" />
+                  <div>
+                    <span className="font-semibold text-[#0A2340]">{t.contact.locationLabel} </span>
+                    <span className="text-[#66717C]">{t.footer.address}</span>
                   </div>
-
-                  <div className="flex items-start gap-3">
-                    <Mail className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-semibold text-[#0A2340]">
-                        {t.contact.emailLabel}{" "}
-                      </span>
-                      <span className="text-[#66717C]">
-                        <a
-                          href={`mailto:${SITE_CONFIG.email}`}
-                          className="hover:text-[#B84D1B] transition-colors"
-                        >
-                          {SITE_CONFIG.email}
-                        </a>
-                        {" • "}
-                        <a
-                          href={`mailto:${SITE_CONFIG.secondaryEmail}`}
-                          className="hover:text-[#B84D1B] transition-colors"
-                        >
-                          {SITE_CONFIG.secondaryEmail}
-                        </a>
-                      </span>
-                    </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Mail className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" aria-hidden="true" />
+                  <div>
+                    <span className="font-semibold text-[#0A2340]">{t.contact.emailLabel} </span>
+                    <span className="text-[#66717C]">
+                      <a href={`mailto:${SITE_CONFIG.email}`} className="hover:text-[#B84D1B] transition-colors">{SITE_CONFIG.email}</a>
+                      {" • "}
+                      <a href={`mailto:${SITE_CONFIG.secondaryEmail}`} className="hover:text-[#B84D1B] transition-colors">{SITE_CONFIG.secondaryEmail}</a>
+                    </span>
                   </div>
-
-                  <div className="flex items-start gap-3">
-                    <Phone className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-semibold text-[#0A2340]">
-                        {t.contact.phoneLabel}{" "}
-                      </span>
-                      <a
-                        href={`tel:${SITE_CONFIG.phone}`}
-                        className="text-[#66717C] hover:text-[#B84D1B] transition-colors font-medium"
-                      >
-                        {SITE_CONFIG.phoneDisplay}
-                      </a>
-                    </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Phone className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" aria-hidden="true" />
+                  <div>
+                    <span className="font-semibold text-[#0A2340]">{t.contact.phoneLabel} </span>
+                    <a href={`tel:${SITE_CONFIG.phone}`} className="text-[#66717C] hover:text-[#B84D1B] transition-colors font-medium">{SITE_CONFIG.phoneDisplay}</a>
                   </div>
-
-                  <div className="flex items-start gap-3">
-                    <Clock className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-semibold text-[#0A2340]">
-                        {t.contact.hoursLabel}{" "}
-                      </span>
-                      <span className="text-[#66717C]">{t.footer.hours}</span>
-                    </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Clock className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" aria-hidden="true" />
+                  <div>
+                    <span className="font-semibold text-[#0A2340]">{t.contact.hoursLabel} </span>
+                    <span className="text-[#66717C]">{t.footer.hours}</span>
                   </div>
                 </div>
               </div>
@@ -433,33 +398,6 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* =====================================================================
-            6. TESTIMONIAL BANNER (UNBOXED, SINGLE-LINE QUOTE)
-        ====================================================================== */}
-        <section className="py-12 sm:py-16 bg-[#061628] text-white text-center relative overflow-hidden arch-grid-pattern-dark">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center">
-            {/* Single line quote */}
-            <h3 className="font-heading text-sm sm:text-base lg:text-lg text-slate-100 font-normal leading-relaxed text-center whitespace-normal lg:whitespace-nowrap">
-              {t.contact.testimonialQuote}
-            </h3>
-
-            {/* Subtitle below */}
-            <p className="mt-2.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#D86A2D]">
-              {t.contact.testimonialSub}
-            </p>
-
-            {/* Company Real Logo below */}
-            <div className="mt-5 w-12 h-12 rounded-full bg-white p-0.5 border border-[#D86A2D] shadow-md flex items-center justify-center overflow-hidden">
-              <Image
-                src={SITE_CONFIG.logoPath}
-                alt="Tahseen Jaber Logo"
-                width={44}
-                height={44}
-                className="object-contain rounded-full"
-              />
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />

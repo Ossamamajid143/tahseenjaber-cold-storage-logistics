@@ -2,18 +2,38 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   PackageCheck,
   CheckCircle2,
   ArrowRight,
-  Check,
   X,
+  Warehouse,
+  Snowflake,
+  Thermometer,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { PageHero } from "@/components/PageHero";
+import { PatternDivider } from "@/components/ui/PatternDivider";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useLanguage } from "@/context/LanguageContext";
+import { GoogleMapsLocation } from "@/components/GoogleMapsLocation";
+
+const SERVICE_SECTION_IMAGES = [
+  "/images/service-cold-storage-leasing.webp",
+  "/images/service-cold-chain-delivery.webp",
+  "/images/service-import-export.webp",
+  "/images/service-consignment-sale.webp",
+] as const;
+
+const FACILITY_GALLERY_IMAGES = [
+  "/images/about-cold-storage-room.webp",
+  "/images/refrigeration-tech.jpg",
+  "/images/facility-loading-bays.png",
+  "/images/cold-storage-warehouse-floor.jpg",
+  "/images/facility-exterior-wide.png",
+  "/images/facility-front-entry-truck.png",
+] as const;
 
 // Vectors matching user request and website theme (Navy #0A2340, Rust #B84D1B, Slate, Ice)
 function VectorThermometer() {
@@ -102,7 +122,7 @@ function VectorStorage() {
 export default function ServicesPage() {
   const [submitted, setSubmitted] = useState(false);
   const [pricingModalOpen, setPricingModalOpen] = useState(false);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -139,9 +159,8 @@ export default function ServicesPage() {
         <PageHero
           title={t.servicesPage.heroTitle}
           description={t.servicesPage.heroDesc}
-          imageSrc="/images/facility-front-entry-truck.png"
+          imageSrc="/images/contact-dock-forklift.jpg"
           imagePosition="center 45%"
-          breadcrumbPosition="right"
         />
 
         {/* =====================================================================
@@ -264,119 +283,123 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* =====================================================================
-            4. FEATURE SPLIT 1: "CUSTOMIZED STORAGE SOLUTIONS"
-            - Removed "Meet our dedicated team" button as requested
-            - Image covers half screen with full bleed (lg:grid-cols-2)
-            - Using new high-res cold storage warehouse floor image
-        ====================================================================== */}
-        <section className="bg-[#FDFBF7] overflow-hidden border-b border-[#E3E8EC]">
-          <div className="w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch min-h-[500px] lg:min-h-[600px] xl:min-h-[640px]">
-
-              {/* Left Column: Text Content without button */}
-              <div className="flex flex-col justify-center px-6 sm:px-12 lg:px-20 py-16 lg:py-24 max-w-2xl mx-auto lg:mr-0 w-full">
-                <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#B84D1B] tracking-tight">
-                  {t.servicesPage.customizedHeading}
-                </h2>
-
-                {/* Decorative separator */}
-                <div className="my-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="16"
-                    viewBox="0 0 100 20"
-                    width="90"
-                    className="fill-[#B84D1B]"
-                    role="img"
-                    aria-label="separator"
-                  >
-                    <path d="m2 8h64c1.1 0 2 .9 2 2s-.9 2-2 2h-64c-1.1 0-2-.9-2-2s.9-2 2-2zm72 0h16c1.1 0 2 .9 2 2s-.9 2-2 2h-16c-1.1 0-2-.9-2-2s.9-2 2-2zm24 0c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" />
-                  </svg>
-                </div>
-
-                <p className="text-sm sm:text-base text-[#66717C] leading-relaxed mb-4">
-                  {t.servicesPage.customizedDesc1}
-                </p>
-
-                <p className="text-sm sm:text-base text-[#66717C] leading-relaxed">
-                  {t.servicesPage.customizedDesc2}
-                </p>
-              </div>
-
-              {/* Right Column: Large Half-Screen Image with Brown Asian Logistics Specialists */}
-              <div className="relative min-h-[420px] lg:min-h-[600px] xl:min-h-[640px] w-full h-full bg-slate-900 overflow-hidden">
+        {/* Alternating service sections with large, full-bleed imagery. */}
+        {t.servicesPage.serviceSections.map((service, index) => {
+          const imageIsLeft = index % 2 === 0;
+          return (
+            <section key={service.title} dir="ltr" className="grid grid-cols-1 lg:grid-cols-2 items-stretch bg-white border-b border-[#E3E8EC]">
+              <RevealOnScroll
+                animation="fade-in"
+                duration={900}
+                className={`relative order-1 h-[clamp(280px,62vw,400px)] overflow-hidden bg-[#EEF5F8] ${imageIsLeft ? "lg:order-1" : "lg:order-2"} lg:h-auto lg:min-h-[75vh]`}
+              >
                 <Image
-                  src="/images/services-customized.jpg"
-                  alt="Tahseen Jaber Customized Cold Storage Specialists Team"
+                  src={SERVICE_SECTION_IMAGES[index]}
+                  alt={service.imageAlt}
                   fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority={index === 0}
+                  sizes="(max-width: 1023px) 100vw, 50vw"
                   className="object-cover object-center"
                 />
-              </div>
+              </RevealOnScroll>
 
-            </div>
-          </div>
-        </section>
-
-        {/* =====================================================================
-            5. ADVANCED TEMPERATURE MANAGEMENT (Matches Screenshot 1 Exactly)
-            - Warm cream background (#FAF7F2)
-            - Left: Image with Brown Asian Cold Chain Technician with laser scanner
-            - Right: Bold stacked title in Rust (#B84D1B), editorial paragraph,
-              and 4-row checklist with checkmarks and 100 score/stats
-        ====================================================================== */}
-        <section className="py-16 sm:py-24 bg-[#FAF7F2] border-b border-[#E3E8EC] overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-
-              {/* Left Column: Rounded Image with Brown Asian Quality Inspector */}
-              <div className="lg:col-span-7">
-                <div className="relative aspect-4/3 sm:aspect-16/11 lg:aspect-4/3 rounded-2xl sm:rounded-3xl overflow-hidden shadow-md bg-slate-900">
-                  <Image
-                    src="/images/services-temp-mgmt.jpg"
-                    alt="Tahseen Jaber Advanced Temperature Management Cold Chain Inspection"
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 58vw"
-                    className="object-cover object-center"
-                  />
-                </div>
-              </div>
-
-              {/* Right Column: Title, Description & Checklist matching Screenshot 1 */}
-              <div className="lg:col-span-5">
-                <h2 className="font-heading text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#B84D1B] leading-[1.16] tracking-tight mb-6 whitespace-pre-line">
-                  {t.servicesPage.tempMgmtHeading}
-                </h2>
-
-                <p className="text-xs sm:text-sm text-[#5C6773] leading-relaxed mb-8">
-                  {t.servicesPage.tempMgmtDesc}
-                </p>
-
-                {/* 4 Checklist Items with Separators & 100 scores */}
-                <div className="space-y-0 divide-y divide-[#E5DDD0] border-b border-[#E5DDD0]">
-                  {t.servicesPage.tempChecklist.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className={`flex items-center justify-between py-3.5 ${
-                        idx === 0 ? "border-t border-[#E5DDD0] sm:border-t-0" : ""
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <Check className="w-4 h-4 text-emerald-600 stroke-[2.5] shrink-0" />
-                        <span className="text-xs sm:text-sm font-medium text-[#202B35]">
-                          {item}
-                        </span>
-                      </div>
-                      <span className="text-xs sm:text-sm font-semibold text-[#485360]">100</span>
+              <div dir={language === "AR" ? "rtl" : "ltr"} className={`flex items-center px-6 sm:px-10 lg:px-14 xl:px-20 py-12 lg:py-20 ${imageIsLeft ? "lg:order-2" : "lg:order-1"}`}>
+                <RevealOnScroll animation="fade-up" duration={800} delay={150} className="w-full max-w-2xl mx-auto">
+                  <h2 className="font-heading text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#B84D1B] leading-tight mb-4">
+                    {service.title}
+                  </h2>
+                  <PatternDivider className="mb-6" color="#12345B" />
+                  <p className="text-[#66717C] text-base sm:text-lg leading-[1.7]">
+                    {service.description}
+                  </p>
+                  {service.suitableFor && (
+                    <div className="mt-7">
+                      <h3 className="font-heading text-base sm:text-lg font-semibold text-[#0A2340] mb-4">
+                        {t.servicesPage.suitableForLabel}
+                      </h3>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+                        {service.suitableFor.map((item) => (
+                          <li key={item} className="flex items-start gap-3 text-sm sm:text-base text-[#66717C] leading-relaxed">
+                            <CheckCircle2 aria-hidden="true" className="w-5 h-5 shrink-0 mt-0.5 text-[#B84D1B]" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  ))}
-                </div>
-
+                  )}
+                </RevealOnScroll>
               </div>
+            </section>
+          );
+        })}
 
+        {/* Facilities information moved from the former Facilities page. */}
+        <section className="bg-[#F7F5F0] border-b border-[#E3E8EC] py-16 sm:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mb-10 sm:mb-12">
+              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#0A2340] tracking-tight mb-4">
+                {t.servicesPage.facilitySection.title}
+              </h2>
+              <PatternDivider className="mb-5" color="#B84D1B" />
+              <p className="text-base sm:text-lg text-[#66717C] leading-relaxed">
+                {t.servicesPage.facilitySection.description}
+              </p>
+            </div>
+
+            <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6">
+              {t.servicesPage.facilitySection.galleryTitle}
+            </h3>
+            <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+              {t.servicesPage.facilitySection.gallery.map((item, index) => (
+                <article key={item.title} className="group overflow-hidden rounded-lg border border-[#E3E8EC] bg-white shadow-xs hover:shadow-md transition-shadow duration-300">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#EEF5F8]">
+                    <Image
+                      src={FACILITY_GALLERY_IMAGES[index]}
+                      alt={item.alt}
+                      fill
+                      sizes="(max-width: 479px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
+                    />
+                  </div>
+                  <h4 className="font-heading text-lg font-bold text-[#0A2340] px-4 py-4 sm:px-5">
+                    {item.title}
+                  </h4>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-14 sm:mt-16">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6">
+                {t.servicesPage.facilitySection.specificationsTitle}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+                {t.servicesPage.facilitySection.specifications.map((specification, index) => {
+                  const Icon = [Warehouse, Snowflake, Thermometer][index];
+                  return (
+                    <div key={specification.label} className="rounded-lg border border-[#E3E8EC] bg-white px-5 py-6 sm:px-6 shadow-xs">
+                      <Icon className="w-7 h-7 text-[#B84D1B] mb-4" aria-hidden="true" />
+                      <p className="font-heading text-2xl sm:text-3xl font-bold text-[#0A2340] leading-tight">
+                        {specification.value}
+                      </p>
+                      <p className="text-sm text-[#66717C] mt-2">{specification.label}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="mt-14 sm:mt-16 border-t border-[#DDE3E8] pt-8">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6">
+                {t.servicesPage.facilitySection.infrastructureTitle}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                {t.servicesPage.facilitySection.infrastructure.map((area) => (
+                  <div key={area.name} className="border-b border-[#DDE3E8] py-3">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[#B84D1B] mb-1">{area.category}</p>
+                    <p className="font-heading text-base sm:text-lg font-semibold text-[#0A2340]">{area.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -504,21 +527,21 @@ export default function ServicesPage() {
         </section>
 
         {/* =====================================================================
-            7. FULL-WIDTH LOCATION MAP (Matches Screenshot 3)
+            7. FACILITY DIRECTIONS
             - Displayed directly below Contact Information section
-            - Full-width interactive Google Map
         ====================================================================== */}
-        <section className="w-full h-[360px] sm:h-[450px] relative overflow-hidden bg-slate-100 border-t border-[#E3E8EC]">
-          <iframe
-            title="Tahseen Jaber Facility Location Map"
-            src="https://www.google.com/maps?q=London&z=15&output=embed&t=m"
-            className="w-full h-full border-0"
-            style={{
-              filter: "contrast(1.05)",
-            }}
-            allowFullScreen
-            loading="lazy"
-          />
+        <section
+          aria-label={t.contact.directionsHeading}
+          className="w-full border-t border-[#E3E8EC] bg-white"
+        >
+          <div className="w-full">
+            <GoogleMapsLocation
+              title={t.contact.directionsHeading}
+              directionsLabel={t.contact.mapDirectionsLabel}
+              showDirections={false}
+              mapClassName="h-[240px] sm:h-[280px] lg:h-[320px]"
+            />
+          </div>
         </section>
 
         {/* Interactive Pricing Plans Modal */}

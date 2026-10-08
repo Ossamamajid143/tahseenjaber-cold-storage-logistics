@@ -3,7 +3,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { PatternDivider } from "@/components/ui/PatternDivider";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -13,12 +12,12 @@ export function HomeComprehensiveServices() {
   const { t } = useLanguage();
 
   return (
-    <section className="bg-[#0A2340] text-white py-20 sm:py-28 lg:py-36 relative overflow-hidden arch-grid-pattern-dark">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column: Content */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
-            <RevealOnScroll animation="fade-up" duration={800}>
+    <section className="bg-[#0A2340] text-white relative overflow-hidden arch-grid-pattern-dark">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        {/* Left Column: Content */}
+        <div className="flex items-center px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-16 xl:px-20 2xl:px-36">
+          <RevealOnScroll animation="fade-up" duration={800}>
+            <div className="max-w-xl">
               <h2 className="font-heading text-3xl sm:text-4xl lg:text-[40px] font-bold text-white leading-tight mb-3">
                 {t.home.comprehensive.title}
               </h2>
@@ -32,31 +31,30 @@ export function HomeComprehensiveServices() {
               <div>
                 <Link
                   href="/services"
-                  className="inline-flex items-center gap-2.5 bg-white hover:bg-slate-100 text-[#0A2340] px-7 py-3.5 rounded-[6px] font-semibold text-sm sm:text-base transition-all duration-200 shadow-md hover:shadow-lg group"
+                  className="inline-flex max-w-full items-center justify-center border-2 border-[#B84D1B] bg-white text-[#B84D1B] hover:bg-[#B84D1B] hover:text-white px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-semibold rounded-none transition-colors duration-200"
                 >
-                  <span>{t.home.comprehensive.btn}</span>
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180" />
+                  <span className="text-center">{t.home.comprehensive.btn}</span>
                 </Link>
               </div>
-            </RevealOnScroll>
-          </div>
-
-          {/* Right Column: High Quality Image */}
-          <div className="lg:col-span-7">
-            <RevealOnScroll animation="scale-up" duration={900} delay={150}>
-              <div className="relative rounded-[12px] overflow-hidden shadow-2xl border border-white/10 bg-slate-900 aspect-16/10 group">
-                <Image
-                  src="/images/services-customized.jpg"
-                  alt="Tahseen Jaber Industrial Cold Storage Logistics Operations Team"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 60vw"
-                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-102"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A2340]/40 via-transparent to-transparent pointer-events-none" />
-              </div>
-            </RevealOnScroll>
-          </div>
+            </div>
+          </RevealOnScroll>
         </div>
+
+        {/* Full-height image fills the right half without text over it. */}
+        <RevealOnScroll
+          animation="image-reveal"
+          duration={900}
+          delay={150}
+          className="group relative aspect-[4/3] overflow-hidden bg-slate-900 lg:aspect-[1.1/1]"
+        >
+          <Image
+              src="/images/services-customized.jpg"
+            alt="Warehouse workers handling inventory in a refrigerated warehouse"
+            fill
+            sizes="(max-width: 1023px) 100vw, 50vw"
+            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-102 motion-reduce:transition-none motion-reduce:scale-100 motion-reduce:transform-none"
+          />
+        </RevealOnScroll>
       </div>
     </section>
   );

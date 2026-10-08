@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/facilities`,
+      url: `${baseUrl}/why-choose-us`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,

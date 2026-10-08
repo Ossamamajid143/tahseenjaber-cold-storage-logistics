@@ -16,7 +16,7 @@ export function HomeBenefitsCards() {
   const cardConfigs = [
     {
       icon: <Warehouse className="w-8 h-8 text-[#B84D1B]" />,
-      buttonHref: "/facilities",
+      buttonHref: "/why-choose-us",
       bgColor: "#FDEFE6",
       iconBgColor: "#F5DDD0",
       hasButton: true,

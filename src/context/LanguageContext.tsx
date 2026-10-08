@@ -1,7 +1,62 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useSyncExternalStore, useEffect } from "react";
 import { TRANSLATIONS, Language } from "@/data/translations";
+
+const LANGUAGE_STORAGE_KEY = "tj_language";
+const languageListeners = new Set<() => void>();
+let sessionLanguage: Language | null = null;
+
+function getServerLanguageSnapshot(): Language {
+  return "EN";
+}
+
+function getLanguageSnapshot(): Language {
+  if (typeof window === "undefined") return "EN";
+  if (sessionLanguage) return sessionLanguage;
+
+  try {
+    const saved = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    return saved === "AR" ? "AR" : "EN";
+  } catch {
+    return "EN";
+  }
+}
+
+function subscribeToLanguage(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+
+  languageListeners.add(callback);
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key !== LANGUAGE_STORAGE_KEY && event.key !== null) return;
+    try {
+      if (event.storageArea !== window.localStorage) return;
+    } catch {
+      return;
+    }
+    sessionLanguage = null;
+    callback();
+  };
+  window.addEventListener("storage", handleStorage);
+
+  return () => {
+    languageListeners.delete(callback);
+    window.removeEventListener("storage", handleStorage);
+  };
+}
+
+function setStoredLanguage(language: Language) {
+  if (typeof window === "undefined") return;
+
+  try {
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+    sessionLanguage = null;
+  } catch {
+    // Keep language switching usable when browser privacy settings block storage.
+    sessionLanguage = language;
+  }
+  languageListeners.forEach((listener) => listener());
+}
 
 interface LanguageContextType {
   language: Language;
@@ -18,32 +73,22 @@ const LanguageContext = createContext<LanguageContextType>({
 });
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("EN");
+  const language = useSyncExternalStore(
+    subscribeToLanguage,
+    getLanguageSnapshot,
+    getServerLanguageSnapshot
+  );
 
   useEffect(() => {
-    // Read saved preference from localStorage
-    const saved = localStorage.getItem("tj_language") as Language | null;
-    if (saved === "EN" || saved === "AR") {
-      setLanguageState(saved);
-      document.documentElement.lang = saved === "AR" ? "ar" : "en";
-      document.documentElement.dir = saved === "AR" ? "rtl" : "ltr";
-    }
-  }, []);
-
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("tj_language", lang);
-      document.documentElement.lang = lang === "AR" ? "ar" : "en";
-      document.documentElement.dir = lang === "AR" ? "rtl" : "ltr";
-    }
-  };
+    document.documentElement.lang = language === "AR" ? "ar" : "en";
+    document.documentElement.dir = language === "AR" ? "rtl" : "ltr";
+  }, [language]);
 
   const isArabic = language === "AR";
   const t = isArabic ? TRANSLATIONS.AR : TRANSLATIONS.EN;
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, isArabic, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: setStoredLanguage, isArabic, t }}>
       {children}
     </LanguageContext.Provider>
   );

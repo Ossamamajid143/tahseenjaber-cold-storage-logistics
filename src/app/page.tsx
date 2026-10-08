@@ -2,7 +2,6 @@ import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { HomeHero } from "@/components/home/HomeHero";
 import { HomePillars3Col } from "@/components/home/HomePillars3Col";
-import { HomeGetInTouchSplit } from "@/components/home/HomeGetInTouchSplit";
 import { HomeBenefitsCards } from "@/components/home/HomeBenefitsCards";
 import { HomeComprehensiveServices } from "@/components/home/HomeComprehensiveServices";
 import { HomeSolutionsShowcase } from "@/components/home/HomeSolutionsShowcase";
@@ -22,8 +21,7 @@ export default function Home() {
     email: SITE_CONFIG.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: SITE_CONFIG.address,
-      addressCountry: "US",
+      addressCountry: "IQ",
     },
     openingHoursSpecification: [
       {
@@ -60,19 +58,16 @@ export default function Home() {
           {/* 2. Three-Column Precision Highlights (Screenshot 1) */}
           <HomePillars3Col />
 
-          {/* 3. Split Get in Touch Feature (Screenshot 4) */}
-          <HomeGetInTouchSplit />
-
-          {/* 4. Four Value Proposition & Capability Cards */}
+          {/* 3. Four Value Proposition & Capability Cards */}
           <HomeBenefitsCards />
 
-          {/* 5. Dark Split Feature: Comprehensive Service Offerings */}
+          {/* 4. Dark Split Feature: Comprehensive Service Offerings */}
           <HomeComprehensiveServices />
 
-          {/* 7. Cold Storage Solutions & Fresh Produce Showcase */}
+          {/* 5. Cold Storage Solutions & Fresh Produce Showcase */}
           <HomeSolutionsShowcase />
 
-          {/* 8. Get in Touch Interactive Inquiry Form */}
+          {/* 6. Get in Touch Interactive Inquiry Form */}
           <HomeContactSection />
         </main>
 

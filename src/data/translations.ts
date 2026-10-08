@@ -11,7 +11,7 @@ export const TRANSLATIONS = {
       home: "Home",
       about: "About",
       services: "Services",
-      facilities: "Facilities",
+      facilities: "Why Choose Us",
       contact: "Contact",
     },
     servicesPage: {
@@ -24,6 +24,67 @@ export const TRANSLATIONS = {
       reliableHeading: "Reliable Cold Storage Solutions",
       reliableDesc:
         "Our cold storage facilities are designed to maintain optimal temperatures, ensuring your perishable goods stay fresh and safe. With advanced technology and strict quality controls, we provide reliable storage solutions that meet diverse industry needs. Trust us to protect your products with the highest standards of care and efficiency.",
+      suitableForLabel: "Suitable for",
+
+      serviceSections: [
+        {
+          title: "Cold Storage Leasing",
+          description:
+            "Our cold storage facilities provide businesses with professionally managed, temperature-controlled storage space for perishable and temperature-sensitive products.",
+          suitableFor: [
+            "Fresh produce",
+            "Frozen products",
+            "Temperature-sensitive goods",
+            "Other approved products",
+          ],
+          imageAlt: "Temperature-controlled cold-storage warehouse with fresh produce and frozen products",
+        },
+        {
+          title: "Cold Chain Delivery",
+          description:
+            "Cold-chain transportation plays an important role in maintaining product quality during movement. Our services are designed to support the safe handling and transportation of temperature-sensitive products.",
+          imageAlt: "Refrigerated delivery truck at a cold-storage warehouse loading dock",
+        },
+        {
+          title: "Import / Export & Re-export",
+          description:
+            "We provide operational support for businesses involved in the movement of goods through import, export and re-export activities, according to the company's operational scope and applicable requirements.",
+          imageAlt: "Temperature-controlled cargo and shipping containers at a logistics facility",
+        },
+        {
+          title: "Consignment Sale",
+          description:
+            "We provide consignment-related storage, handling and sales support where required, helping businesses manage their products through an organized storage and distribution process.",
+          imageAlt: "Warehouse staff checking inventory in a refrigerated distribution facility",
+        },
+      ],
+      facilitySection: {
+        title: "Our Facilities",
+        description:
+          "Our facilities are designed to provide secure and organized storage solutions for temperature-sensitive products. With dedicated storage areas and professional handling operations, we aim to maintain product quality throughout the storage process.",
+        galleryTitle: "Facility Gallery",
+        gallery: [
+          { title: "Cold Storage Rooms", alt: "Interior of a temperature-controlled cold storage room" },
+          { title: "Refrigeration Systems", alt: "Refrigeration equipment serving a cold storage facility" },
+          { title: "Loading & Unloading Area", alt: "Tahseen Jaber cold storage loading bays" },
+          { title: "Warehouse", alt: "Interior view of the cold storage warehouse" },
+          { title: "Facility Exterior", alt: "Exterior of the Tahseen Jaber Cold Storage facility" },
+          { title: "Logistics Area", alt: "Truck and logistics area at the cold storage facility" },
+        ],
+        specificationsTitle: "Facility Specifications",
+        specifications: [
+          { value: "100 Pallets", label: "Storage Capacity" },
+          { value: "18", label: "Number of Cold Rooms" },
+          { value: "-20°C to +16°C", label: "Temperature Range" },
+        ],
+        infrastructureTitle: "Facility Areas",
+        infrastructure: [
+          { category: "Deep Freeze & Chill", name: "Chilled & Frozen Chambers" },
+          { category: "Dock Bays", name: "Sealed & Insulated Loading Bays" },
+          { category: "High-Bay Racking", name: "Standardized Heavy-Duty Racking" },
+          { category: "Plant & Redundancy", name: "Industrial Refrigeration Plant" },
+        ],
+      },
 
       box1Title: "Temperature-Controlled Environments",
       box1Desc:
@@ -123,7 +184,7 @@ export const TRANSLATIONS = {
         {
           title: "State-of-the-Art Facilities",
           desc:
-            "Our cold storage units feature cutting-edge refrigeration systems and insulated designs that guarantee consistent temperature control. This infrastructure supports a wide range of products—including Fruits / Vegetables / meat / chicken / seafood and pharmaceuticals in State of the art facilities—ensuring they stay in prime condition throughout storage durations.",
+            "Our cold storage units feature cutting-edge refrigeration systems and insulated designs that guarantee consistent temperature control. This infrastructure supports a wide range of products—including fruits, vegetables, meat, chicken, seafood, and pharmaceuticals—within our state-of-the-art facilities, ensuring they stay in prime condition throughout storage durations.",
           btn: "Learn more about our facilities",
         },
         {
@@ -158,9 +219,6 @@ export const TRANSLATIONS = {
         btn: "Discover our services",
       },
       solutions: {
-        badgeTitle: "Active Thermal & Humidity Regulation",
-        badgeDesc:
-          "Extending shelf life and maintaining quality standards across all perishable items.",
         title: "Efficient Cold Storage Solutions",
         desc:
           "Our cold storage facilities provide the ideal environment to preserve perishable goods, ensuring freshness and quality throughout the supply chain. With advanced temperature control and monitoring systems, we guarantee consistent conditions tailored to your specific storage needs. Trust our secure and reliable cold storage services to minimize spoilage and extend the shelf life of your products.",
@@ -189,19 +247,51 @@ export const TRANSLATIONS = {
       title: "Reliable Cold Storage & Cold Chain Solutions in Iraq",
       desc:
         "Providing professional cold storage, temperature-controlled handling, and cold-chain solutions for businesses across Iraq.",
+      introP1:
+        "We provide professional cold storage, temperature-controlled handling, and cold-chain solutions for businesses across Iraq.",
+      introP2:
+        "Our services are designed to support businesses handling perishable and temperature-sensitive products through dependable storage, professional handling, and efficient cold-chain operations.",
+      servicesBadge: "Capabilities & Scope",
       twoCol: {
         optimalSubtitle: "Maintain Optimal Conditions",
         optimalTitle: "Temperature-Controlled Warehousing",
         optimalDesc:
-          "Our temperature-controlled warehouses guarantee consistent climate management to protect your sensitive products. With precise monitoring and regulation, we help prevent spoilage and extend shelf life, ensuring your inventory remains in prime condition and ready for timely distribution. Trust in our expertise for dependable cold storage at Tahseen Jaber.",
+          "Temperature-sensitive inventory needs appropriate storage conditions. Our temperature-controlled warehousing supports the preservation of perishable products through professional handling and organized storage operations. We work with businesses across Iraq to help maintain product quality and prepare inventory for its next stage in the cold chain.",
         flexibleSubtitle: "Customized to Your Needs",
         flexibleTitle: "Flexible Storage Options",
         flexibleDesc:
-          "We offer flexible cold storage solutions that adapt to the unique requirements of your business. Whether you need short-term or long-term warehousing, our scalable facilities accommodate varying volumes and product types, providing cost-effective and efficient storage options tailored precisely for your operational demands.",
+          "We offer cold storage arrangements suited to different product types, storage durations, and inventory requirements. Whether you need short-term storage or an ongoing storage plan, our team works with you to organize appropriate space and handling around your business needs and distribution schedules.",
+      },
+      storage: {
+        title: "Reliable Cold Storage Solutions",
+        desc:
+          "Tahseen Jaber supports businesses in Iraq with temperature-controlled storage and professional handling for perishable goods. We coordinate receiving, storage, and preparation for dispatch around your product requirements, helping maintain appropriate conditions and dependable operations throughout the cold chain.",
+        highlights: [
+          "Temperature-controlled environment",
+          "Professional inventory handling",
+          "Efficient storage operations",
+        ],
+        imageAlt: "Clean commercial refrigerated cold-storage chamber with ceiling cooling units",
+      },
+      commitments: {
+        qualityTitle: "Commitment to Quality and Safety",
+        qualityDesc:
+          "Quality-focused storage starts with careful product handling and appropriate conditions. We organize receiving, storage, and dispatch around the needs of temperature-sensitive goods, helping businesses protect perishable inventory through professional facility operations and dependable cold-chain support.",
+        qualityBtn: "Request pricing",
+        sustainabilityTitle: "Sustainable Cold Storage Practices",
+        sustainabilityDesc:
+          "Responsible cold storage means planning storage space and handling work carefully, using resources thoughtfully, and avoiding unnecessary product movement or waste. Our approach focuses on appropriate storage conditions and practical coordination with customers to support efficient, responsible operations.",
+        sustainabilityBtn: "Learn more about services",
+        imageAlt: "Refrigerated food-storage room with organized racks",
+      },
+      inventory: {
+        title: "Professional Cold Storage & Cold Chain Solutions for Your Business in Iraq",
+        brandName: "Tahseen Jaber cold storage",
+        btn: "Get Started",
       },
       servicesHeading: "Our Core Cold Chain Solutions",
       servicesSub:
-        "End-to-end commercial cold storage, temperature-controlled delivery, and trade logistics across Iraq.",
+        "Cold storage leasing, cold chain delivery, import / export & re-export, and consignment sale in Iraq.",
       readMore: "Read More",
       solutions: [
         {
@@ -225,7 +315,7 @@ export const TRANSLATIONS = {
         {
           title: "Consignment Sale",
           desc:
-            "Professional product handling and consignment-related solutions for businesses requiring reliable storage and distribution support.",
+            "We provide professional product handling and consignment-related solutions for businesses requiring reliable storage and distribution support.",
           href: "/services",
         },
       ],
@@ -332,6 +422,28 @@ export const TRANSLATIONS = {
         "Our dispatch team coordinates facility visits and logistics intake scheduling by appointment.",
       ctaBtn: "Contact Dispatch",
     },
+    whyChooseUs: {
+      title: "Why Choose Us",
+      desc: "Discover why businesses choose Tahseen Jaber Cold Storage for reliable temperature-controlled storage, professional handling, and cold-chain support.",
+      heading: "Why Choose Tahseen Jaber Cold Storage?",
+      intro:
+        "At Tahseen Jaber Cold Storage, we focus on providing reliable storage and handling solutions for businesses dealing with perishable and temperature-sensitive products. Our facilities and services are designed to support organized operations, product quality, and dependable cold-chain processes.",
+      advantages: [
+        { title: "Temperature-Controlled Storage", description: "Dedicated cold-storage facilities designed to support different temperature-sensitive products." },
+        { title: "Organized Storage Operations", description: "Professionally managed storage spaces and organized product-handling processes." },
+        { title: "Cold Chain Support", description: "Services designed to support temperature-sensitive products during storage and transportation." },
+        { title: "Flexible Business Solutions", description: "Storage leasing, cold-chain delivery, import/export support, and consignment-related services." },
+        { title: "Dedicated Cold Storage Infrastructure", description: "18 cold rooms with a stated temperature range of -20°C to +16°C." },
+        { title: "Business-Focused Service", description: "Practical cold-storage and logistics support designed around different business requirements." },
+      ],
+      supportTitle: "Cold storage built around your operation",
+      supportDesc:
+        "From storage allocation to product handling, our team works with businesses to support practical cold-chain requirements.",
+      ctaTitle: "Discuss your storage requirements",
+      ctaDesc: "Talk with our team about the products, storage conditions, and support your business needs.",
+      ctaBtn: "Contact Us",
+      imageAlt: "Cold storage warehouse interior with organized pallet storage",
+    },
     contact: {
       title: "Contact Us",
       desc:
@@ -373,6 +485,10 @@ export const TRANSLATIONS = {
         m4: "Efficient Inventory Management",
         m5: "Strategic Location Advantage",
       },
+      directionsHeading: "Facility Directions",
+      directionsDesc: "Contact our team for the facility address and directions before arranging a visit.",
+      directionsLink: "Request facility directions",
+      mapDirectionsLabel: "Get directions",
       getInTouchHeading: "Get in Touch",
       getInTouchDesc:
         "If you have any questions or inquiries regarding our cold storage services, don't hesitate to get in touch with us. Our team at tahseenjaber is here to assist you in finding the best storage solutions for your needs.",
@@ -392,7 +508,7 @@ export const TRANSLATIONS = {
       quickLinks: "Quick Links",
       contactTitle: "Contact Info",
       galleryTitle: "Gallery",
-      address: "Industrial Logistics Corridor, Cold Chain District",
+      address: "Iraq",
       hours: "Monday – Saturday: 07:00 – 19:00 | Receiving: 24/7 By Appointment",
       copyright: "Tahseen Jaber Cold Storage. All rights reserved.",
     },
@@ -407,7 +523,7 @@ export const TRANSLATIONS = {
       home: "الرئيسية",
       about: "من نحن",
       services: "خدماتنا",
-      facilities: "المرافق",
+      facilities: "لماذا تختارنا",
       contact: "اتصل بنا",
     },
     servicesPage: {
@@ -420,6 +536,67 @@ export const TRANSLATIONS = {
       reliableHeading: "حلول موثوقة للتخزين المبرد",
       reliableDesc:
         "تم تصميم مرافق التخزين المبرد لدينا للحفاظ على درجات حرارة مثالية، مما يضمن بقاء بضائعك القابلة للتلف طازجة وآمنة. بفضل التكنولوجيا المتقدمة وضوابط الجودة الصارمة، نوفر حلول تخزين موثوقة تلبي متطلبات مختلف القطاعات الصناعية والغذائية. ثق بنا لحماية منتجاتك بأعلى معايير الرعاية والكفاءة.",
+      suitableForLabel: "مناسب لـ",
+
+      serviceSections: [
+        {
+          title: "تأجير التخزين المبرد",
+          description:
+            "توفر مرافق التخزين المبرد لدينا للشركات مساحات تخزين مُدارة باحترافية ومضبوطة الحرارة للمنتجات سريعة التلف والحساسة لدرجات الحرارة.",
+          suitableFor: [
+            "المنتجات الزراعية الطازجة",
+            "المنتجات المجمدة",
+            "البضائع الحساسة لدرجات الحرارة",
+            "المنتجات الأخرى المعتمدة",
+          ],
+          imageAlt: "مستودع تخزين مبرد ومضبوط الحرارة يضم منتجات طازجة ومجمدة",
+        },
+        {
+          title: "التوصيل بسلسلة التبريد",
+          description:
+            "يلعب النقل ضمن سلسلة التبريد دوراً مهماً في الحفاظ على جودة المنتجات أثناء نقلها. صُممت خدماتنا لدعم المناولة والنقل الآمنين للمنتجات الحساسة لدرجات الحرارة.",
+          imageAlt: "شاحنة توصيل مبردة عند رصيف تحميل مستودع للتخزين المبرد",
+        },
+        {
+          title: "الاستيراد والتصدير وإعادة التصدير",
+          description:
+            "نقدم الدعم التشغيلي للشركات المشاركة في حركة البضائع من خلال أنشطة الاستيراد والتصدير وإعادة التصدير، وفقاً لنطاق عمليات الشركة والمتطلبات المعمول بها.",
+          imageAlt: "بضائع وحاويات شحن مضبوطة الحرارة في منشأة لوجستية",
+        },
+        {
+          title: "البيع بالأمانة",
+          description:
+            "نقدم خدمات التخزين والمناولة ودعم المبيعات المتعلقة بالبيع بالأمانة عند الحاجة، لمساعدة الشركات على إدارة منتجاتها من خلال عملية منظمة للتخزين والتوزيع.",
+          imageAlt: "موظفو مستودع يتحققون من المخزون في منشأة توزيع مبردة",
+        },
+      ],
+      facilitySection: {
+        title: "مرافقنا",
+        description:
+          "صُممت مرافقنا لتوفير حلول تخزين آمنة ومنظمة للمنتجات الحساسة لدرجات الحرارة. ومن خلال مناطق التخزين المخصصة وعمليات المناولة الاحترافية، نهدف إلى الحفاظ على جودة المنتجات طوال عملية التخزين.",
+        galleryTitle: "معرض المرافق",
+        gallery: [
+          { title: "غرف التخزين المبرد", alt: "منظر داخلي لغرفة تخزين مبردة ومضبوطة الحرارة" },
+          { title: "أنظمة التبريد", alt: "معدات التبريد المستخدمة في منشأة التخزين المبرد" },
+          { title: "منطقة التحميل والتفريغ", alt: "أرصفة التحميل في منشأة تحسين جابر للتخزين المبرد" },
+          { title: "المستودع", alt: "منظر داخلي لمستودع التخزين المبرد" },
+          { title: "الواجهة الخارجية للمنشأة", alt: "الواجهة الخارجية لمنشأة تحسين جابر للتخزين المبرد" },
+          { title: "منطقة الخدمات اللوجستية", alt: "شاحنة ومنطقة الخدمات اللوجستية في منشأة التخزين المبرد" },
+        ],
+        specificationsTitle: "مواصفات المنشأة",
+        specifications: [
+          { value: "100 منصة تخزين", label: "سعة التخزين" },
+          { value: "18", label: "عدد غرف التبريد" },
+          { value: "-20°م إلى +16°م", label: "نطاق درجات الحرارة" },
+        ],
+        infrastructureTitle: "مناطق المنشأة",
+        infrastructure: [
+          { category: "التجميد والتبريد", name: "غرف التبريد والتجميد" },
+          { category: "أرصفة الشحن", name: "أرصفة تحميل محكمة ومعزولة" },
+          { category: "أرفف التخزين العالية", name: "أنظمة أرفف ثقيلة قياسية" },
+          { category: "محطة التبريد", name: "محطة التبريد الصناعية" },
+        ],
+      },
 
       box1Title: "بيئات تخزين مضبوطة الحرارة",
       box1Desc:
@@ -554,9 +731,6 @@ export const TRANSLATIONS = {
         btn: "اكتشف جميع خدماتنا",
       },
       solutions: {
-        badgeTitle: "تنظيم حراري ورطوبة متقدم",
-        badgeDesc:
-          "إطالة العمر الافتراضي والحفاظ على أعلى معايير الجودة لجميع السلع القابلة للتلف.",
         title: "حلول تخزين مبرد عالية الكفاءة",
         desc:
           "توفر مرافق التخزين المبرد لدينا البيئة المثالية لحفظ السلع القابلة للتلف، مما يضمن نضارتها وجودتها على امتداد سلسلة التوريد بأكملها. مع أنظمة التحكم والمراقبة الحرارية المتطورة، نضمن ظروفاً متناسقة ومصممة خصيصاً لاحتياجات التخزين الخاصة بك.",
@@ -585,19 +759,51 @@ export const TRANSLATIONS = {
       title: "حلول موثوقة للتخزين المبرد وسلسلة التبريد في العراق",
       desc:
         "توفير حلول احترافية للتخزين المبرد، والتعامل مع البضائع بدرجات حرارة مضبوطة، وخدمات سلسلة التبريد للشركات في جميع أنحاء العراق.",
+      introP1:
+        "نقدم حلولاً احترافية للتخزين المبرد والمناولة المضبوطة الحرارة وخدمات سلسلة التبريد للشركات في جميع أنحاء العراق.",
+      introP2:
+        "صُممت خدماتنا لدعم الشركات التي تتعامل مع المنتجات سريعة التلف والحساسة للحرارة من خلال تخزين موثوق ومناولة احترافية وعمليات فعالة لسلسلة التبريد.",
+      servicesBadge: "قدراتنا الأساسية",
       twoCol: {
         optimalSubtitle: "الحفاظ على الظروف المثالية",
         optimalTitle: "مستودعات مضبوطة الحرارة",
         optimalDesc:
-          "تضمن مستودعاتنا مضبوطة الحرارة إدارة مناخية مستمرة لحماية منتجاتك الحساسة. مع المراقبة والتنظيم الدقيقين، نساعد في منع التلف وتمديد العمر الافتراضي، لضمان بقاء مخزونك في حالة ممتازة وجاهزاً للتوزيع في الوقت المناسب. ثق بخبرتنا للتخزين المبرد المعتمد لدى تحسين جابر.",
+          "تحتاج المنتجات الحساسة للحرارة إلى ظروف تخزين مناسبة. يدعم التخزين المضبوط الحرارة لدينا حفظ المنتجات سريعة التلف من خلال المناولة الاحترافية وعمليات التخزين المنظمة. نعمل مع الشركات في أنحاء العراق للمساعدة في الحفاظ على جودة المنتجات وتجهيز المخزون للمرحلة التالية من سلسلة التبريد.",
         flexibleSubtitle: "مخصص لاحتياجاتك",
         flexibleTitle: "خيارات تخزين مرنة",
         flexibleDesc:
-          "نقدم حلول تخزين مبرد مرنة تتكيف مع المتطلبات الفريدة لعملك. سواء كنت بحاجة إلى تخزين قصير أو طويل الأجل، فإن مرافقنا القابلة للتطوير تستوعب أحجاماً وأنواعاً مختلفة من المنتجات، مما يوفر خيارات تخزين فعالة من حيث التكلفة ومصممة خصيصاً لمتطلباتك التشغيلية.",
+          "نقدم ترتيبات تخزين مبرد تناسب أنواع المنتجات المختلفة ومدد التخزين ومتطلبات المخزون. سواء كنت تحتاج إلى تخزين قصير الأجل أو خطة مستمرة، يعمل فريقنا معك لتنظيم المساحة والمناولة المناسبة وفقاً لاحتياجات أعمالك وجداول التوزيع.",
+      },
+      storage: {
+        title: "حلول موثوقة للتخزين المبرد",
+        desc:
+          "تدعم تحسين جابر الشركات في العراق بخدمات التخزين المضبوط الحرارة والمناولة الاحترافية للمنتجات سريعة التلف. ننسق الاستلام والتخزين والتجهيز للإرسال وفقاً لمتطلبات منتجاتك، للمساعدة في الحفاظ على الظروف المناسبة واستمرارية العمليات عبر سلسلة التبريد.",
+        highlights: [
+          "بيئة مضبوطة الحرارة",
+          "مناولة احترافية للمخزون",
+          "عمليات تخزين فعالة",
+        ],
+        imageAlt: "غرفة تخزين تجارية مبردة ونظيفة مزودة بوحدات تبريد في السقف",
+      },
+      commitments: {
+        qualityTitle: "الالتزام بالجودة والسلامة",
+        qualityDesc:
+          "يبدأ التخزين الذي يركز على الجودة بالمناولة الدقيقة للمنتجات وتوفير الظروف المناسبة. ننظم الاستلام والتخزين والإرسال حول احتياجات المنتجات الحساسة للحرارة، لمساعدة الشركات على حماية مخزونها من خلال التشغيل الاحترافي للمرافق ودعم سلسلة التبريد.",
+        qualityBtn: "اطلب عرض سعر",
+        sustainabilityTitle: "ممارسات مستدامة للتخزين المبرد",
+        sustainabilityDesc:
+          "يعني التخزين المبرد المسؤول التخطيط المدروس لمساحات التخزين وأعمال المناولة واستخدام الموارد بعناية وتجنب الحركة غير الضرورية للمنتجات وهدرها. يركز نهجنا على ظروف التخزين المناسبة والتنسيق العملي مع العملاء لدعم عمليات فعالة ومسؤولة.",
+        sustainabilityBtn: "تعرف على خدماتنا",
+        imageAlt: "غرفة تخزين أغذية مبردة مزودة بأرفف منظمة",
+      },
+      inventory: {
+        title: "حلول احترافية للتخزين المبرد وسلسلة التبريد لأعمالك في العراق",
+        brandName: "مخازن تحسين جابر للتبريد",
+        btn: "ابدأ الآن",
       },
       servicesHeading: "قدرات سلسلة التبريد الأساسية لدينا",
       servicesSub:
-        "تخزين تجاري متكامل، وتأجير، وتوصيل بسلسلة التبريد، وعمليات لوجستية وتجارية في جميع أنحاء العراق.",
+        "تأجير التخزين المبرد وتوصيل سلسلة التبريد والاستيراد والتصدير وإعادة التصدير والبيع بالأمانة في العراق.",
       readMore: "اقرأ المزيد",
       solutions: [
         {
@@ -621,7 +827,7 @@ export const TRANSLATIONS = {
         {
           title: "البيع بالأمانة (الكونسيجمنت)",
           desc:
-            "مناولة احترافية للمنتجات وحلول متخصصة للمبيعات بالأمانة للشركات التي تتطلب دعماً موثوقاً في التخزين والتوزيع.",
+            "نقدم مناولة احترافية للمنتجات وحلولاً متعلقة بالبيع بالأمانة للشركات التي تحتاج إلى دعم موثوق في التخزين والتوزيع.",
           href: "/services",
         },
       ],
@@ -728,6 +934,28 @@ export const TRANSLATIONS = {
         "يقوم فريق العمليات والتوزيع لدينا بتنسيق الزيارات الميدانية وجداول استلام الشحنات بموجب مواعيد مسبقة.",
       ctaBtn: "تواصل مع قسم العمليات",
     },
+    whyChooseUs: {
+      title: "لماذا تختارنا",
+      desc: "اكتشف لماذا تختار الشركات تحسين جابر للتخزين المبرد الموثوق والمناولة الاحترافية ودعم سلسلة التبريد.",
+      heading: "لماذا تختار مخازن تحسين جابر للتبريد؟",
+      intro:
+        "نركز في مخازن تحسين جابر للتبريد على تقديم حلول موثوقة للتخزين والمناولة للشركات التي تتعامل مع المنتجات سريعة التلف والحساسة لدرجات الحرارة. صُممت مرافقنا وخدماتنا لدعم العمليات المنظمة وجودة المنتجات وموثوقية إجراءات سلسلة التبريد.",
+      advantages: [
+        { title: "تخزين مضبوط الحرارة", description: "مرافق تخزين مبرد مخصصة لدعم احتياجات المنتجات الحساسة لدرجات الحرارة." },
+        { title: "عمليات تخزين منظمة", description: "مساحات تخزين تُدار باحترافية وعمليات منظمة لمناولة المنتجات." },
+        { title: "دعم سلسلة التبريد", description: "خدمات تدعم المنتجات الحساسة لدرجات الحرارة أثناء التخزين والنقل." },
+        { title: "حلول مرنة للأعمال", description: "تأجير التخزين والتوصيل المبرد ودعم الاستيراد والتصدير والخدمات المتعلقة بالبيع بالأمانة." },
+        { title: "بنية تحتية مخصصة للتخزين المبرد", description: "18 غرفة تبريد ضمن نطاق درجات حرارة محدد من -20°م إلى +16°م." },
+        { title: "خدمات تركز على الأعمال", description: "دعم عملي للتخزين المبرد والخدمات اللوجستية بما يتناسب مع متطلبات الأعمال المختلفة." },
+      ],
+      supportTitle: "تخزين مبرد يتوافق مع عملياتك",
+      supportDesc:
+        "من تخصيص مساحة التخزين إلى مناولة المنتجات، يعمل فريقنا مع الشركات لدعم متطلبات سلسلة التبريد العملية.",
+      ctaTitle: "ناقش متطلبات التخزين الخاصة بك",
+      ctaDesc: "تواصل مع فريقنا لمناقشة المنتجات وظروف التخزين والدعم الذي يحتاجه عملك.",
+      ctaBtn: "اتصل بنا",
+      imageAlt: "مستودع تخزين مبرد مع طبليات مرتبة ومنظمة",
+    },
     contact: {
       title: "اتصل بنا",
       desc:
@@ -769,6 +997,10 @@ export const TRANSLATIONS = {
         m4: "إدارة فعالة للمخزون",
         m5: "موقع استراتيجي متميز",
       },
+      directionsHeading: "الوصول إلى المنشأة",
+      directionsDesc: "تواصل مع فريقنا للحصول على عنوان المنشأة وإرشادات الوصول قبل ترتيب الزيارة.",
+      directionsLink: "اطلب إرشادات الوصول",
+      mapDirectionsLabel: "احصل على الاتجاهات",
       getInTouchHeading: "تواصل معنا",
       getInTouchDesc:
         "إذا كان لديك أي أسئلة أو استفسارات تتعلق بخدمات التخزين المبرد، فلا تتردد في التواصل معنا. فريق تحسين جابر مستعد دائماً لمساعدتك في العثور على أفضل حلول التخزين المناسبة لاحتياجاتك.",
@@ -788,7 +1020,7 @@ export const TRANSLATIONS = {
       quickLinks: "روابط سريعة",
       contactTitle: "بيانات التواصل",
       galleryTitle: "معرض الصور",
-      address: "الممر اللوجستي الصناعي، منطقة سلسلة التبريد",
+      address: "العراق",
       hours: "من الإثنين إلى السبت: 07:00 – 19:00 | الاستلام: 24/7 بموعد مسبق",
       copyright: "شركة تحسين جابر لمخازن التبريد. جميع الحقوق محفوظة.",
     },

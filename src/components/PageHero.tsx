@@ -3,8 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useNavbarHeight } from "@/components/useNavbarHeight";
 
 interface PageHeroProps {
   title: string;
@@ -13,7 +13,6 @@ interface PageHeroProps {
   imageSrc?: string;
   imagePosition?: string;
   overlayGradient?: string;
-  breadcrumbPosition?: "left" | "right";
 }
 
 export function PageHero({
@@ -23,11 +22,16 @@ export function PageHero({
   imageSrc = "/images/facility-exterior-wide.png",
   imagePosition = "center 40%",
   overlayGradient,
-  breadcrumbPosition = "right",
 }: PageHeroProps) {
-  const { t } = useLanguage();
+  const { t, isArabic } = useLanguage();
+  const navbarHeight = useNavbarHeight();
+  const viewportHeight = `max(calc(100vh - ${navbarHeight}px), calc(100svh - ${navbarHeight}px), calc(100dvh - ${navbarHeight}px))`;
+
   return (
-    <section className="relative bg-[#0A2340] text-white overflow-hidden">
+    <section
+      className="relative flex items-center bg-[#0A2340] text-white overflow-hidden"
+      style={{ minHeight: viewportHeight }}
+    >
       {/* Background Image — cinematic full-bleed */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -39,29 +43,35 @@ export function PageHero({
           className="object-cover"
           style={{ objectPosition: imagePosition }}
         />
-        {/* Subtle dark overlay or custom gradient overlay */}
+        {/* Theme-matched layered overlay, darker at the text columns. */}
         {overlayGradient ? (
           <div
             className="absolute inset-0"
             style={{ background: overlayGradient }}
           />
         ) : (
-          <div className="absolute inset-0 bg-[#0A2340]/45" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(6,22,40,0.92) 0%, rgba(10,35,64,0.84) 50%, rgba(6,22,40,0.92) 100%), linear-gradient(180deg, rgba(6,22,40,0.08) 0%, rgba(6,22,40,0.14) 100%)",
+            }}
+          />
         )}
 
-        {/* Soft white base gradient behind fog for seamless blend */}
+        {/* Shared, restrained fade into the page below. */}
         <div
           className="absolute bottom-0 left-0 right-0 pointer-events-none"
           style={{
-            height: "140px",
+            height: "96px",
             background:
-              "linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.4) 35%, transparent 100%)",
+              "linear-gradient(to top, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.18) 32%, transparent 100%)",
           }}
         />
 
-        {/* Bottom Atmospheric Cloud / Fog Mist matching reference screenshot */}
+        {/* Same light mist treatment on every page hero. */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-[80px] sm:h-[100px] lg:h-[115px] pointer-events-none"
+          className="absolute bottom-0 left-0 right-0 h-[76px] sm:h-[88px] pointer-events-none opacity-80"
           style={{
             backgroundImage: "url('/images/bg-fog-bottom.png')",
             backgroundRepeat: "repeat-x",
@@ -72,66 +82,56 @@ export function PageHero({
       </div>
 
       {/* Main Hero Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-32">
-        {breadcrumbPosition === "right" ? (
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div className="max-w-2xl">
-              {badge && (
-                <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#D86A2D] mb-3">
-                  <span className="w-5 h-[2px] bg-[#D86A2D] inline-block" />
-                  <span>{badge}</span>
-                </div>
-              )}
-
-              <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
-                {title}
-              </h1>
-
-              {description && (
-                <p className="mt-4 text-sm sm:text-base text-slate-100 leading-relaxed max-w-2xl font-normal drop-shadow-xs">
-                  {description}
-                </p>
-              )}
-            </div>
-
-            {/* Breadcrumb Right Aligned */}
-            <nav aria-label="Breadcrumb" className="shrink-0 flex items-center gap-2 text-sm text-slate-200">
-              <Link href="/" className="hover:text-white transition-colors">
-                {t.nav.home}
-              </Link>
-              <span className="text-slate-300">/</span>
-              <span className="text-white font-medium">{title}</span>
-            </nav>
-          </div>
-        ) : (
-          <div className="max-w-3xl">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
+          <div className="lg:col-span-5 lg:text-end">
             {badge && (
-              <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#D86A2D] mb-4">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#D86A2D] mb-3">
                 <span className="w-5 h-[2px] bg-[#D86A2D] inline-block" />
                 <span>{badge}</span>
               </div>
             )}
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
               {title}
             </h1>
+          </div>
 
+          <div className="hidden lg:flex lg:col-span-2 justify-center items-center">
+            <div className="w-[1.5px] h-36 bg-[#B84D1B]" />
+          </div>
+
+          <div className="lg:col-span-5 lg:text-start">
             {description && (
-              <p className="mt-5 text-base sm:text-lg lg:text-xl text-slate-200 leading-relaxed max-w-2xl">
+              <p className="text-base sm:text-lg text-white leading-relaxed max-w-xl">
                 {description}
               </p>
             )}
+          </div>
+        </div>
 
-            {/* Breadcrumb Left Aligned */}
-            <nav aria-label="Breadcrumb" className="mt-8 flex items-center gap-2 text-xs sm:text-sm text-slate-300">
-              <Link href="/" className="hover:text-white transition-colors">
+        <nav
+          aria-label="Breadcrumb"
+          className="mt-8 sm:mt-10 ml-auto w-fit flex items-center gap-2 text-sm"
+        >
+          {isArabic ? (
+            <>
+              <span className="text-rust font-medium">{title}</span>
+              <span className="text-white/50">/</span>
+              <Link href="/" className="text-white/80 hover:text-white transition-colors">
                 {t.nav.home}
               </Link>
-              <ChevronRight className="w-4 h-4 text-slate-400" />
-              <span className="text-white font-medium">{title}</span>
-            </nav>
-          </div>
-        )}
+            </>
+          ) : (
+            <>
+              <Link href="/" className="text-white/80 hover:text-white transition-colors">
+                {t.nav.home}
+              </Link>
+              <span className="text-white/50">/</span>
+              <span className="text-rust font-medium">{title}</span>
+            </>
+          )}
+        </nav>
       </div>
     </section>
   );
