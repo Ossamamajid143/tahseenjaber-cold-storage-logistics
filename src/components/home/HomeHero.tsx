@@ -7,6 +7,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useNavbarHeight } from "@/components/useNavbarHeight";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { ColdFogOverlay } from "@/components/ui/ColdFogOverlay";
 
 const HOME_HERO_SLIDES = [
   { src: "/images/facility-exterior-wide.png", alt: "Tahseen Jaber Cold Storage facility exterior" },
@@ -58,26 +59,7 @@ export function HomeHero() {
           }}
         />
 
-        {/* Shared, restrained fade into the page below. */}
-        <div
-          className="absolute bottom-0 left-0 right-0 pointer-events-none"
-          style={{
-            height: "96px",
-            background:
-              "linear-gradient(to top, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.18) 32%, transparent 100%)",
-          }}
-        />
-
-        {/* Same light mist treatment on every page hero. */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-[76px] sm:h-[88px] pointer-events-none opacity-80"
-          style={{
-            backgroundImage: "url('/images/bg-fog-bottom.png')",
-            backgroundRepeat: "repeat-x",
-            backgroundPosition: "center bottom",
-            backgroundSize: "auto 100%",
-          }}
-        />
+        <ColdFogOverlay />
       </div>
 
       {/* Main Hero Content */}

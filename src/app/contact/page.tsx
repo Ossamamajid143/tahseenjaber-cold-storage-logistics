@@ -20,6 +20,7 @@ import { PageHero } from "@/components/PageHero";
 import { SITE_CONFIG } from "@/data/site-content";
 import { useLanguage } from "@/context/LanguageContext";
 import { GoogleMapsLocation } from "@/components/GoogleMapsLocation";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 
 export default function ContactPage() {
   const { t, isArabic } = useLanguage();
@@ -271,7 +272,14 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" aria-hidden="true" />
+                  <a
+                    href={`mailto:${SITE_CONFIG.email}`}
+                    aria-label={t.nav.emailLabel}
+                    title={t.nav.emailLabel}
+                    className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[#B84D1B] transition-colors hover:bg-[#EEF5F8] hover:text-[#D86A2D]"
+                  >
+                    <Mail className="h-5 w-5" aria-hidden="true" />
+                  </a>
                   <div>
                     <span className="font-semibold text-[#0A2340]">{t.contact.emailLabel} </span>
                     <span className="text-[#66717C]">
@@ -285,7 +293,19 @@ export default function ContactPage() {
                   <Phone className="w-5 h-5 text-[#B84D1B] shrink-0 mt-0.5" aria-hidden="true" />
                   <div>
                     <span className="font-semibold text-[#0A2340]">{t.contact.phoneLabel} </span>
-                    <a href={`tel:${SITE_CONFIG.phone}`} className="text-[#66717C] hover:text-[#B84D1B] transition-colors font-medium">{SITE_CONFIG.phoneDisplay}</a>
+                    <div className="flex items-center gap-2">
+                      <a href={`tel:${SITE_CONFIG.phone}`} className="text-[#66717C] hover:text-[#B84D1B] transition-colors font-medium">{SITE_CONFIG.phoneDisplay}</a>
+                      <a
+                        href="https://wa.me/9647768677775"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={t.nav.whatsappLabel}
+                        title={t.nav.whatsappLabel}
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-full text-[#B84D1B] transition-colors hover:bg-[#EEF5F8] hover:text-[#D86A2D]"
+                      >
+                        <WhatsAppIcon className="h-5 w-5" />
+                      </a>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

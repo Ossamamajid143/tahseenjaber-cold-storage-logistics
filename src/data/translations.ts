@@ -13,6 +13,8 @@ export const TRANSLATIONS = {
       services: "Services",
       facilities: "Why Choose Us",
       contact: "Contact",
+      whatsappLabel: "Chat with us on WhatsApp",
+      emailLabel: "Email Tahseen Jaber Cold Storage",
     },
     servicesPage: {
       heroTitle: "Services",
@@ -551,6 +553,8 @@ export const TRANSLATIONS = {
       services: "خدماتنا",
       facilities: "لماذا تختارنا",
       contact: "اتصل بنا",
+      whatsappLabel: "تواصل معنا عبر واتساب",
+      emailLabel: "راسل شركة تحسين جابر للتخزين المبرد",
     },
     servicesPage: {
       heroTitle: "خدماتنا",

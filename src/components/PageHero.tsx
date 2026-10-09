@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { useNavbarHeight } from "@/components/useNavbarHeight";
+import { ColdFogOverlay } from "@/components/ui/ColdFogOverlay";
 
 interface PageHeroProps {
   title: string;
@@ -59,26 +60,7 @@ export function PageHero({
           />
         )}
 
-        {/* Shared, restrained fade into the page below. */}
-        <div
-          className="absolute bottom-0 left-0 right-0 pointer-events-none"
-          style={{
-            height: "96px",
-            background:
-              "linear-gradient(to top, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.18) 32%, transparent 100%)",
-          }}
-        />
-
-        {/* Same light mist treatment on every page hero. */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-[76px] sm:h-[88px] pointer-events-none opacity-80"
-          style={{
-            backgroundImage: "url('/images/bg-fog-bottom.png')",
-            backgroundRepeat: "repeat-x",
-            backgroundPosition: "center bottom",
-            backgroundSize: "auto 100%",
-          }}
-        />
+        <ColdFogOverlay />
       </div>
 
       {/* Main Hero Content */}
