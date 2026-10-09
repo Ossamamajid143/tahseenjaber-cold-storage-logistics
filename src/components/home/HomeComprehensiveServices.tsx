@@ -18,7 +18,7 @@ export function HomeComprehensiveServices() {
         <div className="flex items-center px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-16 xl:px-20 2xl:px-36">
           <RevealOnScroll animation="fade-up" duration={800}>
             <div className="max-w-xl">
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-[40px] font-bold text-white leading-tight mb-3">
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#B84D1B] leading-tight mb-3">
                 {t.home.comprehensive.title}
               </h2>
 

@@ -1,16 +1,18 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   Thermometer,
   ShieldCheck,
   PackageCheck,
   CheckCircle2,
+  Lock,
   Phone,
   Mail,
   MapPin,
   Clock,
+  Star,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -19,79 +21,26 @@ import { SITE_CONFIG } from "@/data/site-content";
 import { useLanguage } from "@/context/LanguageContext";
 import { GoogleMapsLocation } from "@/components/GoogleMapsLocation";
 
-// Smooth Counting Number Component triggered by scroll visibility
-function CountUpNumber({
-  end,
-  duration = 1800,
-  isVisible,
-}: {
-  end: number;
-  duration?: number;
-  isVisible: boolean;
-}) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isVisible) return;
-    let startTime: number | null = null;
-    let animationFrameId: number;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      // Ease out cubic
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(easeOut * end));
-
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(animate);
-      } else {
-        setCount(end);
-      }
-    };
-
-    animationFrameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [end, duration, isVisible]);
-
-  return <span>{count}</span>;
-}
-
 export default function ContactPage() {
-  const { t } = useLanguage();
+  const { t, isArabic } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
-  const [countersVisible, setCountersVisible] = useState(false);
-  const counterRef = useRef<HTMLDivElement | null>(null);
-
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [unlockClicks, setUnlockClicks] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  // Intersection Observer to trigger number count up when scrolled into view
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting) {
-          setCountersVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.25 }
-    );
-
-    if (counterRef.current) {
-      observer.observe(counterRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+  };
+
+  const handleLockClick = () => {
+    const nextCount = unlockClicks + 1;
+    setUnlockClicks(nextCount);
+    if (nextCount >= 2) setIsUnlocked(true);
   };
 
   return (
@@ -191,7 +140,12 @@ export default function ContactPage() {
                     </p>
                     <button
                       type="button"
-                      onClick={() => setSubmitted(false)}
+                      onClick={() => {
+                        setSubmitted(false);
+                        setFormData({ name: "", email: "", message: "" });
+                        setIsUnlocked(false);
+                        setUnlockClicks(0);
+                      }}
                       className="text-xs font-semibold text-[#B84D1B] hover:text-[#A34215] underline cursor-pointer"
                     >
                       {t.contact.sendAnother}
@@ -206,7 +160,7 @@ export default function ContactPage() {
                         placeholder={t.contact.namePlaceholder}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full py-3.5 border-b border-[#D1D7DD] bg-transparent text-sm text-[#202B35] placeholder:text-[#8895A2] focus:outline-hidden focus:border-[#B84D1B] transition-colors"
+                        className="w-full bg-transparent border-0 border-b border-gray-300 py-2.5 px-0 text-sm sm:text-base text-[#202B35] placeholder-gray-400 focus:border-[#B84D1B] focus:ring-0 focus:outline-hidden transition-colors"
                       />
                     </div>
 
@@ -217,31 +171,51 @@ export default function ContactPage() {
                         placeholder={t.contact.emailPlaceholder}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full py-3.5 border-b border-[#D1D7DD] bg-transparent text-sm text-[#202B35] placeholder:text-[#8895A2] focus:outline-hidden focus:border-[#B84D1B] transition-colors"
+                        className="w-full bg-transparent border-0 border-b border-gray-300 py-2.5 px-0 text-sm sm:text-base text-[#202B35] placeholder-gray-400 focus:border-[#B84D1B] focus:ring-0 focus:outline-hidden transition-colors"
                       />
                     </div>
 
                     <div>
                       <textarea
-                        rows={5}
+                        rows={4}
                         required
                         placeholder={t.contact.messagePlaceholder}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full py-3.5 border-b border-[#D1D7DD] bg-transparent text-sm text-[#202B35] placeholder:text-[#8895A2] focus:outline-hidden focus:border-[#B84D1B] transition-colors resize-none"
+                        className="w-full bg-transparent border-0 border-b border-gray-300 py-2.5 px-0 text-sm sm:text-base text-[#202B35] placeholder-gray-400 focus:border-[#B84D1B] focus:ring-0 focus:outline-hidden transition-colors resize-y min-h-[90px]"
                       />
+                    </div>
+
+                    <div className="flex items-center gap-3.5 pt-1">
+                      <button
+                        type="button"
+                        onClick={handleLockClick}
+                        aria-label="Unlock form"
+                        className={`w-11 h-11 rounded-full border-2 flex items-center justify-center transition-all cursor-pointer shrink-0 ${
+                          isUnlocked
+                            ? "border-[#B84D1B] text-[#B84D1B] bg-[#FDEFE6]"
+                            : "border-gray-300 text-gray-400 hover:border-gray-400"
+                        }`}
+                      >
+                        <Lock className="w-5 h-5 stroke-[1.75]" />
+                      </button>
+                      <span className="text-[12px] sm:text-[13px] text-gray-500">
+                        {isUnlocked
+                          ? t.home.contactSection.unlockedText
+                          : t.home.contactSection.lockedText}
+                      </span>
                     </div>
 
                     <div>
                       <button
                         type="submit"
-                        className="w-full sm:w-auto bg-[#B84D1B] hover:bg-[#A34215] text-white font-semibold text-sm px-10 py-3.5 rounded-xs transition-colors cursor-pointer shadow-xs active:scale-[0.99]"
+                        className="w-full bg-[#B84D1B] hover:bg-[#A34215] text-white h-9 flex items-center justify-center rounded-[2px] font-normal text-sm transition-colors shadow-2xs cursor-pointer"
                       >
                         {t.contact.sendBtn}
                       </button>
                     </div>
 
-                    <p className="text-xs text-[#8A95A0] pt-2">
+                    <p className="text-[12px] text-gray-400 text-center pt-1">
                       {t.contact.confidential}
                     </p>
                   </form>
@@ -251,8 +225,8 @@ export default function ContactPage() {
               {/* Right Column: Full-Height Clean Image beside form */}
               <div className="lg:col-span-6 relative min-h-[400px] lg:min-h-[580px] bg-slate-900 overflow-hidden">
                 <Image
-                  src="/images/warehouse-inventory.jpg"
-                  alt="Warehouse professional organizing inventory on shelves"
+                  src="/images/contact-cleanroom-inspection.jpg"
+                  alt="Cold storage facility cleanroom inspection"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -264,79 +238,7 @@ export default function ContactPage() {
         </section>
 
         {/* =====================================================================
-            4. 5-COLUMN COUNTER SECTION
-        ====================================================================== */}
-        <section
-          ref={counterRef}
-          className="relative bg-[#1A1A1A] text-white py-10 sm:py-14 overflow-hidden"
-        >
-          <div className="absolute inset-0 z-0 opacity-15">
-            <Image
-              src="/images/facility-exterior-wide.png"
-              alt="Cold Storage Metrics"
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
-          </div>
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-4 text-center">
-              {/* Metric 1 */}
-              <div className="flex flex-col items-center">
-                <span className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                  <CountUpNumber end={80} isVisible={countersVisible} />+
-                </span>
-                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 font-normal leading-snug max-w-[150px]">
-                  {t.contact.metrics.m1}
-                </p>
-              </div>
-
-              {/* Metric 2 */}
-              <div className="flex flex-col items-center">
-                <span className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                  <CountUpNumber end={48} isVisible={countersVisible} />+
-                </span>
-                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 font-normal leading-snug max-w-[150px]">
-                  {t.contact.metrics.m2}
-                </p>
-              </div>
-
-              {/* Metric 3 */}
-              <div className="flex flex-col items-center col-span-2 sm:col-span-1">
-                <span className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                  <CountUpNumber end={304} isVisible={countersVisible} />+
-                </span>
-                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 font-normal leading-snug max-w-[150px]">
-                  {t.contact.metrics.m3}
-                </p>
-              </div>
-
-              {/* Metric 4 */}
-              <div className="flex flex-col items-center">
-                <span className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                  <CountUpNumber end={46} isVisible={countersVisible} />+
-                </span>
-                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 font-normal leading-snug max-w-[150px]">
-                  {t.contact.metrics.m4}
-                </p>
-              </div>
-
-              {/* Metric 5 */}
-              <div className="flex flex-col items-center">
-                <span className="font-heading text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                  <CountUpNumber end={127} isVisible={countersVisible} />+
-                </span>
-                <p className="mt-1.5 text-xs sm:text-sm text-slate-300 font-normal leading-snug max-w-[150px]">
-                  {t.contact.metrics.m5}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* =====================================================================
-            5. "GET IN TOUCH" AND FACILITY DIRECTIONS
+            4. "GET IN TOUCH" AND FACILITY DIRECTIONS
         ====================================================================== */}
         <section
           id="contact-location"
@@ -395,6 +297,43 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section
+          aria-label={isArabic ? "شهادة عميل" : "Customer testimonial"}
+          className="bg-white px-6 py-8 text-center sm:py-10 lg:py-12"
+        >
+          <div className="mx-auto flex max-w-5xl flex-col items-center">
+            <div
+              className="mb-4 flex items-center justify-center gap-1"
+              aria-label={isArabic ? "٥ من ٥ نجوم" : "5 out of 5 stars"}
+              role="img"
+            >
+              {Array.from({ length: 5 }, (_, index) => (
+                <Star key={index} aria-hidden="true" className="h-5 w-5 fill-[#B84D1B] text-[#B84D1B]" />
+              ))}
+            </div>
+            <p
+              className="mb-5 text-[#B84D1B]"
+              style={{
+                fontFamily: "var(--font-roboto-slab), Georgia, serif",
+                fontSize: "clamp(21px, calc(16px + 1.5vw), 40px)",
+                fontWeight: 300,
+                letterSpacing: "0.005em",
+                lineHeight: 1.25,
+              }}
+            >
+              {t.contact.closingTestimonial}
+            </p>
+            <Image
+              src={SITE_CONFIG.logoPath}
+              alt="Tahseen Jaber Cold Storage logo"
+              width={60}
+              height={60}
+              sizes="60px"
+              className="h-[52px] w-[52px] rounded-full object-contain sm:h-[56px] sm:w-[56px]"
+            />
           </div>
         </section>
 

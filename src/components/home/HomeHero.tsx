@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
@@ -8,10 +8,26 @@ import { useNavbarHeight } from "@/components/useNavbarHeight";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 
+const HOME_HERO_SLIDES = [
+  { src: "/images/facility-exterior-wide.png", alt: "Tahseen Jaber Cold Storage facility exterior" },
+  { src: "/images/facility-loading-bays.png", alt: "Loading bays at the Tahseen Jaber cold storage facility" },
+  { src: "/images/service-cold-storage-leasing.webp", alt: "Cold storage leasing facility" },
+  { src: "/images/temperature-storage.jpg", alt: "Temperature controlled cold storage" },
+];
+
 export function HomeHero() {
   const { t } = useLanguage();
+  const [activeSlide, setActiveSlide] = useState(0);
   const navbarHeight = useNavbarHeight();
   const viewportHeight = `max(calc(100vh - ${navbarHeight}px), calc(100svh - ${navbarHeight}px), calc(100dvh - ${navbarHeight}px))`;
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % HOME_HERO_SLIDES.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, [HOME_HERO_SLIDES.length]);
 
   return (
     <section
@@ -20,15 +36,19 @@ export function HomeHero() {
     >
       {/* Background Image — cinematic full-bleed, centre-perspective composition */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/facility-exterior-wide.png"
-          alt="Tahseen Jaber Cold Storage Industrial Facility"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-          style={{ objectPosition: "center 45%" }}
-        />
+        {HOME_HERO_SLIDES.map((slide, index) => (
+          <Image
+            key={slide.src}
+            src={slide.src}
+            alt={index === activeSlide ? slide.alt : ""}
+            fill
+            preload={index === 0}
+            sizes="100vw"
+            aria-hidden={index !== activeSlide}
+            className={`object-cover transition-opacity duration-1000 ${index === activeSlide ? "opacity-100" : "opacity-0"}`}
+            style={{ objectPosition: "center 45%" }}
+          />
+        ))}
         {/* Stronger falloff behind copy keeps the building visible and text legible. */}
         <div
           className="absolute inset-0"

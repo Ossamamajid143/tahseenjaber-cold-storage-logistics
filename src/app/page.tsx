@@ -21,6 +21,8 @@ export default function Home() {
     email: SITE_CONFIG.email,
     address: {
       "@type": "PostalAddress",
+      streetAddress: "Tahseen Jaber Cold Storage, Uuayrij Industrial area",
+      addressLocality: "Baghdad",
       addressCountry: "IQ",
     },
     openingHoursSpecification: [

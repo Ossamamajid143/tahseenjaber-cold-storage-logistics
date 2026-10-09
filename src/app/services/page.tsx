@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   PackageCheck,
@@ -120,9 +120,17 @@ function VectorStorage() {
 }
 
 export default function ServicesPage() {
-  const [submitted, setSubmitted] = useState(false);
   const [pricingModalOpen, setPricingModalOpen] = useState(false);
   const { t, language } = useLanguage();
+  const [formIssue, setFormIssue] = useState<"required" | "email" | "backend" | null>(null);
+  const [specificationsStarted, setSpecificationsStarted] = useState(false);
+  const [specificationCounts, setSpecificationCounts] = useState({
+    pallets: 0,
+    coldRooms: 0,
+    lowerTemperature: 0,
+    upperTemperature: 0,
+  });
+  const specificationsRef = useRef<HTMLElement | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -132,7 +140,15 @@ export default function ServicesPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setFormIssue("required");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      setFormIssue("email");
+      return;
+    }
+    setFormIssue("backend");
   };
 
   const scrollToContact = (e: React.MouseEvent) => {
@@ -142,6 +158,71 @@ export default function ServicesPage() {
       contactEl.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  useEffect(() => {
+    const section = specificationsRef.current;
+    if (!section) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const frame = requestAnimationFrame(() => setSpecificationsStarted(true));
+      return () => cancelAnimationFrame(frame);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSpecificationsStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!specificationsStarted) return;
+
+    const finalCounts = {
+      pallets: 100,
+      coldRooms: 18,
+      lowerTemperature: -20,
+      upperTemperature: 16,
+    };
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const frame = requestAnimationFrame(() => setSpecificationCounts(finalCounts));
+      return () => cancelAnimationFrame(frame);
+    }
+
+    const duration = 1800;
+    let startTime: number | null = null;
+    let animationFrame = 0;
+
+    const animate = (timestamp: number) => {
+      if (startTime === null) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+      setSpecificationCounts({
+        pallets: Math.round(finalCounts.pallets * easedProgress),
+        coldRooms: Math.round(finalCounts.coldRooms * easedProgress),
+        lowerTemperature: Math.round(finalCounts.lowerTemperature * easedProgress),
+        upperTemperature: Math.round(finalCounts.upperTemperature * easedProgress),
+      });
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setSpecificationCounts(finalCounts);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [specificationsStarted]);
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
@@ -368,25 +449,52 @@ export default function ServicesPage() {
               ))}
             </div>
 
-            <div className="mt-14 sm:mt-16">
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6">
-                {t.servicesPage.facilitySection.specificationsTitle}
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-                {t.servicesPage.facilitySection.specifications.map((specification, index) => {
-                  const Icon = [Warehouse, Snowflake, Thermometer][index];
-                  return (
-                    <div key={specification.label} className="rounded-lg border border-[#E3E8EC] bg-white px-5 py-6 sm:px-6 shadow-xs">
-                      <Icon className="w-7 h-7 text-[#B84D1B] mb-4" aria-hidden="true" />
-                      <p className="font-heading text-2xl sm:text-3xl font-bold text-[#0A2340] leading-tight">
-                        {specification.value}
-                      </p>
-                      <p className="text-sm text-[#66717C] mt-2">{specification.label}</p>
-                    </div>
-                  );
-                })}
+            <section
+              ref={specificationsRef}
+              aria-labelledby="facility-specifications-heading"
+              className="relative left-1/2 -ml-[50vw] mt-10 w-screen bg-[#F7F5F0] py-8 arch-grid-pattern sm:mt-12 sm:py-10"
+            >
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h3
+                  id="facility-specifications-heading"
+                  className="mb-4 font-heading text-xl font-bold text-[#0A2340] sm:text-2xl"
+                >
+                  {t.servicesPage.facilitySection.specificationsTitle}
+                </h3>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-5">
+                  {t.servicesPage.facilitySection.specifications.map((specification, index) => {
+                    const Icon = [Warehouse, Snowflake, Thermometer][index];
+                    return (
+                      <article
+                        key={specification.label}
+                        className="flex h-full min-h-[165px] flex-col rounded-lg border border-[#E3E8EC] bg-white p-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-6"
+                      >
+                        <Icon
+                          className="mb-4 h-7 w-7 shrink-0 text-[#B84D1B] stroke-[1.75]"
+                          aria-hidden="true"
+                        />
+                        <p className="min-h-[1.2em] font-heading text-[28px] font-bold leading-tight text-[#0A2340] tabular-nums sm:text-3xl lg:text-[32px] xl:text-4xl">
+                          {index === 0 && (
+                            <span className="whitespace-nowrap">
+                              {specificationCounts.pallets} Pallets
+                            </span>
+                          )}
+                          {index === 1 && specificationCounts.coldRooms}
+                          {index === 2 && (
+                            <span>
+                              {specificationCounts.lowerTemperature}°C to +{specificationCounts.upperTemperature}°C
+                            </span>
+                          )}
+                        </p>
+                        <p className="mt-1.5 text-[15px] leading-relaxed text-[#66717C] sm:text-base">
+                          {specification.label}
+                        </p>
+                      </article>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            </section>
 
             <div className="mt-14 sm:mt-16 border-t border-[#DDE3E8] pt-8">
               <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6">
@@ -404,124 +512,113 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        {/* =====================================================================
-            6. CONTACT INFORMATION & CLEAN UNBOXED FORM
-            Matches Screenshot 1 exactly:
-            - Heading: "Contact Information" in rust with line/dots separator
-            - Left: Clean image without overlay text box
-            - Right: Clean underline form fields without outer card box
-            - Rust "Send message" button
-            - id="contact" target for "Get in touch with us"
-        ====================================================================== */}
-        <section id="contact" className="py-16 sm:py-20 bg-white scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#B84D1B] tracking-tight">
-              {t.servicesPage.contactHeading}
-            </h2>
-
-            {/* Decorative separator */}
-            <div className="my-3 mb-10">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="16"
-                viewBox="0 0 100 20"
-                width="90"
-                className="fill-[#B84D1B]"
-                role="img"
-                aria-label="separator"
-              >
-                <path d="m2 8h64c1.1 0 2 .9 2 2s-.9 2-2 2h-64c-1.1 0-2-.9-2-2s.9-2 2-2zm72 0h16c1.1 0 2 .9 2 2s-.9 2-2 2h-16c-1.1 0-2-.9-2-2s.9-2 2-2zm24 0c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z" />
-              </svg>
+        {/* Services page contact form */}
+        <section id="contact" className="bg-white scroll-mt-20">
+          <div className="grid grid-cols-1 items-stretch lg:grid-cols-2">
+            <div className="relative min-h-[300px] overflow-hidden bg-[#EEF5F8] sm:min-h-[380px] lg:min-h-[620px]">
+              <Image
+                src="/images/services-contact-warehouse.jpg"
+                alt={t.servicesPage.contactImageAlt}
+                fill
+                sizes="(max-width: 1023px) 100vw, 50vw"
+                className="object-cover object-center"
+              />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <div
+              className="flex flex-col justify-center px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-16 xl:px-20"
+              dir={language === "AR" ? "rtl" : "ltr"}
+            >
+              <h2 className="font-heading text-3xl font-bold tracking-tight text-[#B84D1B] sm:text-4xl">
+                {t.servicesPage.contactHeading}
+              </h2>
+              <PatternDivider className="mb-7 mt-3" color="#B84D1B" />
 
-              {/* Left Column: Clean Facility Photo without overlay text box */}
-              <div className="lg:col-span-7">
-                <div className="relative aspect-16/10 rounded-sm overflow-hidden bg-slate-900 shadow-sm border border-[#E3E8EC]">
-                  <Image
-                    src="/images/services-contact-warehouse.jpg"
-                    alt="Tahseen Jaber Cold Chamber Facility"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 58vw"
-                    className="object-cover"
+              <form noValidate onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="services-contact-name" className="sr-only">
+                    {t.servicesPage.contactNameLabel}
+                  </label>
+                  <input
+                    id="services-contact-name"
+                    name="name"
+                    type="text"
+                    autoComplete="name"
+                    required
+                    aria-invalid={formIssue === "required"}
+                    placeholder={t.servicesPage.contactNamePlaceholder}
+                    value={formData.name}
+                    dir={language === "AR" ? "rtl" : "ltr"}
+                    onChange={(e) => {
+                      setFormData({ ...formData, name: e.target.value });
+                      setFormIssue(null);
+                    }}
+                    className="w-full border-0 border-b border-[#D1D7DD] bg-transparent px-0 py-3.5 text-base text-[#202B35] placeholder:text-[#8895A2] focus:border-[#B84D1B] focus:outline-hidden focus:ring-0 focus-visible:ring-2 focus-visible:ring-[#B84D1B]/30"
                   />
                 </div>
-              </div>
 
-              {/* Right Column: Clean Form directly on page (NO outer box) */}
-              <div className="lg:col-span-5">
-                {submitted ? (
-                  <div className="py-8 text-left rtl:text-right bg-[#EEF5F8] rounded-lg p-6 border border-[#D8E6ED]">
-                    <div className="flex items-center gap-3 mb-2">
-                      <CheckCircle2 className="w-6 h-6 text-emerald-600" />
-                      <h3 className="font-heading text-lg font-bold text-[#0A2340]">
-                        {t.servicesPage.contactSuccessTitle}
-                      </h3>
-                    </div>
-                    <p className="text-sm text-[#66717C] leading-relaxed mb-4">
-                      {t.servicesPage.contactSuccessDesc}
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => setSubmitted(false)}
-                      className="text-xs font-semibold text-[#B84D1B] hover:text-[#A34215] underline cursor-pointer"
-                    >
-                      {t.servicesPage.contactSendAnother}
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                      <input
-                        type="text"
-                        required
-                        placeholder={t.servicesPage.contactNamePlaceholder}
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full py-3.5 border-b border-[#D1D7DD] bg-transparent text-sm text-[#202B35] placeholder:text-[#8895A2] focus:outline-hidden focus:border-[#B84D1B] transition-colors"
-                      />
-                    </div>
+                <div>
+                  <label htmlFor="services-contact-email" className="sr-only">
+                    {t.servicesPage.contactEmailLabel}
+                  </label>
+                  <input
+                    id="services-contact-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    aria-invalid={formIssue === "required" || formIssue === "email"}
+                    placeholder={t.servicesPage.contactEmailPlaceholder}
+                    value={formData.email}
+                    dir="ltr"
+                    onChange={(e) => {
+                      setFormData({ ...formData, email: e.target.value });
+                      setFormIssue(null);
+                    }}
+                    className="w-full border-0 border-b border-[#D1D7DD] bg-transparent px-0 py-3.5 text-base text-[#202B35] placeholder:text-[#8895A2] focus:border-[#B84D1B] focus:outline-hidden focus:ring-0 focus-visible:ring-2 focus-visible:ring-[#B84D1B]/30"
+                  />
+                </div>
 
-                    <div>
-                      <input
-                        type="email"
-                        required
-                        placeholder={t.servicesPage.contactEmailPlaceholder}
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full py-3.5 border-b border-[#D1D7DD] bg-transparent text-sm text-[#202B35] placeholder:text-[#8895A2] focus:outline-hidden focus:border-[#B84D1B] transition-colors"
-                      />
-                    </div>
+                <div>
+                  <label htmlFor="services-contact-message" className="sr-only">
+                    {t.servicesPage.contactMessageLabel}
+                  </label>
+                  <textarea
+                    id="services-contact-message"
+                    name="message"
+                    rows={5}
+                    required
+                    aria-invalid={formIssue === "required"}
+                    placeholder={t.servicesPage.contactMessagePlaceholder}
+                    value={formData.message}
+                    dir={language === "AR" ? "rtl" : "ltr"}
+                    onChange={(e) => {
+                      setFormData({ ...formData, message: e.target.value });
+                      setFormIssue(null);
+                    }}
+                    className="w-full resize-y border-0 border-b border-[#D1D7DD] bg-transparent px-0 py-3.5 text-base text-[#202B35] placeholder:text-[#8895A2] focus:border-[#B84D1B] focus:outline-hidden focus:ring-0 focus-visible:ring-2 focus-visible:ring-[#B84D1B]/30"
+                  />
+                </div>
 
-                    <div>
-                      <textarea
-                        rows={5}
-                        required
-                        placeholder={t.servicesPage.contactMessagePlaceholder}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full py-3.5 border-b border-[#D1D7DD] bg-transparent text-sm text-[#202B35] placeholder:text-[#8895A2] focus:outline-hidden focus:border-[#B84D1B] transition-colors resize-none"
-                      />
-                    </div>
-
-                    <div>
-                      <button
-                        type="submit"
-                        className="w-full sm:w-auto bg-[#B84D1B] hover:bg-[#A34215] text-white font-semibold text-sm px-10 py-3.5 rounded-xs transition-colors cursor-pointer shadow-xs active:scale-[0.99]"
-                      >
-                        {t.servicesPage.contactSendBtn}
-                      </button>
-                    </div>
-
-                    <p className="text-xs text-[#8A95A0] pt-2">
-                      {t.servicesPage.contactConfidential}
-                    </p>
-                  </form>
+                {formIssue && (
+                  <p role="alert" className="text-sm text-[#A34215]">
+                    {formIssue === "required" && t.servicesPage.contactRequiredError}
+                    {formIssue === "email" && t.servicesPage.contactEmailError}
+                    {formIssue === "backend" && t.servicesPage.contactBackendNotice}
+                  </p>
                 )}
-              </div>
 
+                <button
+                  type="submit"
+                  className="w-full rounded-xs bg-[#B84D1B] px-6 py-4 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#A34215] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2340] active:scale-[0.99]"
+                >
+                  {t.servicesPage.contactSendBtn}
+                </button>
+
+                <p className="pt-2 text-sm text-[#8A95A0]">
+                  {t.servicesPage.contactConfidential}
+                </p>
+              </form>
             </div>
           </div>
         </section>

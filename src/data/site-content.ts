@@ -44,7 +44,7 @@ export const SITE_CONFIG = {
   email: "info@tahseenjaber.com",
   secondaryEmail: "Shuaib@tahseenjaber.com",
   emails: ["info@tahseenjaber.com", "Shuaib@tahseenjaber.com"],
-  address: "Iraq",
+  address: "Tahseen Jaber Cold Storage, Uuayrij Industrial area, Baghdad, Iraq",
   googleMapsLocation: {
     latitude: 33.1701875,
     longitude: 44.3539003,

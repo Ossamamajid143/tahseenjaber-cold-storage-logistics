@@ -158,12 +158,6 @@ export function Footer() {
                     {isArabic ? "عنوان المنشأة" : "Facility Address"}
                   </span>
                   <p>{t.footer.address}</p>
-                  <Link
-                    href="/contact#contact-location"
-                    className="hover:text-white font-medium block mt-0.5"
-                  >
-                    {t.contact.directionsLink}
-                  </Link>
                 </div>
               </div>
             </div>
