@@ -14,6 +14,7 @@ interface PageHeroProps {
   imageSrc?: string;
   imagePosition?: string;
   overlayGradient?: string;
+  transitionColor?: "#FFFFFF" | "#F7F5F0";
 }
 
 export function PageHero({
@@ -23,6 +24,7 @@ export function PageHero({
   imageSrc = "/images/facility-exterior-wide.png",
   imagePosition = "center 40%",
   overlayGradient,
+  transitionColor = "#FFFFFF",
 }: PageHeroProps) {
   const { t, isArabic } = useLanguage();
   const navbarHeight = useNavbarHeight();
@@ -60,7 +62,7 @@ export function PageHero({
           />
         )}
 
-        <ColdFogOverlay />
+        <ColdFogOverlay transitionColor={transitionColor} />
       </div>
 
       {/* Main Hero Content */}

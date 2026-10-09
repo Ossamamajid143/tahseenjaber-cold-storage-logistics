@@ -149,6 +149,7 @@ export default function WhyChooseUsPage() {
           description={content.desc}
           imageSrc="/images/temperature-storage.jpg"
           imagePosition="center 45%"
+          transitionColor="#F7F5F0"
         />
 
         <section className="grid grid-cols-1 overflow-hidden bg-[#F7F5F0] lg:min-h-[458px] lg:grid-cols-[42%_58%]" dir={isArabic ? "rtl" : "ltr"}>

@@ -84,43 +84,24 @@ html[lang="ar"] .font-heading {
   border-radius: 10px;
 }
 
-/* Slow, GPU-friendly movement for the shared hero cold-mist texture. */
-.cold-fog-layer {
+.cold-fog-static {
   background-position: center bottom;
-  will-change: transform;
 }
 
-.cold-fog-layer-back {
-  animation: cold-fog-drift-back 17s ease-in-out infinite alternate;
+[data-fog-static="true"] .cold-fog-static {
+  display: block;
 }
 
-.cold-fog-layer-front {
-  animation: cold-fog-drift-front 13s ease-in-out infinite alternate;
-}
-
-.cold-fog-layer-high {
-  animation: cold-fog-drift-high 21s ease-in-out infinite alternate;
-}
-
-@keyframes cold-fog-drift-back {
-  from { transform: translate3d(-1.5%, 2px, 0) scale(1.02); }
-  to { transform: translate3d(1.5%, -5px, 0) scale(1.06); }
-}
-
-@keyframes cold-fog-drift-front {
-  from { transform: translate3d(1.5%, 1px, 0) scale(1.04); }
-  to { transform: translate3d(-1.5%, -7px, 0) scale(1.08); }
-}
-
-@keyframes cold-fog-drift-high {
-  from { transform: translate3d(-1%, 3px, 0) scale(1.02); }
-  to { transform: translate3d(1%, -4px, 0) scale(1.05); }
+[data-fog-static="true"] .cold-fog-canvas {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cold-fog-layer {
-    animation: none;
-    transform: none;
-    will-change: auto;
+  .cold-fog-static {
+    display: block;
+  }
+
+  .cold-fog-canvas {
+    display: none;
   }
 }
