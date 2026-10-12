@@ -348,11 +348,11 @@ export default function ContactPage() {
             </p>
             <Image
               src={SITE_CONFIG.logoPath}
-              alt="Tahseen Jaber Cold Storage logo"
-              width={60}
-              height={60}
-              sizes="60px"
-              className="h-[52px] w-[52px] rounded-full object-contain sm:h-[56px] sm:w-[56px]"
+              alt="Tahseen Jaber Cold Storage"
+              width={898}
+              height={247}
+              sizes="190px"
+              className="h-[52px] w-[190px] object-contain sm:h-[56px] sm:w-[204px]"
             />
           </div>
         </section>

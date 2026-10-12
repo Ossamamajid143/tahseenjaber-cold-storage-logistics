@@ -50,7 +50,7 @@ export const SITE_CONFIG = {
     longitude: 44.3539003,
   },
   hours: "Monday – Saturday: 07:00 – 19:00 | Receiving: 24/7 By Appointment",
-  logoPath: "/tahseenjaber-logo.jpeg",
+  logoPath: "/tahseen-jaber-logo.jpeg",
 };
 
 export const NAV_LINKS: NavLink[] = [

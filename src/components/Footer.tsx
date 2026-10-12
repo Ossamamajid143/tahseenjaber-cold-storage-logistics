@@ -30,25 +30,18 @@ export function Footer() {
           <div className="lg:col-span-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-3.5 group mb-5 focus:outline-hidden"
+              className="inline-flex items-center group mb-5 focus:outline-hidden"
               aria-label="Tahseen Jaber Cold Storage Home"
             >
-              <div className="relative w-14 h-14 rounded-full overflow-hidden border border-white/20 bg-white shrink-0 p-0.5 shadow-md group-hover:scale-105 transition-transform duration-200">
+              <div className="relative h-[62px] w-[225px] max-w-full shrink-0 rounded-md overflow-hidden bg-white shadow-md group-hover:scale-[1.02] transition-transform duration-200">
                 <Image
                   src={SITE_CONFIG.logoPath}
-                  alt="Tahseen Jaber Cold Storage Logo"
-                  fill
-                  sizes="56px"
-                  className="object-contain"
+                  alt="Tahseen Jaber Cold Storage"
+                  width={898}
+                  height={247}
+                  sizes="225px"
+                  className="h-full w-full object-contain"
                 />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-heading font-bold text-xl text-white tracking-tight">
-                  {t.brand.name}
-                </span>
-                <span className="text-[11px] font-semibold tracking-[0.2em] text-[#D86A2D] uppercase mt-0.5">
-                  {t.brand.tagline}
-                </span>
               </div>
             </Link>
 

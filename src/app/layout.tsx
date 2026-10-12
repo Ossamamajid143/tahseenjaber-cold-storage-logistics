@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: "/tahseenjaber-logo.jpeg",
+    icon: "/tahseen-jaber-icon.png",
   },
 };
 

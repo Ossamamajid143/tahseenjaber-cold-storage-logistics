@@ -80,23 +80,15 @@ export function Navbar() {
               className="flex items-center gap-3 group focus:outline-hidden focus:ring-2 focus:ring-[#B84D1B] rounded-md"
               aria-label="Tahseen Jaber Cold Storage Home"
             >
-              <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden border border-[#12345B]/15 bg-[#F7F5F0] shrink-0 shadow-xs group-hover:scale-105 transition-transform duration-200">
+              <div className="relative h-10 w-[145px] shrink-0 sm:h-12 sm:w-[175px] lg:w-[205px] group-hover:scale-[1.02] transition-transform duration-200">
                 <Image
                   src={SITE_CONFIG.logoPath}
-                  alt="Tahseen Jaber Cold Storage Logo"
+                  alt="Tahseen Jaber Cold Storage"
                   fill
-                  sizes="(max-width: 640px) 44px, 48px"
-                  className="object-contain p-0.5"
+                  sizes="(max-width: 640px) 145px, (max-width: 1023px) 175px, 205px"
+                  className="object-contain"
                   priority
                 />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-heading font-bold text-lg sm:text-xl text-[#0A2340] leading-none tracking-tight">
-                  {t.brand.name}
-                </span>
-                <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] text-[#B84D1B] uppercase mt-1">
-                  {t.brand.tagline}
-                </span>
               </div>
             </Link>
 

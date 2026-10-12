@@ -267,13 +267,14 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <RevealOnScroll animation="fade-up" duration={800}>
               <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-full overflow-hidden border border-[#12345B]/15 bg-[#F7F5F0] mb-5 shadow-xs">
+                <div className="relative mb-5 h-[54px] w-[196px] shrink-0 sm:h-[62px] sm:w-[225px]">
                   <Image
                     src={SITE_CONFIG.logoPath}
-                    alt={t.brand.fullName}
-                    fill
-                    sizes="80px"
-                    className="object-contain p-0.5"
+                    alt="Tahseen Jaber Cold Storage"
+                    width={898}
+                    height={247}
+                    sizes="(max-width: 640px) 196px, 225px"
+                    className="h-full w-full object-contain"
                   />
                 </div>
                 <p className="font-heading text-xl sm:text-2xl lg:text-[28px] font-normal text-[#B84D1B] leading-[1.35] mb-4">

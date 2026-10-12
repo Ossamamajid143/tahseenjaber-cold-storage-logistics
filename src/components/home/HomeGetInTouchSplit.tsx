@@ -47,22 +47,15 @@ export function HomeGetInTouchSplit() {
 
               {/* Logo and Brand signature underneath matching screenshot */}
               <div className="flex items-center gap-3.5 pt-2">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden border border-[#12345B]/15 bg-[#F7F5F0] shrink-0 shadow-xs">
+                <div className="relative h-[52px] w-[190px] max-w-full shrink-0">
                   <Image
                     src={SITE_CONFIG.logoPath}
-                    alt={`${SITE_CONFIG.companyName} Logo`}
-                    fill
-                    sizes="48px"
-                    className="object-contain p-0.5"
+                    alt="Tahseen Jaber Cold Storage"
+                    width={898}
+                    height={247}
+                    sizes="190px"
+                    className="h-full w-full object-contain"
                   />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-heading font-bold text-xl text-[#0A2340] leading-none">
-                    {t.brand.fullName}
-                  </span>
-                  <span className="text-xs font-semibold tracking-widest text-[#B84D1B] uppercase mt-1">
-                    {t.brand.tagline}
-                  </span>
                 </div>
               </div>
 
