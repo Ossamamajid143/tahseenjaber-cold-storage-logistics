@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mail, Menu, X } from "lucide-react";
+import { Globe, Mail, Menu, X } from "lucide-react";
 import { SITE_CONFIG } from "@/data/site-content";
 import { useLanguage } from "@/context/LanguageContext";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
@@ -46,7 +46,12 @@ export function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const selectLanguage = (nextLanguage: "EN" | "AR") => {
+    setLanguage(nextLanguage);
+    setLanguageMenuOpen(false);
+  };
 
   const navItems = [
     { label: t.nav.home, href: "/" },
@@ -68,8 +73,8 @@ export function Navbar() {
     <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-xs py-3 border-b border-[#E3E8EC]"
-            : "bg-white py-4 border-b border-[#E3E8EC]/60"
+            ? "bg-[#061628]/98 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.35)] py-3 border-b border-white/15"
+            : "bg-[#061628] py-4 border-b border-white/15 shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,19 +86,20 @@ export function Navbar() {
               aria-label="Tahseen Jaber Cold Storage Home"
             >
               <div className="relative h-10 w-[145px] shrink-0 sm:h-12 sm:w-[175px] lg:w-[205px] group-hover:scale-[1.02] transition-transform duration-200">
+                <span aria-hidden="true" className="absolute inset-x-1 inset-y-0 rounded-full bg-[radial-gradient(ellipse,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0)_72%)] blur-lg" />
                 <Image
-                  src={SITE_CONFIG.logoPath}
+                  src="/tahseen-jaber-logo-transparent.png"
                   alt="Tahseen Jaber Cold Storage"
                   fill
                   sizes="(max-width: 640px) 145px, (max-width: 1023px) 175px, 205px"
-                  className="object-contain"
+                  className="z-10 object-contain"
                   priority
                 />
               </div>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-6 text-[17px] font-semibold text-[#202B35]">
+            <nav className="hidden lg:flex items-center gap-6 text-[17px] font-semibold text-white">
               {navItems.map((link) => {
                 const isActive = pathname === link.href;
                 return (
@@ -102,8 +108,8 @@ export function Navbar() {
                     href={link.href}
                     className={`relative py-1 transition-colors ${
                       isActive
-                        ? "text-[#B84D1B] font-semibold"
-                        : "text-[#202B35] hover:text-[#12345B]"
+                        ? "text-white font-semibold"
+                        : "text-white hover:text-[#D86A2D]"
                     }`}
                   >
                     <span>{link.label}</span>
@@ -126,7 +132,7 @@ export function Navbar() {
                     rel={item.external ? "noopener noreferrer" : undefined}
                     aria-label={item.label === "WhatsApp" ? t.nav.whatsappLabel : item.label === "Email" ? t.nav.emailLabel : item.label}
                     title={item.label === "WhatsApp" ? t.nav.whatsappLabel : item.label === "Email" ? t.nav.emailLabel : item.label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full text-[#B84D1B] transition-all duration-200 hover:scale-105 hover:bg-[#EEF5F8] hover:text-[#D86A2D]"
+                    className="flex h-9 w-9 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-105 hover:bg-white/10 hover:text-[#D86A2D]"
                   >
                     {item.icon}
                   </a>
@@ -134,32 +140,25 @@ export function Navbar() {
               </div>
 
               {/* Language Switcher: AR / EN next to social platforms */}
-              <div className="flex items-center pl-2 ml-1 border-l border-[#D8E6ED] text-xs font-semibold">
+              <div className="relative ml-1 border-l border-white/20 pl-3">
                 <button
                   type="button"
-                  onClick={() => setLanguage("EN")}
-                  className={`px-2 py-1 rounded transition-colors ${
-                    language === "EN"
-                      ? "bg-[#0A2340] text-white shadow-xs"
-                      : "text-[#66717C] hover:text-[#0A2340]"
-                  }`}
-                  aria-label="Switch to English"
+                  onClick={() => setLanguageMenuOpen((open) => !open)}
+                  className="inline-flex items-center gap-1.5 rounded-md px-2 py-1.5 text-xs font-semibold text-white transition-colors hover:text-[#D86A2D]"
+                  aria-label="Choose language"
+                  aria-expanded={languageMenuOpen}
+                  aria-haspopup="menu"
+                  title="Choose language"
                 >
-                  EN
+                  <Globe className="h-4 w-4" aria-hidden="true" />
+                  <span>{language}</span>
                 </button>
-                <span className="text-[#C0CBD3] px-0.5 select-none">|</span>
-                <button
-                  type="button"
-                  onClick={() => setLanguage("AR")}
-                  className={`px-2 py-1 rounded transition-colors ${
-                    language === "AR"
-                      ? "bg-[#B84D1B] text-white shadow-xs"
-                      : "text-[#66717C] hover:text-[#B84D1B]"
-                  }`}
-                  aria-label="التبديل إلى اللغة العربية"
-                >
-                  AR
-                </button>
+                {languageMenuOpen && (
+                  <div role="menu" className="absolute right-0 top-full z-50 mt-2 min-w-36 rounded-lg border border-white/10 bg-[#061628] p-1.5 shadow-xl">
+                    <button type="button" role="menuitem" onClick={() => selectLanguage("EN")} className={`block w-full rounded-md px-3 py-2 text-left text-sm transition-colors hover:bg-white/10 hover:text-[#D86A2D] ${language === "EN" ? "text-[#D86A2D]" : "text-white"}`}>English (EN)</button>
+                    <button type="button" role="menuitem" onClick={() => selectLanguage("AR")} className={`block w-full rounded-md px-3 py-2 text-left text-sm transition-colors hover:bg-white/10 hover:text-[#D86A2D] ${language === "AR" ? "text-[#D86A2D]" : "text-white"}`}>العربية (AR)</button>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -167,7 +166,7 @@ export function Navbar() {
             <div className="flex items-center lg:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-[#0A2340] hover:text-[#B84D1B] focus:outline-hidden rounded-md transition-colors"
+                className="p-2 text-white hover:text-[#D86A2D] focus:outline-hidden rounded-md transition-colors"
                 aria-expanded={mobileMenuOpen}
                 aria-label="Toggle navigation menu"
               >
@@ -183,7 +182,7 @@ export function Navbar() {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-b border-[#E3E8EC] shadow-xl px-4 pt-3 pb-6 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="lg:hidden bg-[#061628] border-b border-white/15 shadow-xl px-4 pt-3 pb-6 animate-in fade-in slide-in-from-top-2 duration-200">
             <nav className="flex flex-col space-y-3">
               {navItems.map((link) => {
                 const isActive = pathname === link.href;
@@ -194,8 +193,8 @@ export function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`px-3 py-2 text-base font-semibold rounded-md transition-colors ${
                       isActive
-                        ? "bg-[#EEF5F8] text-[#B84D1B] font-semibold"
-                        : "text-[#202B35] hover:bg-[#EEF5F8] hover:text-[#12345B]"
+                        ? "bg-white/10 text-white font-semibold"
+                        : "text-white hover:bg-white/10 hover:text-[#D86A2D]"
                     }`}
                   >
                     {link.label}
@@ -204,31 +203,25 @@ export function Navbar() {
               })}
 
               {/* Mobile Language Switcher & Social Media Icons */}
-              <div className="pt-4 border-t border-[#E3E8EC] flex flex-col items-center gap-3">
+              <div className="pt-4 border-t border-white/15 flex flex-col items-center gap-3">
                 <div className="flex items-center gap-2 text-sm font-semibold">
-                  <span className="text-xs text-[#66717C]">Language:</span>
                   <button
                     type="button"
-                    onClick={() => setLanguage("EN")}
-                    className={`px-3 py-1 rounded text-xs transition-colors ${
-                      language === "EN"
-                        ? "bg-[#0A2340] text-white"
-                        : "text-[#66717C] bg-slate-100"
-                    }`}
+                    onClick={() => setLanguageMenuOpen((open) => !open)}
+                    className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-xs text-white transition-colors hover:bg-white/15 hover:text-[#D86A2D]"
+                    aria-label="Choose language"
+                    aria-expanded={languageMenuOpen}
+                    aria-haspopup="menu"
                   >
-                    English (EN)
+                    <Globe className="h-4 w-4" aria-hidden="true" />
+                    {language === "EN" ? "English (EN)" : "العربية (AR)"}
                   </button>
-                  <button
-                    type="button"
-                    onClick={() => setLanguage("AR")}
-                    className={`px-3 py-1 rounded text-xs transition-colors font-arabic ${
-                      language === "AR"
-                        ? "bg-[#B84D1B] text-white"
-                        : "text-[#66717C] bg-slate-100"
-                    }`}
-                  >
-                    العربية (AR)
-                  </button>
+                  {languageMenuOpen && (
+                    <div role="menu" className="flex gap-2">
+                      <button type="button" role="menuitem" onClick={() => selectLanguage("EN")} className={`rounded-md px-3 py-2 text-xs transition-colors hover:text-[#D86A2D] ${language === "EN" ? "bg-white/15 text-[#D86A2D]" : "bg-white/5 text-white"}`}>English (EN)</button>
+                      <button type="button" role="menuitem" onClick={() => selectLanguage("AR")} className={`rounded-md px-3 py-2 text-xs transition-colors hover:text-[#D86A2D] ${language === "AR" ? "bg-white/15 text-[#D86A2D]" : "bg-white/5 text-white"}`}>العربية (AR)</button>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex items-center justify-center gap-3">
@@ -240,7 +233,7 @@ export function Navbar() {
                       rel={item.external ? "noopener noreferrer" : undefined}
                       aria-label={item.label === "WhatsApp" ? t.nav.whatsappLabel : item.label === "Email" ? t.nav.emailLabel : item.label}
                       title={item.label === "WhatsApp" ? t.nav.whatsappLabel : item.label === "Email" ? t.nav.emailLabel : item.label}
-                      className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EEF5F8] text-[#B84D1B] transition-all hover:scale-105 hover:text-[#D86A2D]"
+                      className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:scale-105 hover:bg-white/15 hover:text-[#D86A2D]"
                     >
                       {item.icon}
                     </a>

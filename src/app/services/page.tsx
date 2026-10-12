@@ -427,7 +427,7 @@ export default function ServicesPage() {
               </p>
             </div>
 
-            <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6">
+            <h3 id="facility-gallery" className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6 scroll-mt-24">
               {t.servicesPage.facilitySection.galleryTitle}
             </h3>
             <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
@@ -496,7 +496,7 @@ export default function ServicesPage() {
               </div>
             </section>
 
-            <div className="mt-14 sm:mt-16 border-t border-[#DDE3E8] pt-8">
+            <div id="facility-infrastructure" className="mt-14 sm:mt-16 border-t border-[#DDE3E8] pt-8 scroll-mt-24">
               <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6">
                 {t.servicesPage.facilitySection.infrastructureTitle}
               </h3>
