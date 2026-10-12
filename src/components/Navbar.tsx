@@ -58,6 +58,7 @@ export function Navbar() {
     { label: t.nav.about, href: "/about" },
     { label: t.nav.services, href: "/services" },
     { label: t.nav.facilities, href: "/why-choose-us" },
+    { label: t.nav.pricing, href: "/pricing" },
     { label: t.nav.contact, href: "/contact" },
   ];
 
@@ -106,10 +107,10 @@ export function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`relative py-1 transition-colors ${
+                    className={`relative py-1 transition-all duration-200 hover:text-[#D86A2D] hover:-translate-y-0.5 ${
                       isActive
                         ? "text-white font-semibold"
-                        : "text-white hover:text-[#D86A2D]"
+                        : "text-white"
                     }`}
                   >
                     <span>{link.label}</span>
@@ -191,10 +192,10 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`px-3 py-2 text-base font-semibold rounded-md transition-colors ${
+                    className={`px-3 py-2 text-base font-semibold rounded-md transition-all duration-200 hover:text-[#D86A2D] hover:-translate-y-0.5 ${
                       isActive
                         ? "bg-white/10 text-white font-semibold"
-                        : "text-white hover:bg-white/10 hover:text-[#D86A2D]"
+                        : "text-white hover:bg-white/10"
                     }`}
                   >
                     {link.label}

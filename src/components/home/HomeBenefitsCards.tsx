@@ -1,113 +1,46 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { Warehouse, Layers, ShieldCheck, BarChart3, ArrowRight } from "lucide-react";
+import { Headphones, Package, ShieldCheck, Thermometer } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 
+const HIGHLIGHTS = {
+  EN: [
+    { title: "Advanced Temperature Control", description: "Reliable temperature management and continuous monitoring.", icon: Thermometer },
+    { title: "Secure Warehousing", description: "Protected facilities with around-the-clock security systems.", icon: ShieldCheck },
+    { title: "Flexible Storage Options", description: "Warehouse, container, and pallet-based storage solutions.", icon: Package },
+    { title: "Dedicated Customer Support", description: "Practical assistance for your storage and logistics requirements.", icon: Headphones },
+  ],
+  AR: [
+    { title: "تحكم متقدم بدرجات الحرارة", description: "إدارة موثوقة لدرجات الحرارة ومراقبة مستمرة.", icon: Thermometer },
+    { title: "تخزين آمن", description: "مرافق محمية وأنظمة أمنية على مدار الساعة.", icon: ShieldCheck },
+    { title: "خيارات تخزين مرنة", description: "حلول تخزين للمستودعات والبرادات والطبليات.", icon: Package },
+    { title: "دعم مخصص للعملاء", description: "مساعدة عملية لاحتياجات التخزين والخدمات اللوجستية.", icon: Headphones },
+  ],
+} as const;
+
 export function HomeBenefitsCards() {
-  const { t, isArabic } = useLanguage();
-
-  const foodCategories = isArabic
-    ? ["فواكه", "خضروات", "لحوم", "دجاج", "مأكولات بحرية"]
-    : ["Fruits", "Vegetables", "Meat", "Chicken", "Seafood"];
-
-  const cardConfigs = [
-    {
-      icon: <Warehouse className="w-8 h-8 text-[#B84D1B]" />,
-      buttonHref: "/why-choose-us",
-      bgColor: "#FDEFE6",
-      iconBgColor: "#F5DDD0",
-      hasButton: true,
-    },
-    {
-      icon: <Layers className="w-8 h-8 text-[#12345B]" />,
-      buttonHref: "/services",
-      bgColor: "#F4FCFD",
-      iconBgColor: "#DFEFF3",
-      hasButton: true,
-    },
-    {
-      icon: <ShieldCheck className="w-8 h-8 text-[#B84D1B]" />,
-      buttonHref: "/contact",
-      bgColor: "#FFFAF0",
-      iconBgColor: "#F5EAD4",
-      hasButton: false, // User requested: Remove get in touch with security team tab
-    },
-    {
-      icon: <BarChart3 className="w-8 h-8 text-[#12345B]" />,
-      buttonHref: "/services",
-      bgColor: "#E7F3F7",
-      iconBgColor: "#D0E4EC",
-      hasButton: true,
-    },
-  ];
+  const { isArabic } = useLanguage();
+  const highlights = isArabic ? HIGHLIGHTS.AR : HIGHLIGHTS.EN;
 
   return (
-    <section className="bg-white py-16 sm:py-24 border-b border-[#E3E8EC]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {cardConfigs.map((config, idx) => {
-            const data = t.home.benefits[idx];
-            return (
-              <RevealOnScroll
-                key={idx}
-                animation="fade-up"
-                delay={idx * 120}
-                className="h-full"
-              >
-                <div
-                  className="rounded-[12px] p-8 sm:p-10 flex flex-col justify-between h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border border-black/5"
-                  style={{ backgroundColor: config.bgColor }}
-                >
-                  <div>
-                    <div
-                      className="w-14 h-14 rounded-[10px] flex items-center justify-center mb-6 shadow-xs"
-                      style={{ backgroundColor: config.iconBgColor }}
-                    >
-                      {config.icon}
-                    </div>
-
-                    <h3 className="font-heading text-2xl sm:text-[26px] font-bold text-[#0A2340] mb-4">
-                      {data.title}
-                    </h3>
-
-                    <p className="text-[#202B35]/80 text-[15px] sm:text-base leading-relaxed mb-6">
-                      {data.desc}
-                    </p>
-
-                    {/* Specific category badges for State-of-the-art facilities */}
-                    {idx === 0 && (
-                      <div className="flex flex-wrap gap-2 mb-8">
-                        {foodCategories.map((cat, cIdx) => (
-                          <span
-                            key={cIdx}
-                            className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/90 text-[#B84D1B] border border-[#B84D1B]/20 shadow-xs"
-                          >
-                            {cat}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {config.hasButton && (
-                    <div className="pt-2">
-                      <Link
-                        href={config.buttonHref}
-                        className="inline-flex items-center gap-2 border-2 border-[#12345B] hover:border-[#B84D1B] text-[#12345B] hover:text-[#B84D1B] hover:bg-white/80 px-5 py-2.5 rounded-[6px] font-semibold text-sm transition-all duration-200 group shadow-xs"
-                      >
-                        <span>{data.btn}</span>
-                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180" />
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              </RevealOnScroll>
-            );
-          })}
-        </div>
+    <section className="home-benefits-scene relative isolate overflow-hidden px-4 py-8 sm:px-6 sm:py-10 lg:px-8" dir={isArabic ? "rtl" : "ltr"}>
+      <div className="home-benefits-atmosphere" aria-hidden="true" />
+      <div className="home-benefits-glass relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 divide-y divide-sky-100/15 rounded-xl border border-sky-100/20 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x lg:divide-y-0">
+        {highlights.map(({ title, description, icon: Icon }, index) => (
+          <RevealOnScroll key={title} animation="fade-up" delay={index * 90} className="h-full">
+            <article className="home-benefit-item group flex h-full items-start gap-4 px-5 py-5 sm:px-6 lg:px-5 xl:px-7">
+              <div className="home-benefit-icon shrink-0 text-[#F36A21] transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(243,106,33,0.65)]">
+                <Icon aria-hidden="true" className="h-8 w-8 stroke-[1.7]" />
+              </div>
+              <div>
+                <h2 className="font-heading text-base font-bold leading-snug text-white">{title}</h2>
+                <p className="mt-2 text-sm leading-relaxed text-slate-300">{description}</p>
+              </div>
+            </article>
+          </RevealOnScroll>
+        ))}
       </div>
     </section>
   );

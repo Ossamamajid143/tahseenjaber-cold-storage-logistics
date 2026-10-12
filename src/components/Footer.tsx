@@ -15,17 +15,17 @@ export function Footer() {
   const copy = isArabic ? {
     description: "مرافق تخزين مبرد وخدمات لوجستية لسلسلة التبريد في بغداد.",
     capabilities: "الخدمات", frozen: "التخزين المجمد والمبرد", pharma: "غرف المنتجات الدوائية", monitoring: "المراقبة",
-    contact: "التواصل", facility: "المنشأة", frozenFacility: "المجمد", dryGoods: "البضائع الجافة", chiller: "المبرد", pharmaceutical: "الأدوية", facilityMonitoring: "المراقبة", company: "الشركة",
+    contact: "التواصل", facility: "المنشأة", frozenFacility: "المجمد", dryGoods: "البضائع الجافة", chiller: "المبرد", pharmaceutical: "الأدوية", facilityMonitoring: "المراقبة", company: "الشركة", pricing: "الأسعار",
     book: "ترتيب زيارة للمنشأة", quote: "طلب عرض سعر", contactUs: "اتصل بنا",
     updates: "تحديثات السعة وسلسلة التبريد", updatesDesc: "رسالة واحدة شهرياً: السعة المتاحة والغرف الجديدة والإرشادات الموسمية.", unavailable: "الاشتراك بالبريد الإلكتروني غير متاح حالياً.", emailPlaceholder: "you@company.com", subscribe: "اشتراك",
-    copyright: "جميع الحقوق محفوظة.",
+    copyright: "جميع الحقوق محفوظة.", terms: "شروط الخدمة", privacy: "سياسة الخصوصية", coldChain: "سياسة سلسلة التبريد",
   } : {
     description: "Temperature-controlled warehousing and cold-chain logistics in Baghdad.",
     capabilities: "Capabilities", frozen: "Frozen & chilled storage", pharma: "Pharmaceutical rooms", monitoring: "Monitoring",
-    contact: "Contact", facility: "Facility", frozenFacility: "Frozen", dryGoods: "Dry goods", chiller: "Chiller", pharmaceutical: "Pharmaceutical", facilityMonitoring: "Monitoring", company: "Company",
+    contact: "Contact", facility: "Facility", frozenFacility: "Frozen", dryGoods: "Dry goods", chiller: "Chiller", pharmaceutical: "Pharmaceutical", facilityMonitoring: "Monitoring", company: "Company", pricing: "Pricing",
     book: "Book a site visit", quote: "Request a quotation", contactUs: "Contact",
     updates: "Capacity and cold-chain updates", updatesDesc: "One email a month: available capacity, new rooms, seasonal guidance.", unavailable: "Email subscriptions are not available yet.", emailPlaceholder: "you@company.com", subscribe: "Subscribe",
-    copyright: "All rights reserved.",
+    copyright: "All rights reserved.", terms: "Terms of service", privacy: "Privacy policy", coldChain: "Cold-chain policy",
   };
   const mapUrl = `https://www.google.com/maps?q=${SITE_CONFIG.googleMapsLocation.latitude},${SITE_CONFIG.googleMapsLocation.longitude}`;
   const socialLinks = [
@@ -90,6 +90,7 @@ export function Footer() {
           <section>
             <h2 className="mb-4 text-[11px] font-bold uppercase tracking-[0.16em] text-white">{copy.company}</h2>
             <ul className="space-y-2.5">
+              <li><Link title={copy.pricing} className={linkStyle} href="/pricing">{copy.pricing}</Link></li>
               <li><Link title={copy.contactUs} className={linkStyle} href="/contact">{copy.contactUs}</Link></li>
               <li><Link title={copy.book} className={linkStyle} href="/contact#contact-location">{copy.book}</Link></li>
               <li><Link title={copy.quote} className={linkStyle} href="/contact#contact-location">{copy.quote}</Link></li>
@@ -109,8 +110,13 @@ export function Footer() {
           </form>
         </section>
 
-        <div className="pt-6 text-center text-xs text-slate-500">
+        <div className="flex flex-col items-center justify-between gap-3 pt-5 text-xs text-slate-500 sm:flex-row sm:gap-6 sm:text-start">
           <p>© 2026 Tahseen Jaber Cold Storage. {copy.copyright}</p>
+          <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 sm:justify-end" aria-label={isArabic ? "السياسات" : "Policies"}>
+            <li>{copy.terms}</li>
+            <li>{copy.privacy}</li>
+            <li>{copy.coldChain}</li>
+          </ul>
         </div>
       </div>
     </footer>

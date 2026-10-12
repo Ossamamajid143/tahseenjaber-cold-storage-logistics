@@ -66,13 +66,28 @@ function cloudNoise(grid: NoiseGrid, x: number, y: number, driftX: number, drift
 }
 
 export type FogIntensity = "strong" | "soft" | "moderate" | "subtle" | "gentle";
+export type FogSpeed = "slow" | "medium" | "fast";
+export type FogDirection = "left" | "right";
 
 interface ColdFogOverlayProps {
   transitionColor?: "#FFFFFF" | "#F7F5F0";
   intensity?: FogIntensity;
+  speed?: FogSpeed;
+  direction?: FogDirection;
+  floorFade?: boolean;
+  edgesOnly?: boolean;
+  opacity?: number;
 }
 
-export function ColdFogOverlay({ transitionColor = "#FFFFFF", intensity = "moderate" }: ColdFogOverlayProps) {
+export function ColdFogOverlay({
+  transitionColor = "#FFFFFF",
+  intensity = "moderate",
+  speed = "medium",
+  direction = "left",
+  floorFade = true,
+  edgesOnly = false,
+  opacity,
+}: ColdFogOverlayProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const bottomFogRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -96,6 +111,7 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF", intensity = "moder
     const rollingClouds = createNoiseGrid(16, 5, 61907);
     let imageData = context.createImageData(canvas.width, canvas.height);
     let frameId = 0;
+    let parallaxFrameId = 0;
     let lastPaint = 0;
     let visible = true;
     let disposed = false;
@@ -106,6 +122,17 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF", intensity = "moder
       } else {
         delete container.dataset.fogRunning;
       }
+    };
+
+    const updateScrollParallax = () => {
+      if (parallaxFrameId || motionReduced || !visible || document.hidden) return;
+      parallaxFrameId = window.requestAnimationFrame(() => {
+        parallaxFrameId = 0;
+        const bounds = container.getBoundingClientRect();
+        const distanceFromViewportCenter = window.innerHeight / 2 - (bounds.top + bounds.height / 2);
+        const offset = Math.max(-14, Math.min(14, distanceFromViewportCenter * 0.012));
+        container.style.setProperty("--fog-parallax-offset", `${offset.toFixed(2)}px`);
+      });
     };
 
     const resizeCanvas = () => {
@@ -181,6 +208,7 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF", intensity = "moder
       visible = entry.isIntersecting;
       syncFullAnimation();
       if (visible) {
+        updateScrollParallax();
         start();
       } else if (frameId) {
         window.cancelAnimationFrame(frameId);
@@ -219,6 +247,8 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF", intensity = "moder
     resizeObserver.observe(container);
     observer.observe(container);
     syncFullAnimation();
+    window.addEventListener("scroll", updateScrollParallax, { passive: true });
+    window.addEventListener("resize", updateScrollParallax, { passive: true });
     document.addEventListener("visibilitychange", handleVisibilityChange);
     reducedMotion.addEventListener("change", handleMotionPreferenceChange);
     start();
@@ -227,9 +257,12 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF", intensity = "moder
       disposed = true;
       observer.disconnect();
       resizeObserver.disconnect();
+      window.removeEventListener("scroll", updateScrollParallax);
+      window.removeEventListener("resize", updateScrollParallax);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       reducedMotion.removeEventListener("change", handleMotionPreferenceChange);
       if (frameId) window.cancelAnimationFrame(frameId);
+      if (parallaxFrameId) window.cancelAnimationFrame(parallaxFrameId);
     };
   }, []);
 
@@ -238,7 +271,11 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF", intensity = "moder
       ref={containerRef}
       aria-hidden="true"
       data-fog-intensity={intensity}
+      data-fog-speed={speed}
+      data-fog-direction={direction}
+      data-fog-placement={edgesOnly ? "edges" : "full"}
       className="pointer-events-none absolute inset-0 z-[1] overflow-hidden"
+      style={opacity === undefined ? undefined : { opacity: Math.max(0, Math.min(1, opacity)) }}
     >
       <div className="cold-fog-fullscreen absolute inset-0">
         <div className="cold-fog-full-layer cold-fog-full-haze absolute" />
@@ -251,7 +288,9 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF", intensity = "moder
         <div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(to top, ${transitionColor} 0%, color-mix(in srgb, ${transitionColor} 82%, transparent) 12%, color-mix(in srgb, ${transitionColor} 48%, transparent) 32%, color-mix(in srgb, ${transitionColor} 10%, transparent) 68%, transparent 100%)`,
+            background: floorFade
+              ? `linear-gradient(to top, color-mix(in srgb, ${transitionColor} 32%, transparent) 0%, color-mix(in srgb, ${transitionColor} 22%, transparent) 18%, color-mix(in srgb, ${transitionColor} 10%, transparent) 42%, color-mix(in srgb, ${transitionColor} 4%, transparent) 70%, transparent 100%)`
+              : "transparent",
           }}
         />
       </div>

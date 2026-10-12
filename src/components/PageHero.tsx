@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useNavbarHeight } from "@/components/useNavbarHeight";
 import { ColdFogOverlay, FogIntensity } from "@/components/ui/ColdFogOverlay";
@@ -11,6 +12,8 @@ interface PageHeroProps {
   title: string;
   badge?: string;
   description?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
   imageSrc?: string;
   imagePosition?: string;
   overlayGradient?: string;
@@ -22,6 +25,8 @@ export function PageHero({
   title,
   badge,
   description,
+  ctaHref,
+  ctaLabel,
   imageSrc = "/images/facility-exterior-wide.png",
   imagePosition = "center 40%",
   overlayGradient,
@@ -78,7 +83,7 @@ export function PageHero({
               </div>
             )}
 
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+            <h1 className="hero-title font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
               {title}
             </h1>
           </div>
@@ -92,6 +97,15 @@ export function PageHero({
               <p className="text-base sm:text-lg text-white leading-relaxed max-w-xl">
                 {description}
               </p>
+            )}
+            {ctaHref && ctaLabel && (
+              <Link
+                href={ctaHref}
+                className="mt-6 inline-flex min-h-12 items-center gap-3 rounded-sm bg-[#B84D1B] px-7 py-3 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-[#9E3F16] hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {ctaLabel}
+                <ArrowRight className={`h-4 w-4 ${isArabic ? "rotate-180" : ""}`} aria-hidden="true" />
+              </Link>
             )}
           </div>
         </div>

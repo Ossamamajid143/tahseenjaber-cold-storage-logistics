@@ -68,7 +68,7 @@ export function HomeHero() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-center">
             {/* Left Title: Company Name */}
             <div className="lg:col-span-5 lg:text-right">
-              <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+              <h1 className="hero-title font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
                 {t.home.hero.title}
               </h1>
               <p className="font-heading text-lg sm:text-xl text-[#D86A2D] mt-2 font-semibold tracking-wider uppercase lg:text-end">

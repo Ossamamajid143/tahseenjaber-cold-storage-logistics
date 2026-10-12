@@ -1,8 +1,7 @@
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { HomeHero } from "@/components/home/HomeHero";
-import { HomePillars3Col } from "@/components/home/HomePillars3Col";
-import { HomeBenefitsCards } from "@/components/home/HomeBenefitsCards";
+import { HomeFacility } from "@/components/home/HomeFacility";
 import { HomeComprehensiveServices } from "@/components/home/HomeComprehensiveServices";
 import { HomeSolutionsShowcase } from "@/components/home/HomeSolutionsShowcase";
 import { HomeContactSection } from "@/components/home/HomeContactSection";
@@ -57,19 +56,16 @@ export default function Home() {
           {/* 1. Industrial Hero with Vertical Split & Chevron Notch */}
           <HomeHero />
 
-          {/* 2. Three-Column Precision Highlights (Screenshot 1) */}
-          <HomePillars3Col />
+          {/* 2. State-of-the-art facility feature */}
+          <HomeFacility />
 
-          {/* 3. Four Value Proposition & Capability Cards */}
-          <HomeBenefitsCards />
-
-          {/* 4. Dark Split Feature: Comprehensive Service Offerings */}
+          {/* 3. Comprehensive service offerings */}
           <HomeComprehensiveServices />
 
-          {/* 5. Cold Storage Solutions & Fresh Produce Showcase */}
+          {/* 4. End-to-end cold-storage services */}
           <HomeSolutionsShowcase />
 
-          {/* 6. Get in Touch Interactive Inquiry Form */}
+          {/* 5. Existing interactive inquiry form */}
           <HomeContactSection />
         </main>
 

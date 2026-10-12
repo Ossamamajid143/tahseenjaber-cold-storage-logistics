@@ -3,56 +3,92 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { PatternDivider } from "@/components/ui/PatternDivider";
+import { Activity, ArrowRight, Package, ShieldCheck, Snowflake, Thermometer } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { useNavbarHeight } from "@/components/useNavbarHeight";
+
+const SERVICE_ICONS = [Thermometer, ShieldCheck, Package, Activity];
 
 export function HomeSolutionsShowcase() {
-  const { t } = useLanguage();
+  const { t, isArabic } = useLanguage();
+  const navbarHeight = useNavbarHeight();
+  const services = [
+    ...t.home.pillars,
+    {
+      tag: isArabic ? "حلول المخزون الذكية" : "Smart Inventory Solutions",
+      title: t.home.benefits[3].title,
+      desc: t.home.benefits[3].desc,
+    },
+  ];
 
   return (
-    <section className="bg-white border-b border-[#E3E8EC]">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        {/* Large, edge-to-edge image column */}
-        <RevealOnScroll
-          animation="image-reveal"
-          duration={900}
-          className="group relative aspect-[4/3] overflow-hidden bg-slate-100 lg:aspect-[1.1/1]"
-        >
-          <Image
-            src="/images/service-cold-storage-leasing.webp"
-            alt="Temperature-controlled cold storage facility for leased warehouse services"
-            fill
-            sizes="(max-width: 1023px) 100vw, 50vw"
-            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-102 motion-reduce:transition-none motion-reduce:scale-100 motion-reduce:transform-none"
-          />
-        </RevealOnScroll>
-
-        {/* Separate content column, vertically centered */}
-        <div className="flex items-center px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-16 xl:px-20 2xl:px-36">
-          <RevealOnScroll animation="fade-up" duration={800} delay={150}>
-            <div className="max-w-xl">
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#B84D1B] leading-tight mb-3">
-                {t.home.solutions.title}
-              </h2>
-
-              <PatternDivider className="mb-6" color="#B84D1B" />
-
-              <p className="text-[#202B35]/85 text-base sm:text-lg leading-relaxed mb-8">
-                {t.home.solutions.desc}
-              </p>
-
-              <div className="mt-8">
-                <Link
-                  href="/services"
-                  className="inline-flex max-w-full items-center justify-center border-2 border-[#B84D1B] bg-white text-[#B84D1B] hover:bg-[#B84D1B] hover:text-white px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-base font-semibold rounded-none transition-colors duration-200"
-                >
-                  <span className="text-center">{t.home.solutions.btn}</span>
-                </Link>
-              </div>
-            </div>
+    <section
+      className="home-end-to-end"
+      dir={isArabic ? "rtl" : "ltr"}
+      style={{ "--home-viewport-height": `calc(100svh - ${navbarHeight}px)` } as React.CSSProperties}
+    >
+      <div className="home-end-to-end-copy">
+        <div className="home-end-to-end-grid" aria-hidden="true" />
+        <div className="home-end-to-end-content">
+          <RevealOnScroll animation="fade-up" duration={750}>
+            <div className="home-end-to-end-kicker"><span />{isArabic ? "خدماتنا" : "Our Services"}</div>
+            <h2 className="home-end-to-end-title">
+              {isArabic ? <>حلول التخزين المبرد <span>المتكاملة</span></> : <>End-to-End<br /><span>Cold Storage</span> Solutions</>}
+            </h2>
           </RevealOnScroll>
+
+          <div className="home-end-to-end-timeline">
+            <span className="home-end-to-end-rail" aria-hidden="true" />
+            {services.map((service, index) => {
+              const Icon = SERVICE_ICONS[index] ?? Package;
+              return (
+                <RevealOnScroll
+                  key={service.title}
+                  className="home-end-to-end-entry"
+                  animation={isArabic ? "slide-right" : "slide-left"}
+                  delay={index * 90}
+                  duration={650}
+                >
+                  <span className="home-end-to-end-icon"><Icon aria-hidden="true" /></span>
+                  <div className="home-end-to-end-entry-copy">
+                    <span className="home-end-to-end-tag">{service.tag}</span>
+                    <h3>{service.title}</h3>
+                    <p>{service.desc}</p>
+                  </div>
+                </RevealOnScroll>
+              );
+            })}
+          </div>
+
+          <Link href="/services" className="home-end-to-end-link">
+            <span>{t.home.solutions.btn}</span>
+            <ArrowRight aria-hidden="true" className={isArabic ? "rotate-180" : ""} />
+          </Link>
+        </div>
+      </div>
+
+      <div className="home-end-to-end-warehouse">
+        <Image
+          src="/images/home-end-to-end-solutions.png"
+          alt={isArabic ? "أبواب غرف التبريد المعزولة ومعدات التبريد ورافعة شوكية في المستودع" : "Insulated cold-room doors, refrigeration equipment, and a forklift inside a cold-storage warehouse"}
+          fill
+          sizes="(max-width: 800px) 100vw, 52vw"
+          className="home-end-to-end-photo"
+        />
+        <div className="home-end-to-end-photo-grade" aria-hidden="true" />
+        <div className="home-end-to-end-floor-mist" aria-hidden="true" />
+        <div className="home-end-to-end-monitor home-end-to-end-monitor-main" aria-label={isArabic ? "واجهة توضيحية لدرجة حرارة التخزين المجمد: ناقص 18 درجة مئوية" : "Illustrative frozen-storage temperature interface: minus 18 degrees Celsius"}>
+          <div className="home-end-to-end-monitor-heading"><Snowflake /><span>{isArabic ? "تخزين مجمد" : "FROZEN STORAGE"}</span></div>
+          <div className="home-end-to-end-monitor-reading"><Snowflake /><strong>−18°C</strong></div>
+          <div className="home-end-to-end-monitor-chart"><svg viewBox="0 0 120 42" aria-hidden="true"><path d="M2 34 17 28 30 31 43 19 57 23 70 10 82 17 96 7 108 11 118 3" /></svg></div>
+          <div className="home-end-to-end-monitor-note">{isArabic ? "قراءة توضيحية" : "Illustrative reading"}</div>
+        </div>
+        <div className="home-end-to-end-monitor home-end-to-end-monitor-secondary" aria-label={isArabic ? "واجهة توضيحية لدرجة حرارة المنطقة المبردة: 3 درجات مئوية" : "Illustrative chilled-zone temperature interface: 3 degrees Celsius"}>
+          <div className="home-end-to-end-monitor-heading"><Thermometer /><span>{isArabic ? "المنطقة المبردة" : "CHILLED ZONE"}</span></div>
+          <div className="home-end-to-end-monitor-reading"><Thermometer /><strong>3°C</strong></div>
+          <div className="home-end-to-end-monitor-chart"><svg viewBox="0 0 120 42" aria-hidden="true"><path d="M2 34 17 28 30 31 43 19 57 23 70 10 82 17 96 7 108 11 118 3" /></svg></div>
+          <div className="home-end-to-end-monitor-note">{isArabic ? "قراءة توضيحية" : "Illustrative reading"}</div>
         </div>
       </div>
     </section>
