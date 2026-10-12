@@ -41,6 +41,7 @@ export default function AboutPage() {
           description={t.about.desc}
           imageSrc="/images/hero-warehouse.jpg"
           imagePosition="center 45%"
+          fogIntensity="soft"
         />
 
         <section className="py-16 sm:py-24 bg-white border-b border-[#E3E8EC]">

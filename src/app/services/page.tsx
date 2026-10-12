@@ -242,6 +242,7 @@ export default function ServicesPage() {
           description={t.servicesPage.heroDesc}
           imageSrc="/images/contact-dock-forklift.jpg"
           imagePosition="center 45%"
+          fogIntensity="moderate"
         />
 
         {/* =====================================================================

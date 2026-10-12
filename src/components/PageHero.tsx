@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { useNavbarHeight } from "@/components/useNavbarHeight";
-import { ColdFogOverlay } from "@/components/ui/ColdFogOverlay";
+import { ColdFogOverlay, FogIntensity } from "@/components/ui/ColdFogOverlay";
 
 interface PageHeroProps {
   title: string;
@@ -15,6 +15,7 @@ interface PageHeroProps {
   imagePosition?: string;
   overlayGradient?: string;
   transitionColor?: "#FFFFFF" | "#F7F5F0";
+  fogIntensity?: FogIntensity;
 }
 
 export function PageHero({
@@ -25,6 +26,7 @@ export function PageHero({
   imagePosition = "center 40%",
   overlayGradient,
   transitionColor = "#FFFFFF",
+  fogIntensity = "moderate",
 }: PageHeroProps) {
   const { t, isArabic } = useLanguage();
   const navbarHeight = useNavbarHeight();
@@ -62,7 +64,7 @@ export function PageHero({
           />
         )}
 
-        <ColdFogOverlay transitionColor={transitionColor} />
+        <ColdFogOverlay transitionColor={transitionColor} intensity={fogIntensity} />
       </div>
 
       {/* Main Hero Content */}

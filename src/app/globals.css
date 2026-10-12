@@ -105,3 +105,97 @@ html[lang="ar"] .font-heading {
     display: none;
   }
 }
+
+/* Lightweight full-hero atmosphere layered above the original bottom fog. */
+.cold-fog-fullscreen {
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.cold-fog-full-layer {
+  pointer-events: none;
+  backface-visibility: hidden;
+  animation-play-state: paused;
+}
+
+.cold-fog-full-haze {
+  inset: -9%;
+  background:
+    linear-gradient(to top, rgba(210, 229, 243, 0.2) 0%, rgba(203, 223, 239, 0.1) 31%, transparent 78%),
+    radial-gradient(ellipse at 12% 91%, rgba(221, 237, 248, 0.42) 0%, rgba(190, 214, 233, 0.18) 24%, transparent 57%),
+    radial-gradient(ellipse at 84% 86%, rgba(224, 239, 248, 0.38) 0%, rgba(193, 216, 234, 0.16) 26%, transparent 56%),
+    radial-gradient(ellipse at 43% 68%, rgba(215, 232, 245, 0.3) 0%, rgba(190, 212, 230, 0.12) 25%, transparent 52%),
+    radial-gradient(ellipse at 76% 47%, rgba(216, 233, 245, 0.2) 0%, transparent 47%),
+    radial-gradient(ellipse at 28% 35%, rgba(213, 231, 244, 0.12) 0%, transparent 42%);
+  animation: full-fog-haze-drift 29s ease-in-out infinite alternate;
+}
+
+.cold-fog-full-mid {
+  inset: -25% -35%;
+  background:
+    radial-gradient(ellipse at 17% 91%, rgba(226, 240, 249, 0.45) 0%, rgba(194, 217, 235, 0.16) 29%, transparent 58%),
+    radial-gradient(ellipse at 76% 78%, rgba(221, 238, 248, 0.4) 0%, rgba(192, 215, 233, 0.15) 27%, transparent 56%),
+    radial-gradient(ellipse at 49% 58%, rgba(217, 234, 246, 0.27) 0%, transparent 49%),
+    url("/images/bg-fog-bottom.png") center bottom / 100% auto no-repeat;
+  filter: blur(5px);
+  animation: full-fog-mid-drift 19s ease-in-out infinite alternate;
+}
+
+.cold-fog-full-front {
+  inset: -32% -43%;
+  background:
+    radial-gradient(ellipse at 8% 87%, rgba(227, 240, 249, 0.4) 0%, rgba(196, 218, 235, 0.14) 25%, transparent 54%),
+    radial-gradient(ellipse at 92% 76%, rgba(223, 238, 248, 0.38) 0%, rgba(192, 215, 233, 0.14) 26%, transparent 55%),
+    radial-gradient(ellipse at 55% 55%, rgba(218, 235, 247, 0.23) 0%, transparent 46%);
+  filter: blur(8px);
+  animation: full-fog-front-drift 14s ease-in-out infinite alternate;
+}
+
+[data-fog-intensity="strong"] .cold-fog-full-haze { opacity: 0.76; }
+[data-fog-intensity="strong"] .cold-fog-full-mid { opacity: 0.28; }
+[data-fog-intensity="strong"] .cold-fog-full-front { opacity: 0.2; }
+[data-fog-intensity="soft"] .cold-fog-full-haze { opacity: 0.46; }
+[data-fog-intensity="soft"] .cold-fog-full-mid { opacity: 0.16; }
+[data-fog-intensity="soft"] .cold-fog-full-front { opacity: 0.11; }
+[data-fog-intensity="moderate"] .cold-fog-full-haze { opacity: 0.62; }
+[data-fog-intensity="moderate"] .cold-fog-full-mid { opacity: 0.22; }
+[data-fog-intensity="moderate"] .cold-fog-full-front { opacity: 0.16; }
+[data-fog-intensity="subtle"] .cold-fog-full-haze { opacity: 0.35; }
+[data-fog-intensity="subtle"] .cold-fog-full-mid { opacity: 0.12; }
+[data-fog-intensity="subtle"] .cold-fog-full-front { opacity: 0.08; }
+[data-fog-intensity="gentle"] .cold-fog-full-haze { opacity: 0.4; }
+[data-fog-intensity="gentle"] .cold-fog-full-mid { opacity: 0.14; }
+[data-fog-intensity="gentle"] .cold-fog-full-front { opacity: 0.09; }
+
+[data-fog-running="true"] .cold-fog-full-haze,
+[data-fog-running="true"] .cold-fog-full-mid,
+[data-fog-running="true"] .cold-fog-full-front {
+  animation-play-state: running;
+}
+
+@keyframes full-fog-haze-drift {
+  0% { transform: translate3d(-1.5%, 2%, 0) scale(1.02); }
+  52% { transform: translate3d(0.5%, -1%, 0) scale(1.06); }
+  100% { transform: translate3d(2%, -3%, 0) scale(1.03); }
+}
+
+@keyframes full-fog-mid-drift {
+  0% { transform: translate3d(3%, 3%, 0) scale(1.03); }
+  100% { transform: translate3d(-3%, -5%, 0) scale(1.08); }
+}
+
+@keyframes full-fog-front-drift {
+  0% { transform: translate3d(-4%, 2%, 0) scale(1.05); }
+  100% { transform: translate3d(4%, -6%, 0) scale(1.1); }
+}
+
+@media (max-width: 640px) {
+  .cold-fog-full-mid,
+  .cold-fog-full-front { filter: blur(8px); }
+  [data-fog-intensity="strong"] .cold-fog-full-mid { opacity: 0.2; }
+  [data-fog-intensity="strong"] .cold-fog-full-front { opacity: 0.14; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cold-fog-full-layer { animation: none !important; }
+}

@@ -15,14 +15,14 @@ export function Footer() {
   const copy = isArabic ? {
     description: "مرافق تخزين مبرد وخدمات لوجستية لسلسلة التبريد في بغداد.",
     capabilities: "الخدمات", frozen: "التخزين المجمد والمبرد", pharma: "غرف المنتجات الدوائية", monitoring: "المراقبة",
-    contact: "التواصل", facility: "المنشأة", frozenFacility: "المجمد", dryGoods: "البضائع الجافة", chiller: "المبرد", pharmaceutical: "الأدوية", monitoring: "المراقبة", company: "الشركة",
+    contact: "التواصل", facility: "المنشأة", frozenFacility: "المجمد", dryGoods: "البضائع الجافة", chiller: "المبرد", pharmaceutical: "الأدوية", facilityMonitoring: "المراقبة", company: "الشركة",
     book: "ترتيب زيارة للمنشأة", quote: "طلب عرض سعر", contactUs: "اتصل بنا",
     updates: "تحديثات السعة وسلسلة التبريد", updatesDesc: "رسالة واحدة شهرياً: السعة المتاحة والغرف الجديدة والإرشادات الموسمية.", unavailable: "الاشتراك بالبريد الإلكتروني غير متاح حالياً.", emailPlaceholder: "you@company.com", subscribe: "اشتراك",
     copyright: "جميع الحقوق محفوظة.",
   } : {
     description: "Temperature-controlled warehousing and cold-chain logistics in Baghdad.",
     capabilities: "Capabilities", frozen: "Frozen & chilled storage", pharma: "Pharmaceutical rooms", monitoring: "Monitoring",
-    contact: "Contact", facility: "Facility", frozenFacility: "Frozen", dryGoods: "Dry goods", chiller: "Chiller", pharmaceutical: "Pharmaceutical", monitoring: "Monitoring", company: "Company",
+    contact: "Contact", facility: "Facility", frozenFacility: "Frozen", dryGoods: "Dry goods", chiller: "Chiller", pharmaceutical: "Pharmaceutical", facilityMonitoring: "Monitoring", company: "Company",
     book: "Book a site visit", quote: "Request a quotation", contactUs: "Contact",
     updates: "Capacity and cold-chain updates", updatesDesc: "One email a month: available capacity, new rooms, seasonal guidance.", unavailable: "Email subscriptions are not available yet.", emailPlaceholder: "you@company.com", subscribe: "Subscribe",
     copyright: "All rights reserved.",
@@ -83,7 +83,7 @@ export function Footer() {
               <li><Link title={copy.dryGoods} className={linkStyle} href="/services">{copy.dryGoods}</Link></li>
               <li><Link title={copy.chiller} className={linkStyle} href="/services">{copy.chiller}</Link></li>
               <li><Link title={copy.pharmaceutical} className={linkStyle} href="/services">{copy.pharmaceutical}</Link></li>
-              <li><Link title={copy.monitoring} className={linkStyle} href="/services">{copy.monitoring}</Link></li>
+              <li><Link title={copy.facilityMonitoring} className={linkStyle} href="/services">{copy.facilityMonitoring}</Link></li>
             </ul>
           </section>
 

@@ -59,7 +59,7 @@ export function HomeHero() {
           }}
         />
 
-        <ColdFogOverlay />
+        <ColdFogOverlay intensity="strong" />
       </div>
 
       {/* Main Hero Content */}

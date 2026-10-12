@@ -57,6 +57,7 @@ export default function ContactPage() {
           description={t.contact.desc}
           imageSrc="/images/services-contact-warehouse.jpg"
           imagePosition="center 40%"
+          fogIntensity="gentle"
         />
 
         {/* =====================================================================

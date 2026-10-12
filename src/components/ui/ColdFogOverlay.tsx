@@ -65,19 +65,24 @@ function cloudNoise(grid: NoiseGrid, x: number, y: number, driftX: number, drift
   return total / weight;
 }
 
+export type FogIntensity = "strong" | "soft" | "moderate" | "subtle" | "gentle";
+
 interface ColdFogOverlayProps {
   transitionColor?: "#FFFFFF" | "#F7F5F0";
+  intensity?: FogIntensity;
 }
 
-export function ColdFogOverlay({ transitionColor = "#FFFFFF" }: ColdFogOverlayProps) {
+export function ColdFogOverlay({ transitionColor = "#FFFFFF", intensity = "moderate" }: ColdFogOverlayProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const bottomFogRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
+    const bottomFog = bottomFogRef.current;
     const canvas = canvasRef.current;
     const context = canvas?.getContext("2d", { alpha: true });
-    if (!container || !canvas) return;
+    if (!container || !bottomFog || !canvas) return;
     if (!context) {
       container.dataset.fogStatic = "true";
       return;
@@ -95,9 +100,19 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF" }: ColdFogOverlayPr
     let visible = true;
     let disposed = false;
 
+    const syncFullAnimation = () => {
+      if (visible && !motionReduced && !document.hidden) {
+        container.dataset.fogRunning = "true";
+      } else {
+        delete container.dataset.fogRunning;
+      }
+    };
+
     const resizeCanvas = () => {
+      // Render the same rolling fog over the whole hero. The alpha profile in
+      // render() keeps it strongest at the bottom and lets it thin as it rises.
       const width = Math.max(220, Math.min(520, Math.ceil(container.clientWidth * 0.38)));
-      const height = Math.max(44, Math.ceil(container.clientHeight * 0.4));
+      const height = Math.max(80, Math.min(220, Math.ceil(container.clientHeight * 0.36)));
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width;
         canvas.height = height;
@@ -121,9 +136,7 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF" }: ColdFogOverlayPr
 
         for (let y = 0; y < height; y += 1) {
           const vertical = y / (height - 1);
-          const risingFade =
-            smoothstep((vertical - 0.08) / 0.58) *
-            (1 - smoothstep((vertical - 0.72) / 0.28));
+          const risingFade = smoothstep((vertical - 0.08) / 0.82);
           for (let x = 0; x < width; x += 1) {
             const horizontal = x / width;
             const first = cloudNoise(
@@ -166,6 +179,7 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF" }: ColdFogOverlayPr
 
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
+      syncFullAnimation();
       if (visible) {
         start();
       } else if (frameId) {
@@ -175,6 +189,7 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF" }: ColdFogOverlayPr
     });
 
     const handleVisibilityChange = () => {
+      syncFullAnimation();
       if (document.hidden && frameId) {
         window.cancelAnimationFrame(frameId);
         frameId = 0;
@@ -185,6 +200,7 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF" }: ColdFogOverlayPr
 
     const handleMotionPreferenceChange = (event: MediaQueryListEvent) => {
       motionReduced = event.matches;
+      syncFullAnimation();
       if (motionReduced) {
         container.dataset.fogStatic = "true";
         if (frameId) {
@@ -198,8 +214,11 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF" }: ColdFogOverlayPr
       }
     };
 
+    const resizeObserver = new ResizeObserver(resizeCanvas);
     resizeCanvas();
+    resizeObserver.observe(container);
     observer.observe(container);
+    syncFullAnimation();
     document.addEventListener("visibilitychange", handleVisibilityChange);
     reducedMotion.addEventListener("change", handleMotionPreferenceChange);
     start();
@@ -207,6 +226,7 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF" }: ColdFogOverlayPr
     return () => {
       disposed = true;
       observer.disconnect();
+      resizeObserver.disconnect();
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       reducedMotion.removeEventListener("change", handleMotionPreferenceChange);
       if (frameId) window.cancelAnimationFrame(frameId);
@@ -217,16 +237,24 @@ export function ColdFogOverlay({ transitionColor = "#FFFFFF" }: ColdFogOverlayPr
     <div
       ref={containerRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[100px] overflow-hidden sm:h-[135px] lg:h-[170px]"
+      data-fog-intensity={intensity}
+      className="pointer-events-none absolute inset-0 z-[1] overflow-hidden"
     >
-      <div className="cold-fog-static absolute inset-x-[-5%] bottom-0 hidden h-[86%] bg-[url('/images/bg-fog-bottom.png')] bg-repeat-x opacity-40 [background-size:auto_100%]" />
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `linear-gradient(to top, ${transitionColor} 0%, color-mix(in srgb, ${transitionColor} 82%, transparent) 12%, color-mix(in srgb, ${transitionColor} 48%, transparent) 32%, color-mix(in srgb, ${transitionColor} 10%, transparent) 68%, transparent 100%)`,
-        }}
-      />
-      <canvas ref={canvasRef} className="cold-fog-canvas absolute inset-0 h-full w-full" />
+      <div className="cold-fog-fullscreen absolute inset-0">
+        <div className="cold-fog-full-layer cold-fog-full-haze absolute" />
+        <div className="cold-fog-full-layer cold-fog-full-mid absolute" />
+        <div className="cold-fog-full-layer cold-fog-full-front absolute" />
+      </div>
+      <canvas ref={canvasRef} className="cold-fog-canvas absolute inset-0 z-[2] h-full w-full" />
+      <div ref={bottomFogRef} className="absolute inset-x-0 bottom-0 z-[2] h-[100px] overflow-hidden sm:h-[135px] lg:h-[170px]">
+        <div className="cold-fog-static absolute inset-x-[-5%] bottom-0 hidden h-[86%] bg-[url('/images/bg-fog-bottom.png')] bg-repeat-x opacity-40 [background-size:auto_100%]" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to top, ${transitionColor} 0%, color-mix(in srgb, ${transitionColor} 82%, transparent) 12%, color-mix(in srgb, ${transitionColor} 48%, transparent) 32%, color-mix(in srgb, ${transitionColor} 10%, transparent) 68%, transparent 100%)`,
+          }}
+        />
+      </div>
     </div>
   );
 }
