@@ -57,6 +57,12 @@ export default function ContactPage() {
           description={t.contact.desc}
           imageSrc="/images/services-contact-warehouse.jpg"
           imagePosition="center 40%"
+          slides={[
+            { src: "/images/services-contact-warehouse.jpg", alt: isArabic ? "منشأة تخزين مبرد لاستقبال البضائع" : "Cold storage facility ready to receive goods", position: "center 40%", mobilePosition: "58% center" },
+            { src: "/images/facility-entrance-signage.png", alt: isArabic ? "مدخل منشأة تحسين جابر للتخزين المبرد" : "Entrance to the Tahseen Jaber cold storage facility", position: "center 50%", mobilePosition: "60% center" },
+            { src: "/images/contact-dock-forklift.jpg", alt: isArabic ? "رافعة شوكية تنقل بضائع عند منطقة التحميل" : "Forklift moving goods at a loading area", position: "center 48%", mobilePosition: "60% center" },
+            { src: "/images/facility-exterior-wide.png", alt: isArabic ? "الواجهة الخارجية لمنشأة التخزين المبرد" : "Cold storage facility exterior", position: "center 46%", mobilePosition: "63% center" },
+          ]}
           fogIntensity="gentle"
         />
 
@@ -348,7 +354,7 @@ export default function ContactPage() {
               {t.contact.closingTestimonial}
             </p>
             <Image
-              src={SITE_CONFIG.logoPath}
+              src="/tahseen-jaber-logo.jpeg"
               alt="Tahseen Jaber Cold Storage"
               width={898}
               height={247}

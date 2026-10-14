@@ -7,6 +7,7 @@ import { Activity, ArrowRight, Package, ShieldCheck, Snowflake, Thermometer } fr
 import { useLanguage } from "@/context/LanguageContext";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useNavbarHeight } from "@/components/useNavbarHeight";
+import { HomeSectionEdgeFog } from "@/components/home/HomeSectionEdgeFog";
 
 const SERVICE_ICONS = [Thermometer, ShieldCheck, Package, Activity];
 
@@ -24,10 +25,11 @@ export function HomeSolutionsShowcase() {
 
   return (
     <section
-      className="home-end-to-end"
+      className="home-end-to-end relative isolate"
       dir={isArabic ? "rtl" : "ltr"}
       style={{ "--home-viewport-height": `calc(100svh - ${navbarHeight}px)` } as React.CSSProperties}
     >
+      <HomeSectionEdgeFog direction="left" />
       <div className="home-end-to-end-copy">
         <div className="home-end-to-end-grid" aria-hidden="true" />
         <div className="home-end-to-end-content">

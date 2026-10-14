@@ -6,10 +6,10 @@ import Link from "next/link";
 import {
   ArrowRight,
   Info,
-  Warehouse,
   Truck,
-  Globe,
   PackageCheck,
+  Snowflake,
+  Thermometer,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -18,11 +18,17 @@ import { PatternDivider } from "@/components/ui/PatternDivider";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useLanguage } from "@/context/LanguageContext";
 import { SITE_CONFIG } from "@/data/site-content";
+import { CapabilitiesCards } from "@/components/CapabilitiesCards";
+
+const CONTINUE_IMAGES = [
+  "/images/about-cold-storage-room.webp",
+  "/images/temperature-storage.jpg",
+  "/images/refrigeration-tech.jpg",
+] as const;
+const PROCESS_ICONS = [Truck, Snowflake, Thermometer, PackageCheck] as const;
 
 export default function AboutPage() {
-  const { t } = useLanguage();
-
-  const solutionIcons = [Warehouse, Truck, Globe, PackageCheck];
+  const { t, isArabic } = useLanguage();
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
@@ -33,15 +39,22 @@ export default function AboutPage() {
             1. HERO SECTION
             Background: Real Cold-store / warehouse / refrigerated facility photo
             Title: Reliable Cold Storage & Cold Chain Solutions in Iraq
-            Subtitle: Providing professional cold storage, temperature-controlled 
-            handling, and cold-chain solutions for businesses across Iraq.
+            Subtitle: Reliable Frozen, Chiller, and Dry storage in Baghdad.
         ====================================================================== */}
         <PageHero
           title={t.about.badge}
           description={t.about.desc}
-          imageSrc="/images/hero-warehouse.jpg"
-          imagePosition="center 45%"
+          imageSrc="/images/temperature-storage.jpg"
+          imagePosition="center 48%"
+          slides={[
+            { src: "/images/about-cold-storage-room.webp", alt: isArabic ? "غرفة تخزين مبردة مرتبة" : "Organized refrigerated storage room", position: "center 48%", mobilePosition: "58% center" },
+            { src: "/images/temperature-storage.jpg", alt: isArabic ? "منصات مخزنة في مستودع بارد" : "Pallets stored in a cold warehouse", position: "center 46%", mobilePosition: "60% center" },
+            { src: "/images/services-customized.jpg", alt: isArabic ? "فريق يتعامل مع البضائع داخل مستودع" : "Team handling goods inside a warehouse", position: "center 50%", mobilePosition: "62% center" },
+            { src: "/images/home-services-workers.png", alt: isArabic ? "مناولة منتجات في غرفة تخزين مبردة" : "Products handled inside refrigerated storage", position: "center 50%", mobilePosition: "56% center" },
+          ]}
           fogIntensity="soft"
+          layout="left"
+          overlayGradient="linear-gradient(90deg, rgba(6,22,40,0.78) 0%, rgba(10,35,64,0.48) 58%, rgba(6,22,40,0.18) 100%), linear-gradient(180deg, rgba(6,22,40,0.05) 0%, rgba(6,22,40,0.22) 100%)"
         />
 
         <section className="py-16 sm:py-24 bg-white border-b border-[#E3E8EC]">
@@ -148,59 +161,63 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* The four business services use the existing About card pattern. */}
-        <section id="cold-chain-solutions" className="scroll-mt-24 py-20 sm:py-28 bg-[#F7F5F0] border-b border-[#E3E8EC]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <CapabilitiesCards />
+
+        <section className="overflow-hidden border-b border-[#E3E8EC] bg-white py-16 sm:py-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <RevealOnScroll animation="fade-up" duration={800}>
-              <div className="max-w-3xl mb-14">
-                <span className="text-xs font-semibold uppercase tracking-widest text-[#B84D1B] block mb-3">
-                  {t.about.servicesBadge}
-                </span>
-                <h2 className="font-heading text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#0A2340] leading-tight mb-4">
-                  {t.about.servicesHeading}
-                </h2>
-                <PatternDivider className="mb-6" color="#B84D1B" />
-                <p className="text-[#66717C] text-base sm:text-lg leading-relaxed">
-                  {t.about.servicesSub}
-                </p>
+              <div className="mb-10 max-w-3xl">
+                <span className="mb-3 block text-xs font-semibold uppercase tracking-[0.2em] text-[#12345B]">{isArabic ? "عملية التخزين" : "COLD CHAIN PROCESS"}</span>
+                <h2 className="font-heading text-3xl font-bold leading-tight text-[#0A2340] sm:text-4xl">{t.about.processTitle}</h2>
+                <PatternDivider className="mt-5" color="#B84D1B" />
               </div>
             </RevealOnScroll>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-              {t.about.solutions.map((item, idx) => {
-                const Icon = solutionIcons[idx];
+            <div dir={isArabic ? "rtl" : "ltr"} className="relative grid grid-cols-1 gap-7 lg:grid-cols-4 lg:gap-6">
+              <div aria-hidden="true" className="absolute bottom-8 top-8 start-[27px] w-px bg-[#D8B39F] lg:start-[6%] lg:end-[6%] lg:top-[27px] lg:h-px lg:w-auto" />
+              {t.about.processStages.map((stage, index) => {
+                const Icon = PROCESS_ICONS[index];
                 return (
-                  <RevealOnScroll
-                    key={item.title}
-                    animation="fade-up"
-                    delay={idx * 120}
-                    className="h-full"
-                  >
-                    <div className="bg-white rounded-[12px] p-8 sm:p-10 border border-[#E3E8EC] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full group hover:-translate-y-1">
-                      <div>
-                        <div className="w-14 h-14 rounded-[10px] bg-[#EEF5F8] border border-[#D8E6ED] flex items-center justify-center mb-6 shadow-xs group-hover:scale-105 transition-transform">
-                          <Icon aria-hidden="true" className="w-7 h-7 text-[#B84D1B]" />
+                  <RevealOnScroll key={stage.title} animation="fade-up" duration={700} delay={index * 100} className="relative z-10">
+                    <article className="group grid grid-cols-[56px_minmax(0,1fr)] gap-x-4 lg:block">
+                      <div className={`relative z-10 flex h-14 w-14 items-center justify-center rounded-xl border transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-md lg:mx-auto lg:mb-5 ${index === 1 ? "border-[#12345B] bg-[#12345B] text-white shadow-md" : "border-[#D8E6ED] bg-white text-[#12345B]"}`}>
+                        <Icon aria-hidden="true" className="h-6 w-6" />
+                      </div>
+                      <div className="pb-1 lg:text-center">
+                        <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8A95A0]">{isArabic ? `المرحلة ${index + 1}` : `STAGE ${index + 1}`}</p>
+                        <h3 className="mb-2 font-heading text-lg font-bold leading-snug text-[#0A2340] sm:text-xl">{stage.title}</h3>
+                        <p className="text-sm leading-relaxed text-[#66717C] lg:min-h-[120px]">{stage.description}</p>
+                        <div className="mt-4 flex flex-wrap gap-2 border-t border-[#E3E8EC] pt-3 lg:justify-center">
+                          {stage.temperatures.length ? stage.temperatures.map((value) => <span key={value} className="rounded-full bg-[#F7F5F0] px-2.5 py-1 text-xs font-semibold text-[#A34A21]">{value}</span>) : <span className="text-sm font-semibold text-[#A34A21]">{stage.temperature}</span>}
+                          {stage.detail && <span className="ms-auto text-xs text-[#8A95A0] lg:ms-0">{stage.detail}</span>}
                         </div>
-
-                        <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-3">
-                          {item.title}
-                        </h3>
-
-                        <p className="text-[#66717C] text-[15px] sm:text-base leading-relaxed mb-8">
-                          {item.desc}
-                        </p>
                       </div>
+                    </article>
+                  </RevealOnScroll>
+                );
+              })}
+            </div>
+          </div>
+        </section>
 
-                      <div className="pt-2 border-t border-[#F0F4F7]">
-                        <Link
-                          href={item.href}
-                          className="inline-flex items-center gap-2 text-sm font-semibold text-[#12345B] hover:text-[#B84D1B] transition-colors group/btn pt-3"
-                        >
-                          <span>{t.about.readMore}</span>
-                          <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1 rtl:rotate-180" />
-                        </Link>
-                      </div>
-                    </div>
+        <section className="bg-white py-14 sm:py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
+              <h2 className="font-heading text-2xl font-bold text-[#0A2340] sm:text-3xl">{t.about.continueTitle}</h2>
+              <Link href="/services#contact" className="inline-flex items-center gap-2 rounded-sm border border-[#D1D7DD] px-5 py-3 text-sm font-semibold text-[#0A2340] transition-colors hover:border-[#B84D1B] hover:text-[#B84D1B]">
+                {t.about.continueCta}<ArrowRight className="h-4 w-4 rtl:rotate-180" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {t.about.continueTiles.map((label, index) => {
+                const href = ["/about#capabilities", "/temperature-regimes", "/monitoring"][index];
+                return (
+                  <RevealOnScroll key={label} animation="fade-up" duration={700} delay={index * 100}>
+                    <Link href={href} className="group relative flex min-h-[220px] items-end overflow-hidden rounded-xl border border-[#DDE3E8] sm:min-h-[260px]">
+                      <Image src={CONTINUE_IMAGES[index]} alt={label} fill sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none" />
+                      <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0A2340]/85 via-[#0A2340]/15 to-transparent" />
+                      <span className="relative flex items-center gap-2 p-5 font-heading text-xl font-bold text-white">{label}<ArrowRight className="h-5 w-5 rtl:rotate-180" /></span>
+                    </Link>
                   </RevealOnScroll>
                 );
               })}

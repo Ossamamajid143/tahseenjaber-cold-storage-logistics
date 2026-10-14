@@ -10,6 +10,7 @@ import {
   Warehouse,
   Snowflake,
   Thermometer,
+  MapPin,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -27,12 +28,12 @@ const SERVICE_SECTION_IMAGES = [
 ] as const;
 
 const FACILITY_GALLERY_IMAGES = [
+  "/images/cold-storage-warehouse-floor.jpg",
   "/images/about-cold-storage-room.webp",
   "/images/refrigeration-tech.jpg",
+  "/images/temperature-storage.jpg",
+  "/images/cold-storage-operations.jpg",
   "/images/facility-loading-bays.png",
-  "/images/cold-storage-warehouse-floor.jpg",
-  "/images/facility-exterior-wide.png",
-  "/images/facility-front-entry-truck.png",
 ] as const;
 
 // Vectors matching user request and website theme (Navy #0A2340, Rust #B84D1B, Slate, Ice)
@@ -240,9 +241,16 @@ export default function ServicesPage() {
         <PageHero
           title={t.servicesPage.heroTitle}
           description={t.servicesPage.heroDesc}
-          imageSrc="/images/contact-dock-forklift.jpg"
+          imageSrc="/images/temperature-storage.jpg"
           imagePosition="center 45%"
+          slides={[
+            { src: "/images/temperature-storage.jpg", alt: language === "AR" ? "منصات تخزين داخل مستودع مبرد" : "Pallet storage inside a refrigerated warehouse", position: "center 45%", mobilePosition: "58% center" },
+            { src: "/images/cold-storage-warehouse-floor.jpg", alt: language === "AR" ? "ممر تخزين بارد مع منصات منظمة" : "Cold storage aisle with organized pallets", position: "center 50%", mobilePosition: "64% center" },
+            { src: "/images/facility-loading-bays.png", alt: language === "AR" ? "منطقة تحميل في منشأة تخزين مبرد" : "Loading area at a cold storage facility", position: "center 48%", mobilePosition: "56% center" },
+            { src: "/images/home-facility-cinematic.png", alt: language === "AR" ? "داخل منشأة تخزين مبرد" : "Interior of a refrigerated storage facility", position: "center 52%", mobilePosition: "62% center" },
+          ]}
           fogIntensity="moderate"
+          layout="left"
         />
 
         {/* =====================================================================
@@ -428,9 +436,14 @@ export default function ServicesPage() {
               </p>
             </div>
 
-            <h3 id="facility-gallery" className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6 scroll-mt-24">
-              {t.servicesPage.facilitySection.galleryTitle}
-            </h3>
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+              <h3 id="facility-gallery" className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] scroll-mt-24">
+                {t.servicesPage.facilitySection.galleryTitle}
+              </h3>
+              <a href="#contact" onClick={scrollToContact} className="inline-flex items-center gap-2 text-sm font-semibold text-[#0A2340] hover:text-[#B84D1B]">
+                {t.servicesPage.facilityVisitCta}<ArrowRight className="h-4 w-4 rtl:rotate-180" />
+              </a>
+            </div>
             <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
               {t.servicesPage.facilitySection.gallery.map((item, index) => (
                 <article key={item.title} className="group overflow-hidden rounded-lg border border-[#E3E8EC] bg-white shadow-xs hover:shadow-md transition-shadow duration-300">
@@ -450,10 +463,46 @@ export default function ServicesPage() {
               ))}
             </div>
 
+
+            <div id="facility-infrastructure" className="mt-14 sm:mt-16 border-t border-[#DDE3E8] pt-8 scroll-mt-24">
+              <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
+                <div>
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6">
+                {t.servicesPage.facilitySection.infrastructureTitle}
+              </h3>
+              <p className="mb-6 max-w-4xl text-base leading-relaxed text-[#66717C] sm:text-lg">
+                {t.servicesPage.facilitySection.infrastructureDescription}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                {t.servicesPage.facilitySection.infrastructure.map((area) => (
+                  <div key={area.name} className="border-b border-[#DDE3E8] py-3">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-[#B84D1B] mb-1">{area.category}</p>
+                    <p className="font-heading text-base sm:text-lg font-semibold text-[#0A2340]">{area.name}</p>
+                  </div>
+                ))}
+              </div>
+                </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5" aria-label={t.servicesPage.facilitySection.infrastructureImagesLabel}>
+                <figure className="relative min-h-[240px] overflow-hidden rounded-lg border border-[#DDE3E8] sm:col-span-2 sm:min-h-[340px]">
+                  <Image src="/images/temperature-storage.jpg" alt={t.servicesPage.facilitySection.infrastructureImages[0]} fill sizes="(max-width: 639px) 100vw, 80vw" className="object-cover" />
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0A2340]/90 to-transparent px-5 pb-5 pt-12 font-semibold text-white">{t.servicesPage.facilitySection.infrastructureImages[0]}</figcaption>
+                </figure>
+                <figure className="relative min-h-[210px] overflow-hidden rounded-lg border border-[#DDE3E8]">
+                  <Image src="/images/about-cold-storage-room.webp" alt={t.servicesPage.facilitySection.infrastructureImages[1]} fill sizes="(max-width: 639px) 100vw, 40vw" className="object-cover" />
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0A2340]/90 to-transparent px-5 pb-4 pt-10 font-semibold text-white">{t.servicesPage.facilitySection.infrastructureImages[1]}</figcaption>
+                </figure>
+                <figure className="relative min-h-[210px] overflow-hidden rounded-lg border border-[#DDE3E8]">
+                  <Image src="/images/cold-storage-warehouse-floor.jpg" alt={t.servicesPage.facilitySection.infrastructureImages[2]} fill sizes="(max-width: 639px) 100vw, 40vw" className="object-cover" />
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0A2340]/90 to-transparent px-5 pb-4 pt-10 font-semibold text-white">{t.servicesPage.facilitySection.infrastructureImages[2]}</figcaption>
+                </figure>
+              </div>
+              </div>
+            </div>
+          </div>
             <section
               ref={specificationsRef}
               aria-labelledby="facility-specifications-heading"
-              className="relative left-1/2 -ml-[50vw] mt-10 w-screen bg-[#F7F5F0] py-8 arch-grid-pattern sm:mt-12 sm:py-10"
+              className="relative left-1/2 -ml-[50vw] mt-10 w-screen bg-white py-8 sm:mt-12 sm:py-10"
             >
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <h3
@@ -462,30 +511,23 @@ export default function ServicesPage() {
                 >
                   {t.servicesPage.facilitySection.specificationsTitle}
                 </h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 sm:gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                   {t.servicesPage.facilitySection.specifications.map((specification, index) => {
-                    const Icon = [Warehouse, Snowflake, Thermometer][index];
+                    const Icon = [Warehouse, Snowflake, Thermometer, MapPin][index];
                     return (
                       <article
                         key={specification.label}
-                        className="flex h-full min-h-[165px] flex-col rounded-lg border border-[#E3E8EC] bg-white p-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-6"
+                        className={`flex min-h-[150px] flex-col items-center justify-center px-4 py-5 text-center sm:px-5 lg:min-h-[175px] ${index > 0 ? "border-t border-[#DDE3E8] sm:border-t-0 sm:border-l" : ""} ${index === 2 ? "lg:border-l-0" : ""} ${index === 3 ? "lg:border-l" : ""}`}
                       >
                         <Icon
-                          className="mb-4 h-7 w-7 shrink-0 text-[#B84D1B] stroke-[1.75]"
+                          className="mb-3 h-7 w-7 shrink-0 text-[#B84D1B] stroke-[1.75]"
                           aria-hidden="true"
                         />
-                        <p className="min-h-[1.2em] font-heading text-[28px] font-bold leading-tight text-[#0A2340] tabular-nums sm:text-3xl lg:text-[32px] xl:text-4xl">
-                          {index === 0 && (
-                            <span className="whitespace-nowrap">
-                              {specificationCounts.pallets} Pallets
-                            </span>
-                          )}
+                        <p className={`min-h-[1.2em] font-heading font-bold leading-tight text-[#0A2340] ${index === 2 ? "text-lg sm:text-xl" : index === 3 ? "text-xl sm:text-2xl" : "text-[28px] tabular-nums sm:text-3xl lg:text-[32px]"}`}>
+                          {index === 0 && <span className="whitespace-nowrap">{specificationCounts.pallets}</span>}
                           {index === 1 && specificationCounts.coldRooms}
-                          {index === 2 && (
-                            <span>
-                              {specificationCounts.lowerTemperature}°C to +{specificationCounts.upperTemperature}°C
-                            </span>
-                          )}
+                          {index === 2 && "FROZEN / CHILLED / DRY"}
+                          {index === 3 && "Baghdad, Iraq"}
                         </p>
                         <p className="mt-1.5 text-[15px] leading-relaxed text-[#66717C] sm:text-base">
                           {specification.label}
@@ -497,18 +539,25 @@ export default function ServicesPage() {
               </div>
             </section>
 
-            <div id="facility-infrastructure" className="mt-14 sm:mt-16 border-t border-[#DDE3E8] pt-8 scroll-mt-24">
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#0A2340] mb-6">
-                {t.servicesPage.facilitySection.infrastructureTitle}
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                {t.servicesPage.facilitySection.infrastructure.map((area) => (
-                  <div key={area.name} className="border-b border-[#DDE3E8] py-3">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-[#B84D1B] mb-1">{area.category}</p>
-                    <p className="font-heading text-base sm:text-lg font-semibold text-[#0A2340]">{area.name}</p>
-                  </div>
-                ))}
-              </div>
+
+        </section>
+
+        <section className="bg-white py-14 sm:py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-7 flex flex-wrap items-center justify-between gap-4">
+              <h2 className="font-heading text-2xl font-bold text-[#0A2340] sm:text-3xl">{t.servicesPage.continueFacilityTitle}</h2>
+              <a href="#contact" onClick={scrollToContact} className="inline-flex items-center gap-2 rounded-sm border border-[#D1D7DD] px-5 py-3 text-sm font-semibold text-[#0A2340] hover:border-[#B84D1B]">{t.servicesPage.continueFacilityCta}<ArrowRight className="h-4 w-4 rtl:rotate-180" /></a>
+            </div>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                { label: t.servicesPage.continueFacilityLinks[0], href: "#facility-infrastructure", image: "/images/about-cold-storage-room.webp" },
+                { label: t.servicesPage.continueFacilityLinks[1], href: "/temperature-regimes", image: "/images/temperature-storage.jpg" },
+                { label: t.servicesPage.continueFacilityLinks[2], href: "/monitoring", image: "/images/refrigeration-tech.jpg" },
+              ].map((item) => <a key={item.label} href={item.href} className="group relative flex min-h-[220px] items-end overflow-hidden rounded-lg border border-[#DDE3E8] sm:min-h-[260px]">
+                <Image src={item.image} alt={item.label} fill sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                <span className="absolute inset-0 bg-gradient-to-t from-[#0A2340]/85 via-[#0A2340]/15 to-transparent" />
+                <span className="relative flex items-center gap-2 p-5 font-heading text-xl font-bold text-white">{item.label}<ArrowRight className="h-5 w-5 rtl:rotate-180" /></span>
+              </a>)}
             </div>
           </div>
         </section>

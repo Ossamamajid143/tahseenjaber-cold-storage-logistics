@@ -7,6 +7,7 @@ import { ArrowRight, Thermometer } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useNavbarHeight } from "@/components/useNavbarHeight";
+import { HomeSectionEdgeFog } from "@/components/home/HomeSectionEdgeFog";
 
 export function HomeFacility() {
   const { t, isArabic } = useLanguage();
@@ -23,6 +24,7 @@ export function HomeFacility() {
       dir={isArabic ? "rtl" : "ltr"}
       style={{ "--facility-available-height": `calc(100svh - ${navbarHeight}px)` } as React.CSSProperties}
     >
+      <HomeSectionEdgeFog direction="left" />
       <div className="grid grid-cols-1 lg:grid-cols-[44%_56%]">
         <div className="home-facility-copy relative z-10 flex items-center px-6 py-14 sm:px-10 lg:px-12 xl:pl-[max(3rem,calc((100vw-1280px)/2))] xl:pr-12">
           <RevealOnScroll animation={isArabic ? "slide-right" : "slide-left"} duration={850}>

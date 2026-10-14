@@ -39,8 +39,8 @@ export const SITE_CONFIG = {
   companyName: "Tahseen Jaber",
   tagline: "Cold Storage",
   fullName: "Tahseen Jaber Cold Storage",
-  phone: "+9647768677775",
-  phoneDisplay: "+964 776 867 7775",
+  phone: "+96477686877775",
+  phoneDisplay: "+964 776 8687 7775",
   email: "info@tahseenjaber.com",
   secondaryEmail: "Shuaib@tahseenjaber.com",
   emails: ["info@tahseenjaber.com", "Shuaib@tahseenjaber.com"],
@@ -49,15 +49,16 @@ export const SITE_CONFIG = {
     latitude: 33.1701875,
     longitude: 44.3539003,
   },
-  hours: "Monday – Saturday: 07:00 – 19:00 | Receiving: 24/7 By Appointment",
-  logoPath: "/tahseen-jaber-logo.jpeg",
+  hours: "Accepting consignments from 07:00am to 07:00pm",
+  logoPath: "/tahseen-jaber-logo-white.png",
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
+  { label: "Facility", href: "/services" },
+  { label: "Capabilities", href: "/about" },
   { label: "Why Choose Us", href: "/why-choose-us" },
+  { label: "Temperature Regimes", href: "/temperature-regimes" },
+  { label: "Monitoring", href: "/monitoring" },
   { label: "Contact", href: "/contact" },
 ];
 

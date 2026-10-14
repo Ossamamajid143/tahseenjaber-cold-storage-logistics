@@ -15,14 +15,14 @@ export function Footer() {
   const copy = isArabic ? {
     description: "مرافق تخزين مبرد وخدمات لوجستية لسلسلة التبريد في بغداد.",
     capabilities: "الخدمات", frozen: "التخزين المجمد والمبرد", pharma: "غرف المنتجات الدوائية", monitoring: "المراقبة",
-    contact: "التواصل", facility: "المنشأة", frozenFacility: "المجمد", dryGoods: "البضائع الجافة", chiller: "المبرد", pharmaceutical: "الأدوية", facilityMonitoring: "المراقبة", company: "الشركة", pricing: "الأسعار",
+    contact: "التواصل", facility: "المنشأة", frozenFacility: "المجمد", dryGoods: "البضائع الجافة", chiller: "المبرد", pharmaceutical: "الأدوية", facilityMonitoring: "المراقبة", company: "الشركة", pricing: "الأسعار", consignmentHours: "استلام الشحنات من 07:00 صباحاً إلى 07:00 مساءً", operatingSince: "العمل منذ 2026",
     book: "ترتيب زيارة للمنشأة", quote: "طلب عرض سعر", contactUs: "اتصل بنا",
     updates: "تحديثات السعة وسلسلة التبريد", updatesDesc: "رسالة واحدة شهرياً: السعة المتاحة والغرف الجديدة والإرشادات الموسمية.", unavailable: "الاشتراك بالبريد الإلكتروني غير متاح حالياً.", emailPlaceholder: "you@company.com", subscribe: "اشتراك",
     copyright: "جميع الحقوق محفوظة.", terms: "شروط الخدمة", privacy: "سياسة الخصوصية", coldChain: "سياسة سلسلة التبريد",
   } : {
     description: "Temperature-controlled warehousing and cold-chain logistics in Baghdad.",
     capabilities: "Capabilities", frozen: "Frozen & chilled storage", pharma: "Pharmaceutical rooms", monitoring: "Monitoring",
-    contact: "Contact", facility: "Facility", frozenFacility: "Frozen", dryGoods: "Dry goods", chiller: "Chiller", pharmaceutical: "Pharmaceutical", facilityMonitoring: "Monitoring", company: "Company", pricing: "Pricing",
+    contact: "Contact", facility: "Facility", frozenFacility: "Frozen", dryGoods: "Dry goods", chiller: "Chiller", pharmaceutical: "Pharmaceutical", facilityMonitoring: "Monitoring", company: "Company", pricing: "Pricing", consignmentHours: "Accepting consignments from 07:00am to 07:00pm", operatingSince: "Operating since 2026",
     book: "Book a site visit", quote: "Request a quotation", contactUs: "Contact",
     updates: "Capacity and cold-chain updates", updatesDesc: "One email a month: available capacity, new rooms, seasonal guidance.", unavailable: "Email subscriptions are not available yet.", emailPlaceholder: "you@company.com", subscribe: "Subscribe",
     copyright: "All rights reserved.", terms: "Terms of service", privacy: "Privacy policy", coldChain: "Cold-chain policy",
@@ -42,7 +42,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-x-10 gap-y-10 border-b border-white/10 pb-10 sm:grid-cols-2 lg:grid-cols-[1.55fr_0.9fr_1fr_1fr] lg:gap-x-12 lg:pb-12">
           <section className="min-w-0">
             <Link href="/" aria-label="Tahseen Jaber Cold Storage home" className="mb-5 inline-flex">
-              <Image src="/tahseen-jaber-logo-transparent.png" alt="Tahseen Jaber Cold Storage" width={2170} height={725} sizes="220px" className="h-[62px] w-[220px] object-contain" />
+              <Image src={SITE_CONFIG.logoPath} alt="Tahseen Jaber Cold Storage" width={2170} height={725} sizes="220px" className="h-[62px] w-[220px] object-contain" />
             </Link>
             <p className="mb-5 max-w-sm text-sm leading-6 text-slate-300">{copy.description}</p>
             <address className="not-italic text-sm leading-6 text-slate-300">
@@ -65,7 +65,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               <li><Link title={copy.frozen} className={linkStyle} href="/services">{copy.frozen}</Link></li>
               <li><Link title={copy.pharma} className={linkStyle} href="/services">{copy.pharma}</Link></li>
-              <li><Link title={copy.monitoring} className={linkStyle} href="/services">{copy.monitoring}</Link></li>
+              <li><Link title={copy.monitoring} className={linkStyle} href="/monitoring">{copy.monitoring}</Link></li>
             </ul>
             <h2 className="mb-4 mt-8 text-[11px] font-bold uppercase tracking-[0.16em] text-white">{copy.contact}</h2>
             <div className="flex gap-2.5">
@@ -74,6 +74,7 @@ export function Footer() {
               <a title={isArabic ? "واتساب" : "Chat on WhatsApp"} className={iconButton} href="https://wa.me/9647768677775" aria-label={isArabic ? "واتساب" : "WhatsApp"} target="_blank" rel="noreferrer"><WhatsAppIcon className="h-4 w-4" /></a>
               <a title={isArabic ? "الموقع" : "View facility location on map"} className={iconButton} href={mapUrl} aria-label={isArabic ? "الموقع" : "Facility location"} target="_blank" rel="noreferrer"><MapPin className="h-4 w-4" /></a>
             </div>
+            <p className="mt-4 flex items-center gap-2 text-sm text-slate-300"><span aria-hidden="true" className="h-2 w-2 shrink-0 rounded-full bg-emerald-400" />{copy.consignmentHours}</p>
           </section>
 
           <section>
@@ -116,6 +117,7 @@ export function Footer() {
             <li>{copy.terms}</li>
             <li>{copy.privacy}</li>
             <li>{copy.coldChain}</li>
+            <li>{copy.operatingSince}</li>
           </ul>
         </div>
       </div>

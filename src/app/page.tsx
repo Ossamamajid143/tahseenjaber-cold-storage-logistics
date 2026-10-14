@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { HomeHero } from "@/components/home/HomeHero";
+import { HomeCinematicStorage } from "@/components/home/HomeCinematicStorage";
 import { HomeFacility } from "@/components/home/HomeFacility";
 import { HomeComprehensiveServices } from "@/components/home/HomeComprehensiveServices";
 import { HomeSolutionsShowcase } from "@/components/home/HomeSolutionsShowcase";
@@ -55,6 +56,9 @@ export default function Home() {
         <main className="flex-1">
           {/* 1. Industrial Hero with Vertical Split & Chevron Notch */}
           <HomeHero />
+
+          {/* New cinematic cold-storage landing section directly below the existing hero. */}
+          <HomeCinematicStorage />
 
           {/* 2. State-of-the-art facility feature */}
           <HomeFacility />

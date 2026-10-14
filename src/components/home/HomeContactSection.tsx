@@ -8,6 +8,7 @@ import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { useNavbarHeight } from "@/components/useNavbarHeight";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { HomeSectionEdgeFog } from "@/components/home/HomeSectionEdgeFog";
 
 export function HomeContactSection() {
   const { t, isArabic } = useLanguage();
@@ -42,6 +43,7 @@ export function HomeContactSection() {
       className="home-contact-scene relative isolate scroll-mt-20 overflow-hidden py-12 sm:py-14 lg:py-16"
       style={{ "--home-viewport-height": `calc(100svh - ${navbarHeight}px)` } as React.CSSProperties}
     >
+      <HomeSectionEdgeFog direction="right" />
       <div className="home-contact-atmosphere" aria-hidden="true" />
       <div className="home-contact-content relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-12 lg:gap-14">

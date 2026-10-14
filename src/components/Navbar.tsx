@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Globe, Mail, Menu, X } from "lucide-react";
+import { Globe, Mail, Menu, Phone, X } from "lucide-react";
 import { SITE_CONFIG } from "@/data/site-content";
 import { useLanguage } from "@/context/LanguageContext";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
@@ -35,6 +35,11 @@ const SOCIAL_LINKS = [
     external: true,
   },
   {
+    label: "Phone",
+    href: `tel:${SITE_CONFIG.phone}`,
+    icon: <Phone className="h-5 w-5" aria-hidden="true" />,
+  },
+  {
     label: "Email",
     href: `mailto:${SITE_CONFIG.email}`,
     icon: <Mail className="h-5 w-5" aria-hidden="true" />,
@@ -54,10 +59,10 @@ export function Navbar() {
   };
 
   const navItems = [
-    { label: t.nav.home, href: "/" },
-    { label: t.nav.about, href: "/about" },
     { label: t.nav.services, href: "/services" },
-    { label: t.nav.facilities, href: "/why-choose-us" },
+    { label: t.nav.about, href: "/about" },
+    { label: t.nav.temperatureRegimes, href: "/temperature-regimes" },
+    { label: t.nav.monitoring, href: "/monitoring" },
     { label: t.nav.pricing, href: "/pricing" },
     { label: t.nav.contact, href: "/contact" },
   ];
@@ -70,8 +75,21 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const [scrollProgress, setScrollProgress] = useState(0);
+  useEffect(() => {
+    const updateProgress = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0);
+    };
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    return () => { window.removeEventListener("scroll", updateProgress); window.removeEventListener("resize", updateProgress); };
+  }, [pathname]);
+
   return (
-    <header
+    <>
+      <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           isScrolled
             ? "bg-[#061628]/98 backdrop-blur-md shadow-[0_8px_24px_rgba(0,0,0,0.35)] py-3 border-b border-white/15"
@@ -87,9 +105,9 @@ export function Navbar() {
               aria-label="Tahseen Jaber Cold Storage Home"
             >
               <div className="relative h-10 w-[145px] shrink-0 sm:h-12 sm:w-[175px] lg:w-[205px] group-hover:scale-[1.02] transition-transform duration-200">
-                <span aria-hidden="true" className="absolute inset-x-1 inset-y-0 rounded-full bg-[radial-gradient(ellipse,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0)_72%)] blur-lg" />
+                <span aria-hidden="true" className="pointer-events-none absolute inset-x-[18%] inset-y-[20%] rounded-full bg-[radial-gradient(ellipse,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0.08)_48%,transparent_78%)] blur-md" />
                 <Image
-                  src="/tahseen-jaber-logo-transparent.png"
+                  src={SITE_CONFIG.logoPath}
                   alt="Tahseen Jaber Cold Storage"
                   fill
                   sizes="(max-width: 640px) 145px, (max-width: 1023px) 175px, 205px"
@@ -100,7 +118,7 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-6 text-[17px] font-semibold text-white">
+            <nav className="hidden xl:flex items-center gap-3 xl:gap-5 text-[13px] xl:text-[15px] font-semibold text-white">
               {navItems.map((link) => {
                 const isActive = pathname === link.href;
                 return (
@@ -123,7 +141,7 @@ export function Navbar() {
             </nav>
 
             {/* Social Media Icons and Language Switcher */}
-            <div className="hidden sm:flex items-center gap-2 md:gap-3">
+            <div className="hidden xl:flex items-center gap-2 md:gap-3">
               <div className="flex items-center gap-1.5 md:gap-2">
                 {SOCIAL_LINKS.map((item) => (
                   <a
@@ -164,7 +182,7 @@ export function Navbar() {
             </div>
 
             {/* Mobile Hamburger */}
-            <div className="flex items-center lg:hidden">
+            <div className="flex items-center xl:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 text-white hover:text-[#D86A2D] focus:outline-hidden rounded-md transition-colors"
@@ -183,7 +201,7 @@ export function Navbar() {
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-[#061628] border-b border-white/15 shadow-xl px-4 pt-3 pb-6 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="xl:hidden bg-[#061628] border-b border-white/15 shadow-xl px-4 pt-3 pb-6 animate-in fade-in slide-in-from-top-2 duration-200">
             <nav className="flex flex-col space-y-3">
               {navItems.map((link) => {
                 const isActive = pathname === link.href;
@@ -245,5 +263,9 @@ export function Navbar() {
           </div>
         )}
       </header>
+      <div aria-label="Page scroll progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(scrollProgress * 100)} className="fixed inset-x-0 top-0 z-[60] h-[3px] bg-transparent">
+        <div className="h-full origin-left bg-[#D86A2D] transition-[width] duration-100" style={{ width: `${scrollProgress * 100}%` }} />
+      </div>
+    </>
   );
 }

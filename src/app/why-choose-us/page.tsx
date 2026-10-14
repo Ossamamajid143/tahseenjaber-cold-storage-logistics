@@ -149,6 +149,12 @@ export default function WhyChooseUsPage() {
           description={content.desc}
           imageSrc="/images/temperature-storage.jpg"
           imagePosition="center 45%"
+          slides={[
+            { src: "/images/why-choose-us-hero.webp", alt: isArabic ? "منشأة تبريد وتخزين بضائع" : "Cold storage facility and stored goods", position: "center 48%", mobilePosition: "62% center" },
+            { src: "/images/why-choose-us-warehouse-exterior.webp", alt: isArabic ? "الواجهة الخارجية لمستودع التخزين" : "Warehouse exterior", position: "center 50%", mobilePosition: "58% center" },
+            { src: "/images/why-choose-us-statistics-bg.webp", alt: isArabic ? "ممر داخل مستودع مبرد" : "Aisle inside a refrigerated warehouse", position: "center 50%", mobilePosition: "55% center" },
+            { src: "/images/facility-exterior-wide.png", alt: isArabic ? "مبنى منشأة التخزين المبرد" : "Cold storage facility building", position: "center 50%", mobilePosition: "60% center" },
+          ]}
           transitionColor="#F7F5F0"
           fogIntensity="subtle"
         />

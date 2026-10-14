@@ -287,6 +287,12 @@ export default function PricingPage() {
           description={copy.description}
           imageSrc="/images/hero-warehouse.jpg"
           imagePosition="center 45%"
+          slides={[
+            { src: "/images/hero-warehouse.jpg", alt: isArabic ? "داخل مستودع تخزين مبرد" : "Interior of a refrigerated warehouse", position: "center 45%", mobilePosition: "60% center" },
+            { src: "/images/temperature-storage.jpg", alt: isArabic ? "منصات منظمة داخل غرف التخزين البارد" : "Organized pallets inside cold storage rooms", position: "center 48%", mobilePosition: "58% center" },
+            { src: "/images/facility-loading-bays.png", alt: isArabic ? "منطقة استلام في منشأة التخزين" : "Receiving area at the storage facility", position: "center 50%", mobilePosition: "62% center" },
+            { src: "/images/home-facility-cinematic.png", alt: isArabic ? "مناولة المنتجات في مرفق مبرد" : "Product handling in a refrigerated facility", position: "center 50%", mobilePosition: "58% center" },
+          ]}
           fogIntensity="strong"
           ctaHref="#pricing"
           ctaLabel={copy.heroCta}

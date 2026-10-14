@@ -20,17 +20,20 @@ const HIGHLIGHTS = {
   ],
 } as const;
 
-export function HomeBenefitsCards() {
+export function HomeBenefitsCards({ variant = "strip" }: { variant?: "strip" | "compact" }) {
   const { isArabic } = useLanguage();
   const highlights = isArabic ? HIGHLIGHTS.AR : HIGHLIGHTS.EN;
+  const compact = variant === "compact";
 
   return (
-    <section className="home-benefits-scene relative isolate overflow-hidden px-4 py-8 sm:px-6 sm:py-10 lg:px-8" dir={isArabic ? "rtl" : "ltr"}>
-      <div className="home-benefits-atmosphere" aria-hidden="true" />
-      <div className="home-benefits-glass relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 divide-y divide-sky-100/15 rounded-xl border border-sky-100/20 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x lg:divide-y-0">
+    <section className={compact ? "w-full" : "home-benefits-scene relative isolate overflow-hidden px-4 py-8 sm:px-6 sm:py-10 lg:px-8"} dir={isArabic ? "rtl" : "ltr"}>
+      {!compact && <div className="home-benefits-atmosphere" aria-hidden="true" />}
+      <div className={compact
+        ? "relative z-10 grid w-full grid-cols-1 gap-3 sm:grid-cols-2"
+        : "home-benefits-glass relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 divide-y divide-sky-100/15 rounded-xl border border-sky-100/20 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 lg:divide-x lg:divide-y-0"}>
         {highlights.map(({ title, description, icon: Icon }, index) => (
           <RevealOnScroll key={title} animation="fade-up" delay={index * 90} className="h-full">
-            <article className="home-benefit-item group flex h-full items-start gap-4 px-5 py-5 sm:px-6 lg:px-5 xl:px-7">
+            <article className={`${compact ? "h-full rounded-lg border border-sky-100/20 bg-[#0b2948]/65 px-4 py-4 backdrop-blur-sm sm:px-4 lg:px-3 xl:px-4" : "home-benefit-item h-full px-5 py-5 sm:px-6 lg:px-5 xl:px-7"} group flex items-start gap-4`}>
               <div className="home-benefit-icon shrink-0 text-[#F36A21] transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(243,106,33,0.65)]">
                 <Icon aria-hidden="true" className="h-8 w-8 stroke-[1.7]" />
               </div>
