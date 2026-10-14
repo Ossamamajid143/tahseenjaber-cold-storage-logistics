@@ -37,7 +37,8 @@ export function HomeHero() {
     imageAlt: isArabic ? image.altAr : image.altEn,
     imagePosition: image.position,
     mobileImagePosition: image.mobile,
-    eyebrow: isArabic ? "منطقة اليوسفية الصناعية، بغداد" : "Uuayrij Industrial Area, Baghdad",
+    eyebrow: isArabic ? "منطقة اليوسفية الصناعية، بغداد، العراق" : "Uuayrij Industrial Area, Baghdad, Iraq",
+    eyebrowClassName: "text-[#D86A2D]",
     title: index === 0 ? t.home.hero.title : localeCopy[index].title,
     description: index === 0 ? t.home.hero.desc : localeCopy[index].description,
     ctaHref: "/contact",
@@ -48,7 +49,6 @@ export function HomeHero() {
     <CinematicHeroSlideshow
       slides={slides}
       direction={isArabic ? "rtl" : "ltr"}
-      fogEdgesOnly
       secondaryCtaHref="https://wa.me/9647768677775"
       secondaryCtaLabel={SITE_CONFIG.phoneDisplay}
       secondaryCtaLtr

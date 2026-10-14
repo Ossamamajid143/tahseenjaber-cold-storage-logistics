@@ -247,7 +247,7 @@ export const TRANSLATIONS = {
       contactSection: {
         title: "Get in Touch",
         desc:
-          "Get in touch with us to explore our cold storage options. We are dedicated to providing top-notch storage facilities for your products. Contact us now to discuss how we can support your storage requirements.",
+          "Talk with our Baghdad team about frozen, chilled, dry, or pharmaceutical storage for your products. Share your product type, required temperature, quantity, and expected storage duration, and we can discuss suitable options and help coordinate a facility visit.",
         namePlaceholder: "Full Name",
         emailPlaceholder: "Email Address",
         descPlaceholder: "Description",
@@ -820,7 +820,7 @@ export const TRANSLATIONS = {
       contactSection: {
         title: "تواصل معنا",
         desc:
-          "تواصل معنا لاستكشاف خيارات التخزين المبرد المتاحة. نحن ملتزمون بتقديم أفضل مرافق التخزين لحماية منتجاتك. اتصل بنا الآن لمناقشة كيفية تلبية متطلبات التخزين الخاصة بك.",
+          "تواصل مع فريقنا في بغداد لمناقشة تخزين منتجاتك المجمدة أو المبردة أو الجافة أو الدوائية. شاركنا نوع المنتج ودرجة الحرارة المطلوبة والكمية ومدة التخزين المتوقعة، وسنناقش الخيارات المناسبة ونساعدك في تنسيق زيارة للمنشأة.",
         namePlaceholder: "الاسم الكامل",
         emailPlaceholder: "البريد الإلكتروني",
         descPlaceholder: "تفاصيل الطلب أو الاستفسار",

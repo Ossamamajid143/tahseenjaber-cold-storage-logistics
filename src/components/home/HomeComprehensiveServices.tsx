@@ -57,9 +57,9 @@ export function HomeComprehensiveServices() {
             {isArabic ? <>{t.home.comprehensive.title}</> : <>Comprehensive<br /><span>Service</span> Offerings</>}
           </h2>
           <p>{t.home.comprehensive.desc}</p>
-          <Link href="/services" className="home-offerings-link">
+          <Link href="/services" className="home-service-cta group">
             <span>{t.home.comprehensive.btn}</span>
-            <ArrowRight aria-hidden="true" className={isArabic ? "rotate-180" : ""} />
+            <ArrowRight aria-hidden="true" className={`h-4 w-4 transition-transform group-hover:translate-x-1 ${isArabic ? "rotate-180 group-hover:-translate-x-1" : ""}`} />
           </Link>
         </RevealOnScroll>
 

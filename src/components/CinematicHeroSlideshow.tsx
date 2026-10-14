@@ -13,6 +13,7 @@ export type CinematicHeroSlide = {
   title: string;
   description?: string;
   eyebrow?: string;
+  eyebrowClassName?: string;
   imagePosition?: string;
   mobileImagePosition?: string;
   ctaHref?: string;
@@ -34,8 +35,8 @@ type CinematicHeroSlideshowProps = {
   fogEdgesOnly?: boolean;
 };
 
-const TRANSITION_MS = 1200;
-const AUTOPLAY_MS = 4000;
+const TRANSITION_MS = 700;
+const AUTOPLAY_MS = 2500;
 
 function HeroSlideCopy({
   slide,
@@ -54,7 +55,7 @@ function HeroSlideCopy({
 }) {
   return (
     <div className={className}>
-      {slide.eyebrow && <div className="mb-4 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] text-white/80 sm:text-xs"><span className="h-[2px] w-8 bg-[#D86A2D]" />{slide.eyebrow}</div>}
+      {slide.eyebrow && <div className={`mb-4 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] sm:text-xs ${slide.eyebrowClassName ?? "text-white/80"}`}><span className="h-[2px] w-8 bg-[#D86A2D]" />{slide.eyebrow}</div>}
       <h1 className="hero-title max-w-3xl font-heading text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">{slide.title}</h1>
       {slide.description && <p className="mt-5 max-w-2xl border-s-2 border-[#D86A2D] bg-[#061628]/25 px-4 py-2 text-sm leading-6 text-white/90 sm:text-base sm:leading-7">{slide.description}</p>}
       {(slide.ctaHref && slide.ctaLabel || secondaryCtaHref && secondaryCtaLabel) && (
@@ -175,7 +176,7 @@ export function CinematicHeroSlideshow({
             alt=""
             fill
             sizes="100vw"
-            className={`cinematic-hero-photo object-cover transition-[opacity,transform] duration-[1200ms] ease-in-out motion-reduce:transition-none ${incomingReady ? "scale-[1.035] opacity-0" : "scale-100 opacity-100"}`}
+            className={`cinematic-hero-photo object-cover transition-[opacity,transform] duration-[700ms] ease-in-out motion-reduce:transition-none ${incomingReady ? "scale-[1.035] opacity-0" : "scale-100 opacity-100"}`}
             style={imageStyle(previousSlide)}
             aria-hidden="true"
           />
@@ -190,7 +191,7 @@ export function CinematicHeroSlideshow({
           loading={activeIndex === 0 ? undefined : "lazy"}
           onLoad={() => markIncomingReady(activeIndex)}
           onError={() => markIncomingReady(activeIndex)}
-          className={`cinematic-hero-photo object-cover transition-[opacity,transform] duration-[1200ms] ease-in-out motion-reduce:transition-none ${previousIndex === null || incomingReady ? "scale-[1.035] opacity-100" : "scale-100 opacity-0"}`}
+          className={`cinematic-hero-photo object-cover transition-[opacity,transform] duration-[700ms] ease-in-out motion-reduce:transition-none ${previousIndex === null || incomingReady ? "scale-[1.035] opacity-100" : "scale-100 opacity-0"}`}
           style={imageStyle(activeSlide)}
           aria-hidden="true"
         />
