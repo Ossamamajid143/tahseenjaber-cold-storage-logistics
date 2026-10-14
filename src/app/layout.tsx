@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     description:
       "Tahseen Jaber Cold Storage provides dependable cold storage solutions designed to preserve product quality and support efficient supply chains.",
     type: "website",
-    locale: "en_US",
+    locale: "ar_IQ",
     images: [
       {
         url: "/images/facility-exterior-wide.png",
@@ -63,7 +63,8 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      lang="ar"
+      dir="rtl"
       className={`${robotoSlab.variable} ${inter.variable} ${cairo.variable} scroll-smooth`}
     >
       <body className="min-h-full font-sans antialiased text-[#202B35] bg-[#FFFFFF] selection:bg-[#B84D1B]/15 selection:text-[#0A2340]">

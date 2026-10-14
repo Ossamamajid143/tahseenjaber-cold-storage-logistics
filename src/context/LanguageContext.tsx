@@ -8,7 +8,7 @@ const languageListeners = new Set<() => void>();
 let sessionLanguage: Language | null = null;
 
 function getServerLanguageSnapshot(): Language {
-  return "EN";
+  return "AR";
 }
 
 function getLanguageSnapshot(): Language {
@@ -17,9 +17,9 @@ function getLanguageSnapshot(): Language {
 
   try {
     const saved = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
-    return saved === "AR" ? "AR" : "EN";
+    return saved === "EN" ? "EN" : "AR";
   } catch {
-    return "EN";
+    return "AR";
   }
 }
 
@@ -66,10 +66,10 @@ interface LanguageContextType {
 }
 
 const LanguageContext = createContext<LanguageContextType>({
-  language: "EN",
+  language: "AR",
   setLanguage: () => {},
-  isArabic: false,
-  t: TRANSLATIONS.EN,
+  isArabic: true,
+  t: TRANSLATIONS.AR,
 });
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {

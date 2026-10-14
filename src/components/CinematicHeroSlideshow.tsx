@@ -33,6 +33,7 @@ type CinematicHeroSlideshowProps = {
   secondaryCtaLabel?: string;
   secondaryCtaLtr?: boolean;
   fogEdgesOnly?: boolean;
+  backgroundVideoSrc?: string;
 };
 
 const TRANSITION_MS = 700;
@@ -81,6 +82,7 @@ export function CinematicHeroSlideshow({
   secondaryCtaLabel,
   secondaryCtaLtr = false,
   fogEdgesOnly = false,
+  backgroundVideoSrc,
 }: CinematicHeroSlideshowProps) {
   const navbarHeight = useNavbarHeight();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -89,6 +91,8 @@ export function CinematicHeroSlideshow({
   const [previousIndex, setPreviousIndex] = useState<number | null>(null);
   const [incomingReady, setIncomingReady] = useState(true);
   const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const backgroundVideo = useRef<HTMLVideoElement | null>(null);
   const transitionTimer = useRef<number | null>(null);
   const activeSlide = slides[activeIndex] ?? slides[0];
   const previousSlide = previousIndex === null ? null : slides[previousIndex];
@@ -147,6 +151,24 @@ export function CinematicHeroSlideshow({
     };
   }, [activeIndex, goTo, paused, slides.length]);
 
+  useEffect(() => {
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setReducedMotion(motionPreference.matches);
+    updateMotionPreference();
+    motionPreference.addEventListener("change", updateMotionPreference);
+    return () => motionPreference.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    const video = backgroundVideo.current;
+    if (!video) return;
+    if (reducedMotion) {
+      video.pause();
+      return;
+    }
+    void video.play().catch(() => undefined);
+  }, [reducedMotion, backgroundVideoSrc]);
+
   if (!slides.length) return null;
   const height = `max(calc(100vh - ${navbarHeight}px), calc(100svh - ${navbarHeight}px), calc(100dvh - ${navbarHeight}px))`;
   const imageStyle = (slide: CinematicHeroSlide) => ({
@@ -195,9 +217,26 @@ export function CinematicHeroSlideshow({
           style={imageStyle(activeSlide)}
           aria-hidden="true"
         />
+        {backgroundVideoSrc && (
+          <video
+            ref={backgroundVideo}
+            className="absolute inset-0 z-0 h-full w-full object-cover"
+            src={backgroundVideoSrc}
+            poster={activeSlide.imageSrc}
+            autoPlay={!reducedMotion}
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            tabIndex={-1}
+          />
+        )}
         <div aria-hidden="true" className="absolute inset-0 z-[1] bg-gradient-to-r from-[#061628]/85 via-[#061628]/55 to-[#061628]/20" />
         <div aria-hidden="true" className="absolute inset-0 z-[1] bg-gradient-to-t from-[#061628]/65 via-transparent to-[#061628]/20" />
-        <ColdFogOverlay transitionColor="#FFFFFF" intensity="subtle" speed="slow" direction="left" floorFade={false} edgesOnly={fogEdgesOnly} opacity={0.24} />
+        <div className="pointer-events-none absolute inset-0 z-[2]">
+          <ColdFogOverlay transitionColor="#FFFFFF" intensity="subtle" speed="slow" direction="left" floorFade={false} edgesOnly={fogEdgesOnly} opacity={0.24} />
+        </div>
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[inherit] w-full max-w-7xl flex-col justify-center px-5 pb-28 pt-16 sm:px-8 sm:pb-32 lg:px-12">

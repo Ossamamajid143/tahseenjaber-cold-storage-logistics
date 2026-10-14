@@ -48,6 +48,7 @@ export function HomeHero() {
   return (
     <CinematicHeroSlideshow
       slides={slides}
+      backgroundVideoSrc="/videos/home-hero.mp4"
       direction={isArabic ? "rtl" : "ltr"}
       secondaryCtaHref="https://wa.me/9647768677775"
       secondaryCtaLabel={SITE_CONFIG.phoneDisplay}
