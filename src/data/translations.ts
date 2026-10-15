@@ -48,19 +48,19 @@ export const TRANSLATIONS = {
           title: "Cold Chain Delivery",
           description:
             "Cold-chain transportation plays an important role in maintaining product quality during movement. Our services are designed to support the safe handling and transportation of temperature-sensitive products.",
-          imageAlt: "Refrigerated delivery truck at a cold-storage warehouse loading dock",
+          imageAlt: "Forklifts ready for temperature-controlled loading and dispatch",
         },
         {
           title: "Import / Export & Re-export",
           description:
             "We provide operational support for businesses involved in the movement of goods through import, export and re-export activities, according to the company's operational scope and applicable requirements.",
-          imageAlt: "Temperature-controlled cargo and shipping containers at a logistics facility",
+          imageAlt: "Cold-storage warehouse exterior",
         },
         {
           title: "Consignment Sale",
           description:
             "We provide consignment-related storage, handling and sales support where required, helping businesses manage their products through an organized storage and distribution process.",
-          imageAlt: "Warehouse staff checking inventory in a refrigerated distribution facility",
+          imageAlt: "Forklifts inside the cold-storage handling area",
         },
       ],
       facilitySection: {
@@ -69,12 +69,12 @@ export const TRANSLATIONS = {
           "Discover our temperature-controlled storage areas, insulated cold rooms, and handling facilities designed for frozen, chilled, and dry goods.",
         galleryTitle: "Facility Gallery",
         gallery: [
-          { title: "Temperature-Controlled Storage", alt: "Palletized goods in a temperature-controlled storage room" },
-          { title: "Insulated Cold Rooms", alt: "Interior of an insulated refrigerated storage room" },
+          { title: "Temperature-Controlled Storage", alt: "Long refrigerated corridor serving temperature-controlled rooms" },
+          { title: "Insulated Cold Rooms", alt: "Clean insulated cold-storage chamber" },
           { title: "Refrigeration Equipment", alt: "Industrial refrigeration equipment" },
-          { title: "Pallet Storage", alt: "Organized pallet storage inside a cold warehouse" },
-          { title: "Cold Storage Operations", alt: "Cold storage warehouse operations" },
-          { title: "Loading Area", alt: "Loading bays at the cold storage facility" },
+          { title: "Pallet Storage", alt: "Numbered cold-room doors along the storage corridor" },
+          { title: "Cold Storage Operations", alt: "Forklifts in the refrigerated handling area" },
+          { title: "Loading Area", alt: "Cold-storage facility exterior and loading bays" },
         ],
         specificationsTitle: "Facility Specifications",
         specifications: [
@@ -621,19 +621,19 @@ export const TRANSLATIONS = {
           title: "التوصيل بسلسلة التبريد",
           description:
             "يلعب النقل ضمن سلسلة التبريد دوراً مهماً في الحفاظ على جودة المنتجات أثناء نقلها. صُممت خدماتنا لدعم المناولة والنقل الآمنين للمنتجات الحساسة لدرجات الحرارة.",
-          imageAlt: "شاحنة توصيل مبردة عند رصيف تحميل مستودع للتخزين المبرد",
+          imageAlt: "رافعات شوكية جاهزة لمناولة وشحن البضائع المبردة",
         },
         {
           title: "الاستيراد والتصدير وإعادة التصدير",
           description:
             "نقدم الدعم التشغيلي للشركات المشاركة في حركة البضائع من خلال أنشطة الاستيراد والتصدير وإعادة التصدير، وفقاً لنطاق عمليات الشركة والمتطلبات المعمول بها.",
-          imageAlt: "بضائع وحاويات شحن مضبوطة الحرارة في منشأة لوجستية",
+          imageAlt: "الواجهة الخارجية لمستودع التخزين المبرد",
         },
         {
           title: "البيع بالأمانة",
           description:
             "نقدم خدمات التخزين والمناولة ودعم المبيعات المتعلقة بالبيع بالأمانة عند الحاجة، لمساعدة الشركات على إدارة منتجاتها من خلال عملية منظمة للتخزين والتوزيع.",
-          imageAlt: "موظفو مستودع يتحققون من المخزون في منشأة توزيع مبردة",
+          imageAlt: "رافعات شوكية داخل منطقة مناولة التخزين المبرد",
         },
       ],
       facilitySection: {
@@ -642,12 +642,12 @@ export const TRANSLATIONS = {
           "اكتشف مناطق التخزين المضبوطة الحرارة والغرف المعزولة ومرافق المناولة المصممة للمنتجات المجمدة والمبردة والجافة.",
         galleryTitle: "معرض المرافق",
         gallery: [
-          { title: "تخزين مضبوط الحرارة", alt: "بضائع على منصات داخل غرفة تخزين مضبوطة الحرارة" },
-          { title: "غرف تخزين معزولة", alt: "الجزء الداخلي لغرفة تخزين مبردة ومعزولة" },
+          { title: "تخزين مضبوط الحرارة", alt: "ممر مبرد طويل يخدم غرف التخزين المضبوطة الحرارة" },
+          { title: "غرف تخزين معزولة", alt: "غرفة تخزين مبردة ومعزولة ونظيفة" },
           { title: "معدات التبريد", alt: "معدات تبريد صناعية" },
-          { title: "تخزين المنصات", alt: "تخزين منظم للمنصات داخل مستودع مبرد" },
-          { title: "عمليات التخزين المبرد", alt: "عمليات مستودع التخزين المبرد" },
-          { title: "منطقة التحميل", alt: "أرصفة التحميل في منشأة التخزين المبرد" },
+          { title: "تخزين المنصات", alt: "أبواب غرف التبريد المرقمة على امتداد الممر" },
+          { title: "عمليات التخزين المبرد", alt: "رافعات شوكية في منطقة مناولة مبردة" },
+          { title: "منطقة التحميل", alt: "الواجهة الخارجية لمنشأة التخزين المبرد وأرصفة التحميل" },
         ],
         specificationsTitle: "مواصفات المنشأة",
         specifications: [

@@ -147,13 +147,13 @@ export default function WhyChooseUsPage() {
         <PageHero
           title={content.title}
           description={content.desc}
-          imageSrc="/images/temperature-storage.jpg"
+          imageSrc="/images/real-facility/entrance-illuminated.jpg"
           imagePosition="center 45%"
           slides={[
-            { src: "/images/why-choose-us-hero.webp", alt: isArabic ? "منشأة تبريد وتخزين بضائع" : "Cold storage facility and stored goods", position: "center 48%", mobilePosition: "62% center" },
-            { src: "/images/why-choose-us-warehouse-exterior.webp", alt: isArabic ? "الواجهة الخارجية لمستودع التخزين" : "Warehouse exterior", position: "center 50%", mobilePosition: "58% center" },
-            { src: "/images/why-choose-us-statistics-bg.webp", alt: isArabic ? "ممر داخل مستودع مبرد" : "Aisle inside a refrigerated warehouse", position: "center 50%", mobilePosition: "55% center" },
-            { src: "/images/facility-exterior-wide.png", alt: isArabic ? "مبنى منشأة التخزين المبرد" : "Cold storage facility building", position: "center 50%", mobilePosition: "60% center" },
+            { src: "/images/real-facility/entrance-illuminated.jpg", alt: isArabic ? "واجهة منشأة تحسين جابر المضاءة ليلاً" : "Tahseen Jaber Cold Storage illuminated at night", position: "center 48%", mobilePosition: "58% center" },
+            { src: "/images/real-facility/modern-entrance.jpg", alt: isArabic ? "واجهة منشأة تحسين جابر وأبواب التحميل" : "Tahseen Jaber Cold Storage facade and loading doors", position: "center 48%", mobilePosition: "58% center" },
+            { src: "/images/real-facility/corridor-refrigerated.jpg", alt: isArabic ? "ممر داخلي بين غرف التخزين المبردة" : "Interior corridor between refrigerated rooms", position: "center 50%", mobilePosition: "56% center" },
+            { src: "/images/real-facility/backup-generator.jpg", alt: isArabic ? "مولد كهربائي احتياطي للمنشأة" : "Backup generator at the facility", position: "center 50%", mobilePosition: "55% center" },
           ]}
           transitionColor="#F7F5F0"
           fogIntensity="subtle"

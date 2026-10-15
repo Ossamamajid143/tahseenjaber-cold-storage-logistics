@@ -59,7 +59,7 @@ export function HomeFacility() {
 
         <RevealOnScroll animation="image-reveal" duration={1000} className="home-facility-image group relative min-h-[340px] overflow-hidden sm:min-h-[420px] lg:min-h-full">
           <Image
-            src="/images/home-facility-cinematic.png"
+            src="/images/home-facility-cinematic.webp"
             alt={isArabic ? "مستودع تبريد بإضاءة صناعية ورفوف منتجات ومراوح تبريد" : "Bright refrigerated warehouse with ceiling cooling fans, produce pallets, and a reflective floor"}
             fill
             sizes="(max-width: 1023px) 100vw, 62vw"

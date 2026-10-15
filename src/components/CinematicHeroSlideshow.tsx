@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type FocusEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -33,7 +33,13 @@ type CinematicHeroSlideshowProps = {
   secondaryCtaLabel?: string;
   secondaryCtaLtr?: boolean;
   fogEdgesOnly?: boolean;
+  animateCanvasFog?: boolean;
   backgroundVideoSrc?: string;
+  backgroundVideoPosterSrc?: string;
+  videoOnly?: boolean;
+  textAutoplayOnly?: boolean;
+  autoplayIntervalMs?: number;
+  zoomMotion?: boolean;
 };
 
 const TRANSITION_MS = 700;
@@ -46,6 +52,10 @@ function HeroSlideCopy({
   secondaryCtaLabel,
   secondaryCtaLtr,
   className,
+  includeEyebrow = true,
+  includeActions = true,
+  ariaHidden,
+  descriptionAnimationClass = "",
 }: {
   slide: CinematicHeroSlide;
   rtl: boolean;
@@ -53,18 +63,39 @@ function HeroSlideCopy({
   secondaryCtaLabel?: string;
   secondaryCtaLtr: boolean;
   className: string;
+  includeEyebrow?: boolean;
+  includeActions?: boolean;
+  ariaHidden?: boolean;
+  descriptionAnimationClass?: string;
 }) {
   return (
-    <div className={className}>
-      {slide.eyebrow && <div className={`mb-4 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] sm:text-xs ${slide.eyebrowClassName ?? "text-white/80"}`}><span className="h-[2px] w-8 bg-[#D86A2D]" />{slide.eyebrow}</div>}
+    <div className={className} aria-hidden={ariaHidden}>
+      {includeEyebrow && slide.eyebrow && <div className={`mb-4 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] sm:text-xs ${slide.eyebrowClassName ?? "text-white/80"}`}><span className="h-[2px] w-8 bg-[#D86A2D]" />{slide.eyebrow}</div>}
       <h1 className="hero-title max-w-3xl font-heading text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">{slide.title}</h1>
-      {slide.description && <p className="mt-5 max-w-2xl border-s-2 border-[#D86A2D] bg-[#061628]/25 px-4 py-2 text-sm leading-6 text-white/90 sm:text-base sm:leading-7">{slide.description}</p>}
-      {(slide.ctaHref && slide.ctaLabel || secondaryCtaHref && secondaryCtaLabel) && (
-        <div className="mt-7 flex flex-wrap gap-3">
-          {slide.ctaHref && slide.ctaLabel && <Link href={slide.ctaHref} className="inline-flex min-h-11 items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-[#0A2340] shadow-md transition-colors hover:bg-[#D86A2D] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">{slide.ctaLabel}<ArrowRight className={`h-4 w-4 ${rtl ? "rotate-180" : ""}`} aria-hidden="true" /></Link>}
-          {secondaryCtaHref && secondaryCtaLabel && <Link href={secondaryCtaHref} className="inline-flex min-h-11 items-center rounded-md border border-white/45 bg-[#061628]/35 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white" dir={secondaryCtaLtr ? "ltr" : undefined}>{secondaryCtaLabel}</Link>}
-        </div>
-      )}
+      {slide.description && <p className={`mt-5 max-w-2xl border-s-2 border-[#D86A2D] bg-[#061628]/25 px-4 py-2 text-sm leading-6 text-white/90 sm:text-base sm:leading-7 ${descriptionAnimationClass}`}>{slide.description}</p>}
+      {includeActions && <HeroActions slide={slide} rtl={rtl} secondaryCtaHref={secondaryCtaHref} secondaryCtaLabel={secondaryCtaLabel} secondaryCtaLtr={secondaryCtaLtr} />}
+    </div>
+  );
+}
+
+function HeroActions({
+  slide,
+  rtl,
+  secondaryCtaHref,
+  secondaryCtaLabel,
+  secondaryCtaLtr,
+}: {
+  slide: CinematicHeroSlide;
+  rtl: boolean;
+  secondaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaLtr: boolean;
+}) {
+  if (!((slide.ctaHref && slide.ctaLabel) || (secondaryCtaHref && secondaryCtaLabel))) return null;
+  return (
+    <div className="mt-7 flex flex-wrap gap-3">
+      {slide.ctaHref && slide.ctaLabel && <Link href={slide.ctaHref} className="inline-flex min-h-11 items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-[#0A2340] shadow-md transition-colors hover:bg-[#D86A2D] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">{slide.ctaLabel}<ArrowRight className={`h-4 w-4 ${rtl ? "rotate-180" : ""}`} aria-hidden="true" /></Link>}
+      {secondaryCtaHref && secondaryCtaLabel && <Link href={secondaryCtaHref} className="inline-flex min-h-11 items-center rounded-md border border-white/45 bg-[#061628]/35 px-5 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white" dir={secondaryCtaLtr ? "ltr" : undefined}>{secondaryCtaLabel}</Link>}
     </div>
   );
 }
@@ -82,7 +113,13 @@ export function CinematicHeroSlideshow({
   secondaryCtaLabel,
   secondaryCtaLtr = false,
   fogEdgesOnly = false,
+  animateCanvasFog = true,
   backgroundVideoSrc,
+  backgroundVideoPosterSrc,
+  videoOnly = false,
+  textAutoplayOnly = false,
+  autoplayIntervalMs = AUTOPLAY_MS,
+  zoomMotion = false,
 }: CinematicHeroSlideshowProps) {
   const navbarHeight = useNavbarHeight();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -101,14 +138,27 @@ export function CinematicHeroSlideshow({
   const resolvedPreviousLabel = previousLabel ?? (rtl ? "الشريحة السابقة" : "Previous slide");
   const resolvedNextLabel = nextLabel ?? (rtl ? "الشريحة التالية" : "Next slide");
   const resolvedSlideLabel = slideLabel ?? ((number, total) => rtl ? `الشريحة ${number} من ${total}` : `Slide ${number} of ${total}`);
+  const activeZoomClass = zoomMotion && incomingReady
+    ? activeIndex % 2 === 0
+      ? "cinematic-hero-photo--zoom-in"
+      : "cinematic-hero-photo--zoom-out"
+    : "";
 
   const goTo = useCallback((nextIndex: number) => {
     if (nextIndex === activeIndex || slides.length < 2) return;
     if (transitionTimer.current !== null) window.clearTimeout(transitionTimer.current);
-    setPreviousIndex((currentPrevious) => currentPrevious ?? activeIndex);
-    setIncomingReady(false);
-    setActiveIndex((nextIndex + slides.length) % slides.length);
-  }, [activeIndex, slides.length]);
+    const wrappedIndex = (nextIndex + slides.length) % slides.length;
+    if (textAutoplayOnly) {
+      setPreviousIndex(activeIndex);
+      setPreviousTextIndex(textIndex);
+      setTextIndex(wrappedIndex);
+      setIncomingReady(true);
+    } else {
+      setPreviousIndex((currentPrevious) => currentPrevious ?? activeIndex);
+      setIncomingReady(false);
+    }
+    setActiveIndex(wrappedIndex);
+  }, [activeIndex, slides.length, textAutoplayOnly, textIndex]);
 
   const markIncomingReady = useCallback((index: number) => {
     if (index !== activeIndex) return;
@@ -133,13 +183,13 @@ export function CinematicHeroSlideshow({
   }, [incomingReady, previousIndex]);
 
   useEffect(() => {
-    if (slides.length < 2 || paused) return;
+    if (videoOnly || slides.length < 2 || paused) return;
     const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let timer: number | undefined;
     const schedule = () => {
       if (timer !== undefined) window.clearTimeout(timer);
       if (motionPreference.matches || document.hidden) return;
-      timer = window.setTimeout(() => goTo((activeIndex + 1) % slides.length), AUTOPLAY_MS);
+      timer = window.setTimeout(() => goTo((activeIndex + 1) % slides.length), autoplayIntervalMs);
     };
     schedule();
     document.addEventListener("visibilitychange", schedule);
@@ -149,7 +199,23 @@ export function CinematicHeroSlideshow({
       document.removeEventListener("visibilitychange", schedule);
       motionPreference.removeEventListener("change", schedule);
     };
-  }, [activeIndex, goTo, paused, slides.length]);
+  }, [activeIndex, autoplayIntervalMs, goTo, paused, slides.length, videoOnly]);
+
+  useEffect(() => {
+    if (!textAutoplayOnly || slides.length < 2 || paused) return;
+    let timer: number | undefined;
+    const schedule = () => {
+      if (timer !== undefined) window.clearTimeout(timer);
+      if (document.hidden) return;
+      timer = window.setTimeout(() => goTo((activeIndex + 1) % slides.length), autoplayIntervalMs);
+    };
+    schedule();
+    document.addEventListener("visibilitychange", schedule);
+    return () => {
+      if (timer !== undefined) window.clearTimeout(timer);
+      document.removeEventListener("visibilitychange", schedule);
+    };
+  }, [activeIndex, autoplayIntervalMs, goTo, paused, slides.length, textAutoplayOnly]);
 
   useEffect(() => {
     const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -181,17 +247,19 @@ export function CinematicHeroSlideshow({
       className="relative isolate flex items-center overflow-hidden bg-[#071D32] text-white"
       style={{ minHeight: height }}
       dir={direction}
-      aria-roledescription={rtl ? "عرض شرائح" : "carousel"}
-      aria-label={rtl ? "صور ومعلومات التخزين المبرد" : "Cold-storage highlights"}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPaused(false);
-      }}
+      {...(!videoOnly ? {
+        "aria-roledescription": rtl ? "عرض شرائح" : "carousel",
+        "aria-label": rtl ? "صور ومعلومات التخزين المبرد" : "Cold-storage highlights",
+        onMouseEnter: () => setPaused(true),
+        onMouseLeave: () => setPaused(false),
+        onFocus: () => setPaused(true),
+        onBlur: (event: FocusEvent<HTMLElement>) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPaused(false);
+        },
+      } : {})}
     >
       <div className="absolute inset-0 z-0 bg-[#071D32]" aria-hidden="true">
-        {previousSlide && (
+        {!videoOnly && previousSlide && (
           <Image
             key={`previous-${previousIndex}-${previousSlide.imageSrc}`}
             src={previousSlide.imageSrc}
@@ -203,7 +271,7 @@ export function CinematicHeroSlideshow({
             aria-hidden="true"
           />
         )}
-        <Image
+        {!videoOnly && <Image
           key={`active-${activeIndex}-${activeSlide.imageSrc}`}
           src={activeSlide.imageSrc}
           alt=""
@@ -213,21 +281,21 @@ export function CinematicHeroSlideshow({
           loading={activeIndex === 0 ? undefined : "lazy"}
           onLoad={() => markIncomingReady(activeIndex)}
           onError={() => markIncomingReady(activeIndex)}
-          className={`cinematic-hero-photo object-cover transition-[opacity,transform] duration-[700ms] ease-in-out motion-reduce:transition-none ${previousIndex === null || incomingReady ? "scale-[1.035] opacity-100" : "scale-100 opacity-0"}`}
+          className={`cinematic-hero-photo ${activeZoomClass} object-cover transition-[opacity,transform] duration-[700ms] ease-in-out motion-reduce:transition-none ${previousIndex === null || incomingReady ? "scale-[1.035] opacity-100" : "scale-100 opacity-0"}`}
           style={imageStyle(activeSlide)}
           aria-hidden="true"
-        />
+        />}
         {backgroundVideoSrc && (
           <video
             ref={backgroundVideo}
             className="absolute inset-0 z-0 h-full w-full object-cover"
             src={backgroundVideoSrc}
-            poster={activeSlide.imageSrc}
+            poster={backgroundVideoPosterSrc ?? activeSlide.imageSrc}
             autoPlay={!reducedMotion}
             loop
             muted
             playsInline
-            preload="metadata"
+            preload={videoOnly ? "auto" : "metadata"}
             aria-hidden="true"
             tabIndex={-1}
           />
@@ -235,19 +303,50 @@ export function CinematicHeroSlideshow({
         <div aria-hidden="true" className="absolute inset-0 z-[1] bg-gradient-to-r from-[#061628]/85 via-[#061628]/55 to-[#061628]/20" />
         <div aria-hidden="true" className="absolute inset-0 z-[1] bg-gradient-to-t from-[#061628]/65 via-transparent to-[#061628]/20" />
         <div className="pointer-events-none absolute inset-0 z-[2]">
-          <ColdFogOverlay transitionColor="#FFFFFF" intensity="subtle" speed="slow" direction="left" floorFade={false} edgesOnly={fogEdgesOnly} opacity={0.24} />
+          <ColdFogOverlay transitionColor="#FFFFFF" intensity="subtle" speed="slow" direction="left" floorFade={false} edgesOnly={fogEdgesOnly} opacity={0.24} animateCanvas={animateCanvasFog} />
         </div>
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[inherit] w-full max-w-7xl flex-col justify-center px-5 pb-28 pt-16 sm:px-8 sm:pb-32 lg:px-12">
-        <div className="relative max-w-3xl">
-          {previousTextIndex !== null && <div aria-hidden="true"><HeroSlideCopy slide={slides[previousTextIndex]} rtl={rtl} secondaryCtaHref={secondaryCtaHref} secondaryCtaLabel={secondaryCtaLabel} secondaryCtaLtr={secondaryCtaLtr} className="hero-copy-out pointer-events-none absolute inset-x-0 top-0 z-0 max-w-3xl" /></div>}
-          <HeroSlideCopy key={`copy-${textIndex}`} slide={textSlide} rtl={rtl} secondaryCtaHref={secondaryCtaHref} secondaryCtaLabel={secondaryCtaLabel} secondaryCtaLtr={secondaryCtaLtr} className="hero-copy-in relative z-10 max-w-3xl" />
-        </div>
+        {textAutoplayOnly ? (
+          <div className="relative max-w-3xl">
+            {activeSlide.eyebrow && <div className={`mb-4 flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.22em] sm:text-xs ${activeSlide.eyebrowClassName ?? "text-white/80"}`}><span className="h-[2px] w-8 bg-[#D86A2D]" />{activeSlide.eyebrow}</div>}
+            <div className="relative grid max-w-3xl" aria-live="polite" aria-atomic="true">
+              {slides.map((slide, index) => {
+                const isActiveText = index === textIndex;
+                const isLeavingText = index === previousTextIndex;
+                const copyClass = isActiveText
+                  ? previousTextIndex === null ? "home-video-copy-visible" : "home-video-copy-enter"
+                  : isLeavingText ? "home-video-copy-exit" : "home-video-copy-idle";
+                return (
+                  <HeroSlideCopy
+                    key={`home-copy-${index}`}
+                    slide={slide}
+                    rtl={rtl}
+                    secondaryCtaHref={secondaryCtaHref}
+                    secondaryCtaLabel={secondaryCtaLabel}
+                    secondaryCtaLtr={secondaryCtaLtr}
+                    includeEyebrow={false}
+                    includeActions={false}
+                    ariaHidden={!isActiveText}
+                    descriptionAnimationClass={isActiveText && previousTextIndex !== null ? "home-video-description-enter" : ""}
+                    className={`col-start-1 row-start-1 max-w-3xl ${copyClass}`}
+                  />
+                );
+              })}
+            </div>
+            <HeroActions slide={activeSlide} rtl={rtl} secondaryCtaHref={secondaryCtaHref} secondaryCtaLabel={secondaryCtaLabel} secondaryCtaLtr={secondaryCtaLtr} />
+          </div>
+        ) : (
+          <div className="relative max-w-3xl">
+            {previousTextIndex !== null && <div aria-hidden="true"><HeroSlideCopy slide={slides[previousTextIndex]} rtl={rtl} secondaryCtaHref={secondaryCtaHref} secondaryCtaLabel={secondaryCtaLabel} secondaryCtaLtr={secondaryCtaLtr} className="hero-copy-out pointer-events-none absolute inset-x-0 top-0 z-0 max-w-3xl" /></div>}
+            <HeroSlideCopy key={`copy-${textIndex}`} slide={textSlide} rtl={rtl} secondaryCtaHref={secondaryCtaHref} secondaryCtaLabel={secondaryCtaLabel} secondaryCtaLtr={secondaryCtaLtr} className="hero-copy-in relative z-10 max-w-3xl" />
+          </div>
+        )}
         {homeHref && breadcrumbLabel && <div className="mt-8 text-xs text-white/80"><Link href={homeHref} className="transition-colors hover:text-white">{homeLabel}</Link><span aria-hidden="true" className="mx-2 text-white/50">/</span><span className="font-semibold text-[#E8793D]">{breadcrumbLabel}</span></div>}
       </div>
 
-      {slides.length > 1 && (
+      {slides.length > 1 && !textAutoplayOnly && (
         <div className="absolute inset-x-5 bottom-6 z-20 flex items-center justify-between gap-4 sm:inset-x-8 sm:bottom-8 lg:inset-x-12">
           <div className="flex items-center gap-2" role="group" aria-label={rtl ? "اختيار الشريحة" : "Choose a slide"}>
             {slides.map((slide, index) => <button key={`${slide.imageSrc}-${index}`} type="button" onClick={() => goTo(index)} aria-label={resolvedSlideLabel(index + 1, slides.length)} aria-current={activeIndex === index ? "true" : undefined} className="group flex min-h-11 min-w-7 items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:min-w-9"><span className={`h-1 rounded-full transition-all duration-500 ${activeIndex === index ? "w-9 bg-white sm:w-12" : "w-5 bg-white/45 group-hover:bg-white/75 sm:w-7"}`} /></button>)}

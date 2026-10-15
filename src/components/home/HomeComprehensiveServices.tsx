@@ -46,7 +46,7 @@ export function HomeComprehensiveServices() {
   return (
     <section ref={sceneRef} className={`home-offerings-scene ${isInView ? "is-in-view" : ""}`} dir={isArabic ? "rtl" : "ltr"}>
       <HomeSectionEdgeFog direction="right" />
-      <Image src="/images/home-service-offerings-cinematic.png" alt="" fill priority={false} sizes="100vw" className="home-offerings-photo" />
+      <Image src="/images/home-service-offerings-cinematic.webp" alt="" fill priority={false} sizes="100vw" className="home-offerings-photo" />
       <div className="home-offerings-grade" aria-hidden="true" />
       <div className="home-offerings-floor-glow" aria-hidden="true" />
       <div className="home-offerings-fog" aria-hidden="true" />

@@ -77,6 +77,7 @@ interface ColdFogOverlayProps {
   floorFade?: boolean;
   edgesOnly?: boolean;
   opacity?: number;
+  animateCanvas?: boolean;
 }
 
 export function ColdFogOverlay({
@@ -87,12 +88,14 @@ export function ColdFogOverlay({
   floorFade = true,
   edgesOnly = false,
   opacity,
+  animateCanvas = true,
 }: ColdFogOverlayProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const bottomFogRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
+    if (!animateCanvas) return;
     const container = containerRef.current;
     const bottomFog = bottomFogRef.current;
     const canvas = canvasRef.current;
@@ -264,7 +267,7 @@ export function ColdFogOverlay({
       if (frameId) window.cancelAnimationFrame(frameId);
       if (parallaxFrameId) window.cancelAnimationFrame(parallaxFrameId);
     };
-  }, []);
+  }, [animateCanvas]);
 
   return (
     <div
@@ -282,7 +285,7 @@ export function ColdFogOverlay({
         <div className="cold-fog-full-layer cold-fog-full-mid absolute" />
         <div className="cold-fog-full-layer cold-fog-full-front absolute" />
       </div>
-      <canvas ref={canvasRef} className="cold-fog-canvas absolute inset-0 z-[2] h-full w-full" />
+      {animateCanvas && <canvas ref={canvasRef} className="cold-fog-canvas absolute inset-0 z-[2] h-full w-full" />}
       <div ref={bottomFogRef} className="absolute inset-x-0 bottom-0 z-[2] h-[100px] overflow-hidden sm:h-[135px] lg:h-[170px]">
         <div className="cold-fog-static absolute inset-x-[-5%] bottom-0 hidden h-[86%] bg-[url('/images/bg-fog-bottom.png')] bg-repeat-x opacity-40 [background-size:auto_100%]" />
         <div

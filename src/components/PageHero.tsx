@@ -58,6 +58,9 @@ export function PageHero({
   return (
     <CinematicHeroSlideshow
       slides={heroSlides}
+      autoplayIntervalMs={1800}
+      zoomMotion
+      animateCanvasFog={false}
       direction={isArabic ? "rtl" : "ltr"}
       homeHref="/"
       homeLabel={t.nav.home}

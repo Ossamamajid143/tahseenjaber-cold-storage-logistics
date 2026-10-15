@@ -144,6 +144,18 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   mask-image: radial-gradient(ellipse 72% 76% at center, transparent 44%, rgb(0 0 0 / 0.28) 72%, #000 100%);
 }
 
+.generator-feature-copy-blur {
+  position: absolute;
+  z-index: 0;
+  inset: 0 auto 0 0;
+  width: min(62%, 900px);
+  pointer-events: none;
+  background: linear-gradient(90deg, rgb(3 17 36 / 48%) 0%, rgb(3 17 36 / 40%) 72%, transparent 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  mask-image: linear-gradient(90deg, #000 0%, #000 70%, transparent 100%);
+}
+
 .generator-feature-row {
   display: grid;
   grid-template-columns: 1.25rem minmax(0, 1fr) auto;
@@ -156,6 +168,12 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 @media (max-width: 767px) {
+  .generator-feature-copy-blur {
+    width: 100%;
+    background: linear-gradient(180deg, rgb(3 17 36 / 18%) 0%, rgb(3 17 36 / 28%) 42%, rgb(3 17 36 / 48%) 100%);
+    mask-image: none;
+  }
+
   .generator-feature-background {
     object-position: 75% center;
   }
@@ -196,24 +214,417 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background: linear-gradient(120deg, #061628 0%, #0a2340 52%, #07182c 100%);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgb(27 78 116 / 34%), transparent 48%),
+    linear-gradient(125deg, #061628 0%, #0a2340 48%, #07182c 100%);
 }
 
 .pricing-plans-atmosphere::before {
   position: absolute;
   z-index: 0;
-  inset: -8% -4%;
+  inset: 0;
   content: "";
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 8% 90%, rgb(196 218 235 / 17%), transparent 38%),
-    radial-gradient(ellipse at 92% 64%, rgb(113 147 177 / 14%), transparent 44%),
-    url("/images/bg-fog-bottom.png") center bottom / auto 64% no-repeat;
-  opacity: 0.11;
-  filter: blur(4px);
+    radial-gradient(ellipse at 7% 86%, rgb(178 222 245 / 13%), transparent 35%),
+    radial-gradient(ellipse at 92% 58%, rgb(101 164 204 / 15%), transparent 38%),
+    radial-gradient(ellipse at 82% 10%, rgb(240 120 50 / 9%), transparent 30%),
+    repeating-linear-gradient(90deg, transparent 0 79px, rgb(190 224 244 / 4%) 80px),
+    repeating-linear-gradient(0deg, transparent 0 79px, rgb(190 224 244 / 4%) 80px);
+  opacity: 0.82;
   animation: pricing-section-fog 32s ease-in-out infinite alternate;
-  -webkit-mask-image: radial-gradient(ellipse 72% 76% at center, transparent 44%, rgb(0 0 0 / 0.28) 72%, #000 100%);
-  mask-image: radial-gradient(ellipse 72% 76% at center, transparent 44%, rgb(0 0 0 / 0.28) 72%, #000 100%);
+  -webkit-mask-image: linear-gradient(110deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(110deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+}
+
+.pricing-plans-atmosphere::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 82% 24%, transparent 0 82px, rgb(178 222 245 / 7%) 83px 84px, transparent 85px 148px, rgb(178 222 245 / 5%) 149px 150px, transparent 151px),
+    radial-gradient(circle at 82% 24%, rgb(240 120 50 / 42%) 0 2px, transparent 3px),
+    radial-gradient(circle at 82% 24%, rgb(180 220 242 / 42%) 0 1.5px, transparent 2.5px);
+  background-size: auto, auto, 36px 36px;
+  opacity: 0.64;
+  -webkit-mask-image: linear-gradient(120deg, transparent 20%, #000 72%);
+  mask-image: linear-gradient(120deg, transparent 20%, #000 72%);
+}
+
+.pricing-plans-ice-fog {
+  position: absolute;
+  z-index: 1;
+  inset: -12% -8%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 14% 84%, rgb(207 236 250 / 30%) 0%, rgb(154 202 226 / 14%) 18%, transparent 48%),
+    radial-gradient(ellipse at 58% 100%, rgb(190 225 243 / 25%) 0%, rgb(146 195 220 / 11%) 23%, transparent 54%),
+    radial-gradient(ellipse at 91% 70%, rgb(205 232 246 / 24%) 0%, rgb(147 194 218 / 10%) 22%, transparent 52%);
+  filter: blur(28px);
+  opacity: 0.62;
+  transform: translate3d(-1.5%, 0, 0) scale(1.02);
+  animation: pricing-ice-fog-drift 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Dedicated frozen atmosphere for the Additional Charges table. */
+.pricing-charges-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 28%, rgb(50 105 145 / 26%), transparent 48%),
+    radial-gradient(ellipse at 50% 100%, rgb(173 218 245 / 16%), transparent 40%),
+    linear-gradient(180deg, #061321 0%, #0a2034 48%, #061321 100%);
+}
+
+.pricing-charges-scene::before,
+.pricing-charges-scene::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.pricing-charges-scene::before {
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at -2% 66%, rgb(198 231 249 / 52%) 0%, rgb(113 164 195 / 27%) 7%, transparent 19%),
+    radial-gradient(ellipse at 102% 62%, rgb(198 231 249 / 45%) 0%, rgb(113 164 195 / 23%) 8%, transparent 20%),
+    radial-gradient(ellipse at 22% 100%, rgb(194 226 243 / 18%) 0%, transparent 26%),
+    radial-gradient(ellipse at 80% 100%, rgb(194 226 243 / 16%) 0%, transparent 28%),
+    radial-gradient(ellipse at 30% 3%, rgb(190 223 244 / 12%) 0 1px, transparent 2px),
+    radial-gradient(ellipse at 68% 15%, rgb(220 242 255 / 24%) 0 1px, transparent 2px),
+    radial-gradient(ellipse at 92% 34%, rgb(190 223 244 / 18%) 0 1.5px, transparent 2.5px);
+  background-size: auto, auto, auto, auto, 83px 97px, 137px 121px, 113px 149px;
+  animation: pricing-charges-atmosphere 38s ease-in-out infinite alternate;
+}
+
+.pricing-charges-scene::after {
+  z-index: 0;
+  top: auto;
+  height: 28%;
+  background:
+    linear-gradient(180deg, transparent 0%, rgb(126 179 210 / 6%) 30%, rgb(3 13 23 / 70%) 100%),
+    radial-gradient(ellipse at 50% 100%, rgb(210 238 253 / 20%), transparent 62%);
+  box-shadow: 0 -20px 70px rgb(153 206 235 / 8%);
+}
+
+.pricing-charges-particles {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgb(226 246 255 / 72%) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgb(179 222 246 / 52%) 0 1px, transparent 2px),
+    radial-gradient(circle, rgb(240 249 255 / 40%) 0 1.4px, transparent 2.2px);
+  background-size: 127px 151px, 193px 177px, 251px 213px;
+  background-position: 11px 28px, 77px 43px, 31px 104px;
+  opacity: .3;
+  animation: pricing-charges-particle-drift 34s linear infinite;
+}
+
+.pricing-charges-heading h2 { letter-spacing: -.025em; }
+
+.pricing-charges-glass {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgb(190 225 248 / 48%);
+  border-radius: 18px;
+  background: linear-gradient(125deg, rgb(5 20 35 / 83%), rgb(8 27 43 / 76%) 54%, rgb(4 18 31 / 86%));
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 0 24px rgb(120 200 255 / 15%), inset 0 1px 0 rgb(235 248 255 / 35%), inset 0 -1px 0 rgb(164 215 244 / 30%), 0 24px 70px rgb(0 0 0 / 38%);
+}
+
+.pricing-charges-glass::before,
+.pricing-charges-glass::after {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.pricing-charges-glass::before {
+  background:
+    linear-gradient(180deg, rgb(202 232 250 / 23%), transparent 12%),
+    linear-gradient(90deg, rgb(205 238 255 / 13%), transparent 4%, transparent 96%, rgb(205 238 255 / 14%)),
+    radial-gradient(ellipse at 50% 0%, rgb(193 226 246 / 15%), transparent 45%);
+}
+
+.pricing-charges-glass::after {
+  inset: 0 0 auto;
+  height: 18px;
+  background: radial-gradient(ellipse at 12% 0%, rgb(238 249 255 / 50%), transparent 30%), radial-gradient(ellipse at 78% 0%, rgb(238 249 255 / 42%), transparent 35%);
+  filter: blur(5px);
+}
+
+.pricing-charges-icicles {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  width: 174px;
+  height: 55px;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(234 249 255 / 85%), rgb(163 215 243 / 44%) 56%, transparent 100%) 18px 0 / 2px 20px no-repeat,
+    linear-gradient(180deg, rgb(238 250 255 / 94%), rgb(158 213 242 / 60%) 68%, transparent 100%) 40px 0 / 3px 36px no-repeat,
+    linear-gradient(180deg, rgb(224 244 255 / 83%), rgb(141 201 234 / 50%) 65%, transparent 100%) 62px 0 / 2px 25px no-repeat,
+    linear-gradient(180deg, rgb(239 251 255 / 90%), rgb(151 207 240 / 54%) 65%, transparent 100%) 86px 0 / 3px 43px no-repeat,
+    linear-gradient(180deg, rgb(230 247 255 / 85%), rgb(151 207 240 / 48%) 64%, transparent 100%) 113px 0 / 2px 28px no-repeat,
+    linear-gradient(180deg, rgb(239 251 255 / 90%), rgb(151 207 240 / 54%) 68%, transparent 100%) 139px 0 / 3px 38px no-repeat;
+  filter: drop-shadow(0 2px 4px rgb(151 211 245 / 55%));
+}
+
+.pricing-charges-glass > .overflow-x-auto { position: relative; z-index: 1; }
+
+.pricing-charges-table-head { background: linear-gradient(90deg, rgb(131 171 199 / 35%), rgb(94 135 166 / 30%)); }
+.pricing-charges-row { background: rgb(4 19 33 / 22%); }
+.pricing-charges-row:hover { background: rgb(180 225 249 / 8%); }
+.pricing-charges-included { text-shadow: 0 1px 8px rgb(2 12 23 / 55%); }
+
+/* Frozen warehouse framing for the plan cards. Keep all atmosphere behind content. */
+.pricing-cards-scene {
+  background:
+    radial-gradient(ellipse at 50% 36%, rgb(29 75 111 / 24%), transparent 47%),
+    linear-gradient(180deg, #041321 0%, #071d31 53%, #020c17 100%);
+}
+
+.pricing-cards-scene::before {
+  z-index: 0;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(1 10 18 / 46%) 0%, transparent 20%, transparent 80%, rgb(1 10 18 / 36%) 100%),
+    radial-gradient(ellipse at 0% 49%, rgb(155 211 246 / 74%) 0%, rgb(91 157 201 / 38%) 5%, transparent 21%),
+    radial-gradient(ellipse at 100% 43%, rgb(155 211 246 / 66%) 0%, rgb(91 157 201 / 33%) 6%, transparent 22%),
+    radial-gradient(ellipse at 3% 86%, rgb(176 222 247 / 48%), transparent 22%),
+    radial-gradient(ellipse at 97% 88%, rgb(176 222 247 / 44%), transparent 24%),
+    repeating-linear-gradient(90deg, transparent 0 42px, rgb(147 192 220 / 10%) 43px 45px, transparent 46px 84px),
+    linear-gradient(180deg, rgb(3 12 22 / 12%) 0%, transparent 22%, transparent 76%, rgb(2 11 19 / 75%) 100%);
+  opacity: .85;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 25%, transparent 75%, #000 100%);
+  mask-image: linear-gradient(90deg, #000 0%, transparent 25%, transparent 75%, #000 100%);
+  animation: pricing-section-fog 36s ease-in-out infinite alternate;
+}
+
+.pricing-cards-scene::after {
+  inset: auto 0 0;
+  z-index: 0;
+  height: 33%;
+  background:
+    linear-gradient(180deg, transparent, rgb(9 33 54 / 54%) 33%, rgb(2 10 18 / 90%) 100%),
+    repeating-linear-gradient(0deg, transparent 0 39px, rgb(150 203 235 / 7%) 40px, transparent 41px 66px),
+    radial-gradient(ellipse at 50% 75%, rgb(139 200 235 / 22%), transparent 58%);
+  box-shadow: 0 -35px 90px rgb(101 166 207 / 13%);
+}
+
+.pricing-cards-scene .pricing-plans-ice-fog {
+  z-index: 1;
+  inset: 4% -10% -4%;
+  background:
+    radial-gradient(ellipse at 2% 68%, rgb(216 239 252 / 48%) 0%, rgb(160 207 232 / 19%) 15%, transparent 38%),
+    radial-gradient(ellipse at 26% 95%, rgb(198 229 247 / 30%) 0%, rgb(137 190 220 / 12%) 19%, transparent 42%),
+    radial-gradient(ellipse at 78% 90%, rgb(198 229 247 / 27%) 0%, rgb(137 190 220 / 11%) 18%, transparent 40%),
+    radial-gradient(ellipse at 100% 61%, rgb(216 239 252 / 44%) 0%, rgb(160 207 232 / 17%) 14%, transparent 37%);
+  filter: blur(24px);
+  opacity: .76;
+  animation: pricing-ice-fog-drift 34s ease-in-out infinite alternate;
+}
+
+.pricing-cards-particles {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgb(222 245 255 / 78%) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgb(174 220 247 / 62%) 0 1.3px, transparent 2px),
+    radial-gradient(circle, rgb(232 248 255 / 42%) 0 1px, transparent 1.8px);
+  background-size: 137px 163px, 211px 191px, 263px 229px;
+  background-position: 11px 23px, 74px 61px, 34px 107px;
+  opacity: .24;
+  animation: pricing-charges-particle-drift 42s linear infinite alternate;
+}
+
+.pricing-cards-heading { align-items: flex-end; }
+.pricing-cards-title span { color: #f07832; }
+.pricing-temperature-tabs {
+  border-color: rgb(156 207 238 / 33%);
+  border-radius: 13px;
+  background: rgb(3 17 31 / 76%);
+  box-shadow: 0 0 22px rgb(100 176 222 / 12%), inset 0 1px 0 rgb(218 240 253 / 9%);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.pricing-temperature-tab { min-height: 47px; }
+.pricing-temperature-tab.is-active {
+  background: linear-gradient(145deg, #f07832, #bb4d19);
+  box-shadow: 0 5px 18px rgb(184 77 27 / 34%), inset 0 1px 0 rgb(255 225 203 / 25%);
+}
+
+.pricing-plan-card {
+  border-color: rgb(118 190 231 / 35%);
+  border-radius: 14px;
+  background: linear-gradient(150deg, rgb(5 24 43 / 93%), rgb(4 20 36 / 94%));
+  box-shadow: 0 15px 35px rgb(0 0 0 / 32%), 0 0 18px rgb(90 170 225 / 9%), inset 0 1px 0 rgb(220 245 255 / 13%);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  transition: transform 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+}
+.pricing-plan-card:hover {
+  border-color: rgb(171 222 249 / 66%);
+  box-shadow: 0 20px 42px rgb(0 0 0 / 40%), 0 0 24px rgb(103 190 240 / 18%), inset 0 1px 0 rgb(230 247 255 / 22%);
+}
+.pricing-plan-card::before {
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 auto;
+  height: 1px;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgb(218 243 255 / 68%), transparent);
+}
+.pricing-plan-card > div:first-child { height: 150px; }
+.pricing-plan-card > div:first-child img { transition: transform 700ms ease, filter 300ms ease; }
+.pricing-plan-card:hover > div:first-child img { filter: brightness(1.12) saturate(1.05); }
+.pricing-plan-image-shade { background: linear-gradient(180deg, rgb(3 14 25 / 3%) 34%, rgb(4 18 32 / 37%) 67%, #07182c 100%); }
+.pricing-plan-temperature {
+  border-color: rgb(171 217 243 / 38%);
+  background: rgb(3 18 33 / 82%);
+  box-shadow: 0 3px 12px rgb(0 0 0 / 25%);
+}
+.pricing-plan-cta {
+  border-color: rgb(169 209 235 / 42%);
+  background: rgb(255 255 255 / 2%);
+}
+.pricing-plan-cta:hover {
+  border-color: rgb(197 230 250 / 72%);
+  background: rgb(147 197 227 / 12%);
+  box-shadow: 0 0 18px rgb(112 188 231 / 15%);
+}
+
+/* Reuse the pricing cards' warehouse palette, edge lighting, and frosted glass. */
+.pricing-charges-scene {
+  background:
+    radial-gradient(ellipse at 50% 36%, rgb(29 75 111 / 24%), transparent 47%),
+    linear-gradient(180deg, #041321 0%, #071d31 53%, #020c17 100%);
+}
+.pricing-charges-scene::before {
+  background:
+    linear-gradient(90deg, rgb(1 10 18 / 46%) 0%, transparent 20%, transparent 80%, rgb(1 10 18 / 36%) 100%),
+    radial-gradient(ellipse at 0% 49%, rgb(155 211 246 / 74%) 0%, rgb(91 157 201 / 38%) 5%, transparent 21%),
+    radial-gradient(ellipse at 100% 43%, rgb(155 211 246 / 66%) 0%, rgb(91 157 201 / 33%) 6%, transparent 22%),
+    radial-gradient(ellipse at 3% 86%, rgb(176 222 247 / 48%), transparent 22%),
+    radial-gradient(ellipse at 97% 88%, rgb(176 222 247 / 44%), transparent 24%),
+    repeating-linear-gradient(90deg, transparent 0 42px, rgb(147 192 220 / 10%) 43px 45px, transparent 46px 84px),
+    linear-gradient(180deg, rgb(3 12 22 / 12%) 0%, transparent 22%, transparent 76%, rgb(2 11 19 / 75%) 100%);
+  opacity: .85;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 25%, transparent 75%, #000 100%);
+  mask-image: linear-gradient(90deg, #000 0%, transparent 25%, transparent 75%, #000 100%);
+  animation: pricing-section-fog 36s ease-in-out infinite alternate;
+}
+.pricing-charges-scene::after {
+  inset: auto 0 0;
+  height: 33%;
+  background:
+    linear-gradient(180deg, transparent, rgb(9 33 54 / 54%) 33%, rgb(2 10 18 / 90%) 100%),
+    repeating-linear-gradient(0deg, transparent 0 39px, rgb(150 203 235 / 7%) 40px, transparent 41px 66px),
+    radial-gradient(ellipse at 50% 75%, rgb(139 200 235 / 22%), transparent 58%);
+  box-shadow: 0 -35px 90px rgb(101 166 207 / 13%);
+}
+.pricing-charges-fog {
+  position: absolute;
+  z-index: 1;
+  inset: 4% -10% -4%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 2% 68%, rgb(216 239 252 / 48%) 0%, rgb(160 207 232 / 19%) 15%, transparent 38%),
+    radial-gradient(ellipse at 26% 95%, rgb(198 229 247 / 30%) 0%, rgb(137 190 220 / 12%) 19%, transparent 42%),
+    radial-gradient(ellipse at 78% 90%, rgb(198 229 247 / 27%) 0%, rgb(137 190 220 / 11%) 18%, transparent 40%),
+    radial-gradient(ellipse at 100% 61%, rgb(216 239 252 / 44%) 0%, rgb(160 207 232 / 17%) 14%, transparent 37%);
+  filter: blur(24px);
+  opacity: .76;
+  transform: translate3d(-1.5%, 0, 0) scale(1.02);
+  animation: pricing-ice-fog-drift 34s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.pricing-charges-particles {
+  background-image:
+    radial-gradient(circle, rgb(222 245 255 / 78%) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgb(174 220 247 / 62%) 0 1.3px, transparent 2px),
+    radial-gradient(circle, rgb(232 248 255 / 42%) 0 1px, transparent 1.8px);
+  background-size: 137px 163px, 211px 191px, 263px 229px;
+  background-position: 11px 23px, 74px 61px, 34px 107px;
+  opacity: .24;
+  animation-duration: 42s;
+  animation-direction: alternate;
+}
+.pricing-charges-glass {
+  border-color: rgb(118 190 231 / 35%);
+  border-radius: 14px;
+  background: linear-gradient(150deg, rgb(5 24 43 / 93%), rgb(4 20 36 / 94%));
+  box-shadow: 0 15px 35px rgb(0 0 0 / 32%), 0 0 18px rgb(90 170 225 / 9%), inset 0 1px 0 rgb(220 245 255 / 13%);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.pricing-charges-table-head { background: linear-gradient(90deg, rgb(100 148 182 / 36%), rgb(65 111 146 / 29%)); }
+.pricing-charges-heading > div:first-child { border-color: rgb(240 120 50 / 72%); }
+.pricing-charges-heading h2 { font-size: 2.25rem; }
+
+@media (max-width: 767px) {
+  .pricing-charges-fog { opacity: .48; filter: blur(18px); }
+}
+
+@media (max-width: 1279px) {
+  .pricing-plan-card { min-height: 440px; }
+}
+
+@media (max-width: 767px) {
+  .pricing-cards-scene { padding-block: 2.5rem; }
+  .pricing-cards-heading { align-items: stretch; }
+  .pricing-temperature-tabs { width: 100%; }
+  .pricing-plan-card { min-height: 0; }
+  .pricing-plan-card > div:first-child { height: 185px; }
+  .pricing-cards-particles { opacity: .12; }
+  .pricing-cards-scene .pricing-plans-ice-fog { opacity: .48; filter: blur(18px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing-cards-scene::before,
+  .pricing-cards-scene .pricing-plans-ice-fog,
+  .pricing-cards-particles { animation: none; }
+  .pricing-plan-card,
+  .pricing-plan-card > div:first-child img { transition: none; }
+  .pricing-plan-card:hover { transform: none; }
+}
+
+@keyframes pricing-charges-atmosphere {
+  from { transform: translate3d(-.8%, .3%, 0) scale(1.01); }
+  to { transform: translate3d(.8%, -1%, 0) scale(1.04); }
+}
+
+@keyframes pricing-charges-particle-drift {
+  from { transform: translate3d(0, 1%, 0); }
+  to { transform: translate3d(-1%, -2%, 0); }
+}
+
+@media (max-width: 767px) {
+  .pricing-charges-scene { padding-block: 2.5rem; }
+  .pricing-charges-glass { border-radius: 14px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .pricing-charges-icicles { transform: scale(.72); transform-origin: top right; }
+  .pricing-charges-particles { opacity: .18; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing-charges-scene::before,
+  .pricing-charges-particles,
+  .pricing-charges-fog { animation: none; }
 }
 
 [data-fog-placement="edges"] .cold-fog-fullscreen,
@@ -249,6 +660,11 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 @keyframes pricing-section-fog {
   from { transform: translate3d(-1.5%, 1%, 0) scale(1.02); }
   to { transform: translate3d(1.5%, -1.5%, 0) scale(1.08); }
+}
+
+@keyframes pricing-ice-fog-drift {
+  from { transform: translate3d(-1.5%, 0, 0) scale(1.02); }
+  to { transform: translate3d(1.5%, -1%, 0) scale(1.06); }
 }
 
 @keyframes generator-fog-drift {
@@ -681,40 +1097,16 @@ html[lang="ar"] .font-heading {
 }
 
 .home-contact-scene {
-  background:
-    radial-gradient(ellipse at 49% 44%, rgb(21 68 109 / 52%), transparent 55%),
-    linear-gradient(112deg, #061628 0%, #09223d 54%, #06182c 100%);
-}
-
-.home-contact-atmosphere {
-  position: absolute;
-  inset: -24% -6%;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 3% 88%, rgb(194 220 240 / 20%), transparent 34%),
-    radial-gradient(ellipse at 98% 30%, rgb(89 137 176 / 16%), transparent 38%),
-    url("/images/bg-fog-bottom.png") center bottom / auto 60% repeat-x;
-  filter: blur(20px);
-  opacity: 0.45;
-  animation: home-atmosphere-drift 38s ease-in-out infinite alternate;
+  background: #fff;
 }
 
 .home-contact-form input,
 .home-contact-form textarea {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 .home-contact-social a {
   transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
-}
-
-.home-contact-social a:hover {
-  box-shadow: 0 0 16px rgb(243 106 33 / 22%);
-}
-
-.home-contact-submit:hover {
-  box-shadow: 0 0 22px rgb(233 87 29 / 32%);
 }
 
 .home-services-scene {
@@ -881,10 +1273,6 @@ html[lang="ar"] .font-heading {
     padding-block: 2.75rem;
   }
 
-  .home-contact-form {
-    padding: 0.85rem;
-  }
-
   .home-services-image {
     min-height: 310px;
   }
@@ -927,7 +1315,6 @@ html[lang="ar"] .font-heading {
 @media (prefers-reduced-motion: reduce) {
   .home-benefits-atmosphere,
   .home-facility-edge-fog,
-  .home-contact-atmosphere,
   .home-services-floor-fog,
   .home-service-indicator,
   .home-temperature-panel {
@@ -1486,6 +1873,29 @@ html[lang="ar"] .font-heading {
 }
 .hero-copy-out { animation: hero-copy-out 350ms ease forwards; }
 
+@keyframes home-video-copy-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes home-video-copy-exit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+@keyframes home-video-description-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.home-video-copy-visible { opacity: 1; transform: translateY(0); }
+.home-video-copy-idle { opacity: 0; transform: translateY(12px); pointer-events: none; }
+.home-video-copy-enter { animation: home-video-copy-enter 700ms ease both; }
+.home-video-copy-exit { animation: home-video-copy-exit 700ms ease both; pointer-events: none; }
+.home-video-description-enter { animation: home-video-description-enter 560ms ease 120ms both; }
+@media (prefers-reduced-motion: reduce) {
+  .home-video-copy-enter { animation: none; opacity: 1; transform: none; }
+  .home-video-copy-exit { animation: none; opacity: 0; transform: none; }
+  .home-video-description-enter { animation: none; opacity: 1; transform: none; }
+}
+
 @keyframes cinematic-copy-enter {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1499,6 +1909,14 @@ html[lang="ar"] .font-heading {
   50% { transform: translate3d(2%, -8px, 0) scale(1.04); }
 }
 .home-cinematic-photo { animation: cinematic-photo-drift 34s ease-in-out infinite; }
+.home-cinematic-text-backdrop {
+  z-index: 1;
+  width: min(64%, 920px);
+  background: linear-gradient(90deg, rgb(4 16 31 / 78%) 0%, rgb(4 16 31 / 66%) 72%, rgb(4 16 31 / 0%) 100%);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  mask-image: linear-gradient(90deg, #000 0%, #000 72%, transparent 100%);
+}
 .home-cinematic-copy { animation: cinematic-copy-enter 900ms cubic-bezier(.2,.7,.2,1) both; }
 .home-cinematic-temperature { animation: cinematic-copy-enter 1000ms 160ms cubic-bezier(.2,.7,.2,1) both; }
 .home-cinematic-floor-fog {
@@ -1511,6 +1929,69 @@ html[lang="ar"] .font-heading {
 .home-cinematic-feature { animation: cinematic-copy-enter 800ms cubic-bezier(.2,.7,.2,1) both; transition: background-color 220ms ease, box-shadow 220ms ease; }
 .home-cinematic-feature:hover { background-color: rgb(243 106 33 / 7%); box-shadow: inset 0 0 24px rgb(243 106 33 / 8%); }
 .home-cinematic-cta:hover { box-shadow: 0 0 22px rgb(243 106 33 / 42%); }
+.home-section-edge-fog {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: paint;
+}
+.home-section-edge-fog::before,
+.home-section-edge-fog::after {
+  position: absolute;
+  inset: -8%;
+  content: "";
+  pointer-events: none;
+  will-change: transform;
+}
+.home-section-edge-fog::before {
+  background:
+    radial-gradient(ellipse at 0% 54%, rgb(220 241 255 / 30%) 0%, rgb(167 207 231 / 14%) 13%, transparent 32%),
+    radial-gradient(ellipse at 4% 83%, rgb(207 233 250 / 26%) 0%, rgb(142 192 222 / 11%) 18%, transparent 37%),
+    radial-gradient(ellipse at 100% 58%, rgb(220 241 255 / 26%) 0%, rgb(167 207 231 / 12%) 13%, transparent 32%),
+    radial-gradient(ellipse at 96% 86%, rgb(207 233 250 / 22%) 0%, rgb(142 192 222 / 9%) 18%, transparent 37%);
+  filter: blur(20px);
+  opacity: .42;
+  animation: home-edge-fog-drift 32s ease-in-out infinite alternate;
+  -webkit-mask-image: linear-gradient(90deg, #000, transparent 32%, transparent 68%, #000);
+  mask-image: linear-gradient(90deg, #000, transparent 32%, transparent 68%, #000);
+}
+.home-section-edge-fog[data-direction="left"]::before { animation-direction: alternate-reverse; }
+.home-section-edge-fog::after {
+  inset: auto -8% -8%;
+  height: 30%;
+  background:
+    radial-gradient(ellipse at 8% 100%, rgb(214 239 254 / 24%), transparent 42%),
+    radial-gradient(ellipse at 58% 100%, rgb(194 225 244 / 15%), transparent 50%),
+    radial-gradient(ellipse at 96% 100%, rgb(214 239 254 / 21%), transparent 42%);
+  filter: blur(24px);
+  opacity: .4;
+  animation: home-floor-mist-drift 28s ease-in-out infinite alternate;
+}
+@keyframes home-edge-fog-drift {
+  from { transform: translate3d(-.7%, .4%, 0) scale(1.02); }
+  to { transform: translate3d(.7%, -1%, 0) scale(1.04); }
+}
+@keyframes home-floor-mist-drift {
+  from { transform: translate3d(.7%, 0, 0); }
+  to { transform: translate3d(-.7%, -3%, 0); }
+}
+@media (max-width: 767px) {
+  .home-section-edge-fog::before,
+  .home-section-edge-fog::after { opacity: .26; filter: blur(14px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-section-edge-fog::before,
+  .home-section-edge-fog::after { animation: none; }
+}
+@media (max-width: 767px) {
+  .home-cinematic-text-backdrop {
+    width: 100%;
+    background: linear-gradient(180deg, rgb(4 16 31 / 76%) 0%, rgb(4 16 31 / 55%) 68%, rgb(4 16 31 / 20%) 100%);
+    mask-image: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .home-cinematic-photo, .home-cinematic-copy, .home-cinematic-temperature, .home-cinematic-floor-fog, .home-cinematic-feature { animation: none !important; }
   .home-cinematic-feature, .home-cinematic-cta, .hero-copy-in, .hero-copy-out { transition: none !important; animation: none !important; }
@@ -1520,6 +2001,19 @@ html[lang="ar"] .font-heading {
   object-fit: cover;
   object-position: var(--cinematic-image-position, center 48%);
   will-change: opacity, transform;
+}
+.cinematic-hero-photo--zoom-in { animation: cinematic-hero-zoom-in 1800ms ease-in-out both; }
+.cinematic-hero-photo--zoom-out { animation: cinematic-hero-zoom-out 1800ms ease-in-out both; }
+@keyframes cinematic-hero-zoom-in {
+  from { transform: scale(1.035); }
+  to { transform: scale(1.1); }
+}
+@keyframes cinematic-hero-zoom-out {
+  from { transform: scale(1.1); }
+  to { transform: scale(1.035); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-hero-photo--zoom-in, .cinematic-hero-photo--zoom-out { animation: none !important; }
 }
 
 @media (max-width: 639px) {

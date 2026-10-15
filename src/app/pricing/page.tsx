@@ -20,7 +20,6 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { PageHero } from "@/components/PageHero";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
-import { ColdFogOverlay } from "@/components/ui/ColdFogOverlay";
 import { useLanguage } from "@/context/LanguageContext";
 
 type TemperatureKey = "chilled" | "frozen" | "dry";
@@ -285,13 +284,13 @@ export default function PricingPage() {
           title={copy.title}
           badge={copy.eyebrow}
           description={copy.description}
-          imageSrc="/images/hero-warehouse.jpg"
+          imageSrc="/images/real-facility/modern-entrance.jpg"
           imagePosition="center 45%"
           slides={[
-            { src: "/images/hero-warehouse.jpg", alt: isArabic ? "داخل مستودع تخزين مبرد" : "Interior of a refrigerated warehouse", position: "center 45%", mobilePosition: "60% center" },
-            { src: "/images/temperature-storage.jpg", alt: isArabic ? "منصات منظمة داخل غرف التخزين البارد" : "Organized pallets inside cold storage rooms", position: "center 48%", mobilePosition: "58% center" },
-            { src: "/images/facility-loading-bays.png", alt: isArabic ? "منطقة استلام في منشأة التخزين" : "Receiving area at the storage facility", position: "center 50%", mobilePosition: "62% center" },
-            { src: "/images/home-facility-cinematic.png", alt: isArabic ? "مناولة المنتجات في مرفق مبرد" : "Product handling in a refrigerated facility", position: "center 50%", mobilePosition: "58% center" },
+            { src: "/images/real-facility/modern-entrance.jpg", alt: isArabic ? "واجهة منشأة التخزين المبرد" : "Cold-storage facility exterior", position: "center 48%", mobilePosition: "58% center" },
+            { src: "/images/real-facility/storage-room-symmetrical.jpg", alt: isArabic ? "غرفة تخزين مبردة" : "Refrigerated storage room", position: "center 50%", mobilePosition: "54% center" },
+            { src: "/images/real-facility/forklifts-loading-bay.jpg", alt: isArabic ? "رافعات شوكية في منطقة المناولة المبردة" : "Forklifts in the refrigerated handling bay", position: "center 50%", mobilePosition: "38% center" },
+            { src: "/images/real-facility/backup-generator.jpg", alt: isArabic ? "مولد احتياطي لدعم استمرارية التبريد" : "Backup generator supporting refrigeration continuity", position: "center 50%", mobilePosition: "55% center" },
           ]}
           fogIntensity="strong"
           ctaHref="#pricing"
@@ -299,9 +298,8 @@ export default function PricingPage() {
         />
 
         <section aria-labelledby="pricing-features-heading" className="pricing-features-scene relative isolate flex min-h-[570px] flex-col justify-between overflow-hidden px-4 py-10 text-white sm:px-6 sm:py-12 lg:min-h-[520px] lg:px-8 lg:py-14">
-          <Image src="/images/pricing-features-cinematic.png" alt="" fill sizes="100vw" className="pricing-features-background object-cover" aria-hidden="true" />
+          <Image src="/images/pricing-features-cinematic.webp" alt="" fill sizes="100vw" className="pricing-features-background object-cover" aria-hidden="true" />
           <div className="pricing-features-shade" aria-hidden="true" />
-          <ColdFogOverlay intensity="subtle" speed="slow" direction="right" floorFade={false} edgesOnly opacity={0.38} />
           <div className="relative z-10 mx-auto w-full max-w-7xl">
             <RevealOnScroll animation="fade-up" duration={700}>
               <h2 id="pricing-features-heading" className="font-heading text-4xl font-bold leading-tight text-white sm:text-5xl">{copy.featuresTitle}</h2>
@@ -328,17 +326,18 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section id="pricing" aria-labelledby="pricing-heading" className="pricing-plans-atmosphere scroll-mt-24 py-12 text-white sm:py-16 lg:py-18">
-          <ColdFogOverlay intensity="subtle" speed="slow" direction="left" floorFade={false} edgesOnly opacity={0.38} />
+        <section id="pricing" aria-labelledby="pricing-heading" className="pricing-plans-atmosphere pricing-cards-scene scroll-mt-24 py-12 text-white sm:py-16 lg:py-18">
+          <div className="pricing-plans-ice-fog" aria-hidden="true" />
+          <div className="pricing-cards-particles" aria-hidden="true" />
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <RevealOnScroll animation="fade-up" duration={750} className="relative z-10 mb-7 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <RevealOnScroll animation="fade-up" duration={750} className="pricing-cards-heading relative z-10 mb-7 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
               <div>
                 <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-300">{copy.pricingEyebrow}</p>
-                <h2 id="pricing-heading" className="mt-1.5 font-heading text-3xl font-bold leading-tight text-white sm:text-4xl">{copy.pricingTitle}</h2>
+                <h2 id="pricing-heading" className="pricing-cards-title mt-1.5 font-heading text-3xl font-bold leading-tight text-white sm:text-4xl">{isArabic ? copy.pricingTitle : <>Cold Storage Solutions <span>Pricing</span></>}</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-300 sm:text-base">{copy.pricingDescription}</p>
                 <span aria-hidden="true" className="mt-3 block h-0.5 w-16 bg-[#F07832]" />
               </div>
-              <div role="tablist" aria-label={isArabic ? "اختر درجة الحرارة" : "Select storage temperature"} className="relative inline-flex w-full rounded-lg border border-white/20 bg-[#061628]/70 p-1 shadow-lg sm:w-auto">
+              <div role="tablist" aria-label={isArabic ? "اختر درجة الحرارة" : "Select storage temperature"} className="pricing-temperature-tabs relative inline-flex w-full rounded-lg border border-white/20 bg-[#061628]/70 p-1 shadow-lg sm:w-auto">
                 {copy.temperatures.map((item) => (
                   <button
                     key={item.id}
@@ -347,7 +346,7 @@ export default function PricingPage() {
                     aria-selected={temperature === item.id}
                     aria-controls="pricing-cards"
                     onClick={() => setTemperature(item.id)}
-                    className={`min-w-0 flex-1 rounded-md px-3 py-2 text-xs font-semibold transition-all duration-200 sm:flex-initial sm:px-5 ${temperature === item.id ? "bg-[#B84D1B] text-white shadow-[0_4px_16px_rgba(184,77,27,0.32)]" : "text-slate-200 hover:bg-white/10 hover:text-white"}`}
+                    className={`pricing-temperature-tab min-w-0 flex-1 rounded-md px-3 py-2 text-xs font-semibold transition-all duration-200 sm:flex-initial sm:px-5 ${temperature === item.id ? "is-active bg-[#B84D1B] text-white shadow-[0_4px_16px_rgba(184,77,27,0.32)]" : "text-slate-200 hover:bg-white/10 hover:text-white"}`}
                   >
                     <span className="block">{item.label}</span>
                     <span className="mt-0.5 block whitespace-nowrap text-[9px] font-normal opacity-80">{item.range}</span>
@@ -356,14 +355,14 @@ export default function PricingPage() {
               </div>
             </RevealOnScroll>
 
-            <div id="pricing-cards" role="tabpanel" className="relative z-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-5">
+            <div id="pricing-cards" role="tabpanel" className="pricing-cards-grid relative z-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-5">
               {copy.products.map((product) => (
                 <RevealOnScroll key={product.id} animation="fade-up" className="h-full">
-                  <article className="group relative flex h-full min-h-[450px] flex-col overflow-hidden rounded-xl border border-sky-200/20 bg-[#0a2038]/85 shadow-[0_14px_34px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#D86A2D]/70 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_22px_rgba(184,77,27,0.12)]">
+                  <article className="pricing-plan-card group relative flex h-full min-h-[450px] flex-col overflow-hidden rounded-xl border border-sky-200/20 bg-[#0a2038]/85 shadow-[0_14px_34px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1">
                     <div className="relative h-[150px] overflow-hidden sm:h-[165px]">
                       <Image src={product.image} alt={product.title} fill sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 25vw" className="object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#07182c] via-[#07182c]/15 to-transparent" />
-                      {!product.customQuote && <span className="absolute bottom-3 start-4 rounded-full border border-white/25 bg-[#061628]/75 px-3 py-1 text-[10px] font-medium text-slate-100 backdrop-blur-sm">{copy.temperatures.find((item) => item.id === temperature)?.label} · {copy.temperatures.find((item) => item.id === temperature)?.range}</span>}
+                      <div className="pricing-plan-image-shade absolute inset-0 bg-gradient-to-t from-[#07182c] via-[#07182c]/15 to-transparent" />
+                      {!product.customQuote && <span className="pricing-plan-temperature absolute bottom-3 start-4 rounded-full border border-white/25 bg-[#061628]/75 px-3 py-1 text-[10px] font-medium text-slate-100 backdrop-blur-sm">{copy.temperatures.find((item) => item.id === temperature)?.label} · {copy.temperatures.find((item) => item.id === temperature)?.range}</span>}
                     </div>
                     <div className="flex flex-1 flex-col p-5 sm:p-5">
                       <h3 className="font-heading text-lg font-bold leading-snug text-white">{product.title}</h3>
@@ -390,7 +389,7 @@ export default function PricingPage() {
                           </li>
                         ))}
                       </ul>
-                      <Link href="/contact#contact-location" className="mt-auto inline-flex min-h-11 items-center justify-center gap-2 rounded-[7px] border border-white/30 bg-white/[0.025] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.04] hover:border-[#D86A2D] hover:bg-[#B84D1B] hover:shadow-lg focus-visible:scale-[1.02] active:scale-[0.99] motion-reduce:transform-none motion-reduce:transition-none">
+                      <Link href="/contact#contact-location" className="pricing-plan-cta mt-auto inline-flex min-h-11 items-center justify-center gap-2 rounded-[7px] border border-white/30 bg-white/[0.025] px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none">
                         {product.cta}<ArrowRight className={`h-4 w-4 ${isArabic ? "rotate-180" : ""}`} aria-hidden="true" />
                       </Link>
                     </div>
@@ -402,10 +401,10 @@ export default function PricingPage() {
         </section>
 
         <section aria-labelledby="generator-heading" className="generator-feature relative isolate min-h-[680px] overflow-hidden text-white sm:min-h-[700px]">
-          <Image src="/images/pricing-generator.png" alt="" fill sizes="100vw" priority={false} className="generator-feature-background object-cover" aria-hidden="true" />
+          <Image src="/images/real-facility/backup-generator.jpg" alt="" fill sizes="100vw" priority={false} className="generator-feature-background object-cover" aria-hidden="true" />
           <div className="generator-feature-overlay" aria-hidden="true" />
           <div className="generator-feature-atmosphere" aria-hidden="true" />
-          <ColdFogOverlay intensity="subtle" speed="medium" direction="right" floorFade={false} edgesOnly opacity={0.38} />
+          <div className="generator-feature-copy-blur" aria-hidden="true" />
           <div className="relative z-10 mx-auto flex max-w-7xl items-center px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
             <div className="w-full max-w-[620px]">
               <RevealOnScroll animation="fade-up" duration={750}>
@@ -433,23 +432,25 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section aria-labelledby="charges-heading" className="pricing-plans-atmosphere scroll-mt-24 py-12 text-white sm:py-16 lg:py-18">
-          <ColdFogOverlay intensity="subtle" speed="slow" direction="left" floorFade={false} edgesOnly opacity={0.38} />
+        <section aria-labelledby="charges-heading" className="pricing-charges-scene scroll-mt-24 py-12 text-white sm:py-16 lg:py-18">
+          <div className="pricing-charges-fog" aria-hidden="true" />
+          <div className="pricing-charges-particles" aria-hidden="true" />
           <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <RevealOnScroll animation="fade-up" duration={700}>
-              <div className="mb-6 flex items-center gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-sky-200/35 bg-[#061628]/55 text-[#F07832] shadow-[0_0_22px_rgba(71,133,184,0.16)]">
+              <div className="pricing-charges-heading mb-6 flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-orange-400/80 bg-[#061628]/70 text-[#F07832] shadow-[0_0_22px_rgba(71,133,184,0.24)]">
                   <Box className="h-7 w-7" strokeWidth={1.65} aria-hidden="true" />
                 </div>
                 <div>
-                  <h2 id="charges-heading" className="font-heading text-3xl font-bold text-white sm:text-4xl">{copy.chargesTitle}</h2>
-                  <p className="mt-1 text-sm text-slate-300">{copy.chargesSubtitle}</p>
+                  <h2 id="charges-heading" className="font-heading text-3xl font-bold text-white sm:text-4xl">{isArabic ? copy.chargesTitle : <>Additional <span className="text-[#F07832]">Charges</span></>}</h2>
+                  <p className="mt-1 text-sm text-slate-300 sm:text-base">{copy.chargesSubtitle}</p>
                 </div>
               </div>
-              <div className="overflow-hidden rounded-lg border border-sky-200/20 bg-[#061628]/60 shadow-[0_16px_40px_rgba(0,0,0,0.2)]">
+              <div className="pricing-charges-glass">
+                <div className="pricing-charges-icicles" aria-hidden="true" />
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[720px] border-collapse text-start text-sm">
-                    <thead className="bg-[#142b44]/95 text-white">
+                    <thead className="pricing-charges-table-head text-white">
                       <tr>
                         <th scope="col" className="w-[34%] px-4 py-3 text-start font-semibold sm:px-5">{copy.serviceLabel}</th>
                         <th scope="col" className="w-[31%] border-s border-white/10 px-4 py-3 text-start font-semibold sm:px-5">{copy.priceLabel}</th>
@@ -458,7 +459,7 @@ export default function PricingPage() {
                     </thead>
                     <tbody className="divide-y divide-sky-100/10">
                       {copy.products.filter((product) => !product.customQuote).map((product) => (
-                        <tr key={product.id} className="transition-colors hover:bg-white/[0.035]">
+                        <tr key={product.id} className="pricing-charges-row transition-colors">
                           <th scope="row" className="px-4 py-3.5 text-start align-top font-medium leading-5 text-slate-100 sm:px-5">{product.title}</th>
                           <td className="border-s border-white/10 px-4 py-3.5 align-top sm:px-5">
                             <div className="space-y-2">
@@ -480,7 +481,7 @@ export default function PricingPage() {
                         </tr>
                       ))}
                       {copy.chargeRows.map((row, index) => (
-                        <tr key={`${row.notes}-${index}`} className="transition-colors hover:bg-white/[0.035]">
+                        <tr key={`${row.notes}-${index}`} className="pricing-charges-row transition-colors">
                           <th scope="row" className="px-4 py-3.5 text-start font-medium leading-5 text-slate-100 sm:px-5">{row.service}</th>
                           <td dir="ltr" className="whitespace-nowrap border-s border-white/10 px-4 py-3.5 text-end font-semibold tabular-nums text-[#F07832] sm:px-5">{row.price}</td>
                           <td className="border-s border-white/10 px-4 py-3.5 font-semibold text-slate-200 sm:px-5">{row.notes}</td>
@@ -492,8 +493,8 @@ export default function PricingPage() {
               </div>
             </RevealOnScroll>
 
-            <div className="mt-5 max-w-3xl">
-              <h3 className="font-heading text-base font-bold text-white">{copy.includedTitle}</h3>
+            <div className="pricing-charges-included mt-5 max-w-3xl">
+              <h3 className="font-heading text-lg font-bold text-white">{copy.includedTitle}</h3>
               <RevealOnScroll animation="fade-up" delay={100}>
                 <ul className="mt-2 space-y-1.5">
                   {copy.includedItems.map((item) => (
@@ -508,10 +509,9 @@ export default function PricingPage() {
           </div>
         </section>
 
-        <section aria-labelledby="pricing-cta-heading" className="pricing-cta relative isolate overflow-hidden border-y border-sky-100/20 px-4 py-4 text-white sm:px-6 sm:py-5 lg:px-8">
+        <section aria-labelledby="pricing-cta-heading" className="pricing-cta relative isolate overflow-hidden px-4 py-4 text-white sm:px-6 sm:py-5 lg:px-8">
           <div aria-hidden="true" className="pricing-cta-background absolute inset-0 -z-10" />
           <div aria-hidden="true" className="pricing-cta-light absolute inset-y-0 end-0 -z-10 w-1/2" />
-          <ColdFogOverlay intensity="subtle" speed="slow" direction="right" floorFade={false} edgesOnly opacity={0.28} />
           <div className="relative z-10 mx-auto flex min-h-14 max-w-7xl flex-col items-stretch gap-4 sm:gap-5 md:flex-row md:items-center md:justify-between">
             <div className="flex min-w-0 items-center gap-4">
               <div className="pricing-cta-icon flex h-12 w-12 shrink-0 items-center justify-center" aria-hidden="true">

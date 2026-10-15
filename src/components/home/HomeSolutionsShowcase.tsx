@@ -72,7 +72,7 @@ export function HomeSolutionsShowcase() {
 
       <div className="home-end-to-end-warehouse">
         <Image
-          src="/images/home-end-to-end-solutions.png"
+          src="/images/home-end-to-end-solutions.webp"
           alt={isArabic ? "أبواب غرف التبريد المعزولة ومعدات التبريد ورافعة شوكية في المستودع" : "Insulated cold-room doors, refrigeration equipment, and a forklift inside a cold-storage warehouse"}
           fill
           sizes="(max-width: 800px) 100vw, 52vw"

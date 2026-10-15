@@ -55,13 +55,13 @@ export default function ContactPage() {
         <PageHero
           title={t.contact.title}
           description={t.contact.desc}
-          imageSrc="/images/services-contact-warehouse.jpg"
+          imageSrc="/images/real-facility/entrance-illuminated.jpg"
           imagePosition="center 40%"
           slides={[
-            { src: "/images/services-contact-warehouse.jpg", alt: isArabic ? "منشأة تخزين مبرد لاستقبال البضائع" : "Cold storage facility ready to receive goods", position: "center 40%", mobilePosition: "58% center" },
-            { src: "/images/facility-entrance-signage.png", alt: isArabic ? "مدخل منشأة تحسين جابر للتخزين المبرد" : "Entrance to the Tahseen Jaber cold storage facility", position: "center 50%", mobilePosition: "60% center" },
-            { src: "/images/contact-dock-forklift.jpg", alt: isArabic ? "رافعة شوكية تنقل بضائع عند منطقة التحميل" : "Forklift moving goods at a loading area", position: "center 48%", mobilePosition: "60% center" },
-            { src: "/images/facility-exterior-wide.png", alt: isArabic ? "الواجهة الخارجية لمنشأة التخزين المبرد" : "Cold storage facility exterior", position: "center 46%", mobilePosition: "63% center" },
+            { src: "/images/real-facility/entrance-illuminated.jpg", alt: isArabic ? "مدخل منشأة تحسين جابر للتخزين المبرد ليلاً" : "Entrance to the Tahseen Jaber cold-storage facility at night", position: "center 48%", mobilePosition: "58% center" },
+            { src: "/images/real-facility/modern-entrance.jpg", alt: isArabic ? "واجهة المنشأة وأبواب التحميل" : "Facility facade and loading doors", position: "center 48%", mobilePosition: "58% center" },
+            { src: "/images/real-facility/forklifts-loading-bay.jpg", alt: isArabic ? "رافعات شوكية في منطقة المناولة" : "Forklifts in the handling bay", position: "center 50%", mobilePosition: "38% center" },
+            { src: "/images/real-facility/facility-night.jpg", alt: isArabic ? "منشأة تحسين جابر للتخزين المبرد ليلاً" : "Tahseen Jaber Cold Storage at night", position: "center 50%", mobilePosition: "57% center" },
           ]}
           fogIntensity="gentle"
         />
@@ -123,7 +123,7 @@ export default function ContactPage() {
         {/* =====================================================================
             3. "REACH OUT TODAY" SECTION
         ====================================================================== */}
-        <section className="bg-white border-t border-[#E3E8EC]">
+        <section className="bg-white ">
           <div className="w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch min-h-[580px]">
               {/* Left Column: Clean Form */}
@@ -251,7 +251,7 @@ export default function ContactPage() {
         <section
           id="contact-location"
           aria-labelledby="contact-location-heading"
-          className="bg-white border-b border-[#E3E8EC] scroll-mt-24"
+          className="bg-white  scroll-mt-24"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
             <div className="w-full min-h-[360px] sm:min-h-[460px] lg:min-h-[100svh] bg-[#F1F5F9]">

@@ -75,18 +75,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const [scrollProgress, setScrollProgress] = useState(0);
-  useEffect(() => {
-    const updateProgress = () => {
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0);
-    };
-    updateProgress();
-    window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
-    return () => { window.removeEventListener("scroll", updateProgress); window.removeEventListener("resize", updateProgress); };
-  }, [pathname]);
-
   return (
     <>
       <header
@@ -263,9 +251,6 @@ export function Navbar() {
           </div>
         )}
       </header>
-      <div aria-label="Page scroll progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(scrollProgress * 100)} className="fixed inset-x-0 top-0 z-[60] h-[3px] bg-transparent">
-        <div className="h-full origin-left bg-[#D86A2D] transition-[width] duration-100" style={{ width: `${scrollProgress * 100}%` }} />
-      </div>
     </>
   );
 }

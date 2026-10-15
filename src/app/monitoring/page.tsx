@@ -168,13 +168,13 @@ export default function MonitoringPage() {
   const navigationTiles = isArabic
     ? [
         { label: "المنشأة", href: "/why-choose-us", image: "/images/about-cold-storage-room.webp", alt: "ممر غرفة تخزين مبردة" },
-        { label: "القدرات", href: "/about#capabilities", image: "/images/temperature-storage.jpg", alt: "منصات في مستودع تبريد" },
-        { label: "أنظمة درجات الحرارة", href: "/temperature-regimes", image: "/images/home-facility-cinematic.png", alt: "مرفق تخزين بارد" },
+        { label: "القدرات", href: "/about#capabilities", image: "/images/real-facility/plant-room-vibrant.jpg", alt: "معدات غرفة أنظمة التبريد الصناعية" },
+        { label: "أنظمة درجات الحرارة", href: "/temperature-regimes", image: "/images/services-temp-mgmt.jpg", alt: "عامل يفحص درجة حرارة المنتجات المبردة" },
       ]
     : [
         { label: "Facility", href: "/why-choose-us", image: "/images/about-cold-storage-room.webp", alt: "Clean refrigerated storage corridor" },
-        { label: "Capabilities", href: "/about#capabilities", image: "/images/temperature-storage.jpg", alt: "Pallets inside a cold storage warehouse" },
-        { label: "Temperature Regimes", href: "/temperature-regimes", image: "/images/home-facility-cinematic.png", alt: "Cold storage facility" },
+        { label: "Capabilities", href: "/about#capabilities", image: "/images/real-facility/plant-room-vibrant.jpg", alt: "Industrial refrigeration machinery in the plant room" },
+        { label: "Temperature Regimes", href: "/temperature-regimes", image: "/images/services-temp-mgmt.jpg", alt: "Worker checking the temperature of chilled products" },
       ];
 
   return (
@@ -185,12 +185,13 @@ export default function MonitoringPage() {
           title={isArabic ? "مراقبة مستمرة لظروف التخزين" : "Continuous Temperature Monitoring"}
           badge={isArabic ? "المراقبة" : "MONITORING"}
           description={isArabic ? "تدعم مراقبة درجات الحرارة ظروف تخزين متسقة ضمن فئات التخزين المجمد والمبرد والدوائي والجاف." : "Temperature monitoring supports consistent storage conditions across our frozen, chilled, pharmaceutical, and dry storage environments."}
-          imageSrc="/images/services-temp-mgmt.jpg"
+          imageSrc="/images/real-facility/control-room.jpg"
           imagePosition="center 52%"
           slides={[
-            { src: "/images/services-temp-mgmt.jpg", alt: isArabic ? "عامل يتحقق من حرارة البضائع داخل مستودع مبرد" : "Worker checking product temperature in cold storage", position: "center 52%", mobilePosition: "60% center" },
-            { src: "/images/refrigeration-tech.jpg", alt: isArabic ? "معدات أنظمة التبريد في غرفة تشغيل" : "Refrigeration system equipment in an operations room", position: "center 50%", mobilePosition: "58% center" },
-            { src: "/images/contact-cleanroom-inspection.jpg", alt: isArabic ? "مناولة منتجات معبأة داخل غرفة مبردة" : "Packaged products handled in a refrigerated room", position: "center 48%", mobilePosition: "55% center" },
+            { src: "/images/real-facility/control-room.jpg", alt: isArabic ? "لوحة تحكم غرف التخزين المبردة" : "Control panel for the cold-storage rooms", position: "center 52%", mobilePosition: "60% center" },
+            { src: "/images/real-facility/control-room-tank.jpg", alt: isArabic ? "لوحة تحكم وخزان في غرفة أنظمة المنشأة" : "Control panel and storage tank in the facility plant room", position: "center 50%", mobilePosition: "55% center" },
+            { src: "/images/real-facility/plant-room-vibrant.jpg", alt: isArabic ? "معدات التبريد الصناعية والأنابيب" : "Industrial refrigeration equipment and pipework", position: "center 50%", mobilePosition: "55% center" },
+            { src: "/images/real-facility/plant-room-bright.jpg", alt: isArabic ? "غرفة معدات أنظمة التبريد" : "Refrigeration plant equipment room", position: "center 50%", mobilePosition: "54% center" },
           ]}
         />
 
@@ -293,7 +294,7 @@ export default function MonitoringPage() {
           </div>
         </section>
 
-        <section className="border-y border-[#E4EAF0] bg-white px-4 py-7 sm:px-6 sm:py-8">
+        <section className=" bg-white px-4 py-7 sm:px-6 sm:py-8">
           <div className="mx-auto grid max-w-6xl gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-center">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#35577C]"><ShieldCheck className="h-4 w-4 text-[#B84D1B]" />{isArabic ? "ممارسات تشغيلية" : "Operational practices"}</div>
             {operations.map((item, index) => {

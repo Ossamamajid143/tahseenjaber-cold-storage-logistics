@@ -7,19 +7,19 @@ import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useLanguage } from "@/context/LanguageContext";
 
 const CAPABILITY_IMAGES = [
-  "/images/temperature-storage.jpg",
-  "/images/refrigeration-tech.jpg",
-  "/images/home-cold-storage-cinematic.png",
+  "/images/real-facility/storage-chamber-clean.jpg",
+  "/images/real-facility/corridor-refrigerated.jpg",
+  "/images/real-facility/storage-room-symmetrical.jpg",
   "/images/home-facility-cinematic.png",
-  "/images/services-temp-mgmt.jpg",
-  "/images/facility-loading-bays.png",
+  "/images/real-facility/forklifts-loading-bay.jpg",
+  "/images/real-facility/entrance-illuminated.jpg",
 ] as const;
 
 export function CapabilitiesCards() {
   const { t } = useLanguage();
 
   return (
-    <section id="capabilities" className="border-b border-[#E3E8EC] bg-white py-16 sm:py-20 scroll-mt-24">
+    <section id="capabilities" className=" bg-white py-16 sm:py-20 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <RevealOnScroll animation="fade-up" duration={800}>
           <div className="mb-10 flex flex-wrap items-end justify-between gap-5 sm:mb-12">

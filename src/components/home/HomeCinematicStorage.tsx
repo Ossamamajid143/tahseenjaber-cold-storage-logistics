@@ -70,7 +70,8 @@ export function HomeCinematicStorage() {
 
   return (
     <section className="home-cinematic-storage relative isolate flex min-h-[100svh] w-full flex-col justify-between overflow-hidden bg-[#061628] text-white" dir={isArabic ? "rtl" : "ltr"} aria-labelledby="home-cinematic-title">
-      <Image src="/images/home-cold-storage-cinematic.png" alt="Orange forklift and wrapped pallets inside a blue-lit refrigerated warehouse" fill sizes="100vw" className="home-cinematic-photo object-cover" priority={false} />
+      <Image src="/images/real-facility/corridor-refrigerated.jpg" alt="A clean refrigerated storage corridor with numbered cold rooms" fill sizes="100vw" className="home-cinematic-photo object-cover" priority={false} />
+      <div aria-hidden="true" className="home-cinematic-text-backdrop absolute inset-y-0 left-0" />
       <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,16,31,0.82)_0%,rgba(4,16,31,0.56)_38%,rgba(4,16,31,0.14)_74%,rgba(4,16,31,0.42)_100%)]" />
       <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(0deg,rgba(3,15,29,0.72)_0%,transparent_46%,rgba(3,15,29,0.1)_100%)]" />
       <div aria-hidden="true" className="home-cinematic-floor-fog absolute inset-x-[-12%] bottom-0 h-[48%]" />
@@ -114,7 +115,7 @@ export function HomeCinematicStorage() {
         </div>
       </div>
 
-      <div ref={statisticsRef} className="home-cinematic-statistics relative z-10 w-full border-y border-sky-100/20 bg-[#061628]/75 backdrop-blur-sm">
+      <div ref={statisticsRef} className="home-cinematic-statistics relative z-10 w-full bg-[#061628]/75 backdrop-blur-sm">
         <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 divide-y divide-sky-100/20 px-5 sm:grid-cols-2 sm:divide-y-0 sm:divide-x sm:px-8 lg:grid-cols-4 lg:px-12">
           {statistics.map(({ type, label, Icon }, index) => (
             <article key={label} className={`home-cinematic-stat flex flex-col items-center justify-center px-4 py-5 text-center sm:py-6 ${index > 0 ? "sm:border-sky-100/20" : ""}`}>

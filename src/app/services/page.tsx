@@ -22,17 +22,17 @@ import { GoogleMapsLocation } from "@/components/GoogleMapsLocation";
 
 const SERVICE_SECTION_IMAGES = [
   "/images/service-cold-storage-leasing.webp",
-  "/images/service-cold-chain-delivery.webp",
-  "/images/service-import-export.webp",
-  "/images/service-consignment-sale.webp",
+  "/images/real-facility/forklifts-loading-bay.jpg",
+  "/images/why-choose-us-warehouse-exterior.webp",
+  "/images/why-choose-us-hero.webp",
 ] as const;
 
 const FACILITY_GALLERY_IMAGES = [
-  "/images/cold-storage-warehouse-floor.jpg",
-  "/images/about-cold-storage-room.webp",
-  "/images/refrigeration-tech.jpg",
-  "/images/temperature-storage.jpg",
-  "/images/cold-storage-operations.jpg",
+  "/images/real-facility/corridor-refrigerated.jpg",
+  "/images/real-facility/storage-chamber-clean.jpg",
+  "/images/real-facility/plant-room-vibrant.jpg",
+  "/images/real-facility/corridor-numbered-doors.jpg",
+  "/images/real-facility/forklifts-loading-bay.jpg",
   "/images/facility-loading-bays.png",
 ] as const;
 
@@ -241,13 +241,13 @@ export default function ServicesPage() {
         <PageHero
           title={t.servicesPage.heroTitle}
           description={t.servicesPage.heroDesc}
-          imageSrc="/images/temperature-storage.jpg"
+          imageSrc="/images/real-facility/modern-entrance.jpg"
           imagePosition="center 45%"
           slides={[
-            { src: "/images/temperature-storage.jpg", alt: language === "AR" ? "منصات تخزين داخل مستودع مبرد" : "Pallet storage inside a refrigerated warehouse", position: "center 45%", mobilePosition: "58% center" },
-            { src: "/images/cold-storage-warehouse-floor.jpg", alt: language === "AR" ? "ممر تخزين بارد مع منصات منظمة" : "Cold storage aisle with organized pallets", position: "center 50%", mobilePosition: "64% center" },
-            { src: "/images/facility-loading-bays.png", alt: language === "AR" ? "منطقة تحميل في منشأة تخزين مبرد" : "Loading area at a cold storage facility", position: "center 48%", mobilePosition: "56% center" },
-            { src: "/images/home-facility-cinematic.png", alt: language === "AR" ? "داخل منشأة تخزين مبرد" : "Interior of a refrigerated storage facility", position: "center 52%", mobilePosition: "62% center" },
+            { src: "/images/real-facility/modern-entrance.jpg", alt: language === "AR" ? "مدخل منشأة تحسين جابر للتخزين المبرد" : "Entrance to the Tahseen Jaber cold-storage facility", position: "center 48%", mobilePosition: "58% center" },
+            { src: "/images/real-facility/forklifts-loading-bay.jpg", alt: language === "AR" ? "رافعتان شوكيتان في منطقة مناولة مبردة" : "Forklifts in a refrigerated handling bay", position: "center 50%", mobilePosition: "38% center" },
+            { src: "/images/real-facility/corridor-safety-markings.jpg", alt: language === "AR" ? "ممر تخزين مبرد مع علامات السلامة" : "Cold-storage corridor with safety markings", position: "center 50%", mobilePosition: "58% center" },
+            { src: "/images/real-facility/plant-room-vibrant.jpg", alt: language === "AR" ? "معدات أنظمة التبريد الصناعية" : "Industrial refrigeration equipment", position: "center 50%", mobilePosition: "55% center" },
           ]}
           fogIntensity="moderate"
           layout="left"
@@ -264,7 +264,7 @@ export default function ServicesPage() {
                 * Box 3: Secure Storage Facilities (Keeps "Get in touch with us" button -> scrolls to #contact)
                 * Box 4: Flexible Storage Options (Keeps "Explore our pricing plans" button)
         ====================================================================== */}
-        <section className="py-16 sm:py-20 bg-white border-b border-[#E3E8EC]">
+        <section className="py-16 sm:py-20 bg-white ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             {/* Reliable Cold Storage Solution Header & Info */}
@@ -377,7 +377,7 @@ export default function ServicesPage() {
         {t.servicesPage.serviceSections.map((service, index) => {
           const imageIsLeft = index % 2 === 0;
           return (
-            <section key={service.title} dir="ltr" className="grid grid-cols-1 lg:grid-cols-2 items-stretch bg-white border-b border-[#E3E8EC]">
+            <section key={service.title} dir="ltr" className="grid grid-cols-1 lg:grid-cols-2 items-stretch bg-white ">
               <RevealOnScroll
                 animation="fade-in"
                 duration={900}
@@ -424,7 +424,7 @@ export default function ServicesPage() {
         })}
 
         {/* Facilities information moved from the former Facilities page. */}
-        <section className="bg-[#F7F5F0] border-b border-[#E3E8EC] py-16 sm:py-20">
+        <section className="bg-[#F7F5F0]  py-16 sm:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-10 sm:mb-12">
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#0A2340] tracking-tight mb-4">
@@ -484,15 +484,15 @@ export default function ServicesPage() {
                 </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5" aria-label={t.servicesPage.facilitySection.infrastructureImagesLabel}>
                 <figure className="relative min-h-[240px] overflow-hidden rounded-lg border border-[#DDE3E8] sm:col-span-2 sm:min-h-[340px]">
-                  <Image src="/images/temperature-storage.jpg" alt={t.servicesPage.facilitySection.infrastructureImages[0]} fill sizes="(max-width: 639px) 100vw, 80vw" className="object-cover" />
+                  <Image src="/images/real-facility/corridor-refrigerated.jpg" alt={t.servicesPage.facilitySection.infrastructureImages[0]} fill sizes="(max-width: 639px) 100vw, 80vw" className="object-cover" />
                   <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0A2340]/90 to-transparent px-5 pb-5 pt-12 font-semibold text-white">{t.servicesPage.facilitySection.infrastructureImages[0]}</figcaption>
                 </figure>
                 <figure className="relative min-h-[210px] overflow-hidden rounded-lg border border-[#DDE3E8]">
-                  <Image src="/images/about-cold-storage-room.webp" alt={t.servicesPage.facilitySection.infrastructureImages[1]} fill sizes="(max-width: 639px) 100vw, 40vw" className="object-cover" />
+                  <Image src="/images/real-facility/storage-chamber-clean.jpg" alt={t.servicesPage.facilitySection.infrastructureImages[1]} fill sizes="(max-width: 639px) 100vw, 40vw" className="object-cover" />
                   <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0A2340]/90 to-transparent px-5 pb-4 pt-10 font-semibold text-white">{t.servicesPage.facilitySection.infrastructureImages[1]}</figcaption>
                 </figure>
                 <figure className="relative min-h-[210px] overflow-hidden rounded-lg border border-[#DDE3E8]">
-                  <Image src="/images/cold-storage-warehouse-floor.jpg" alt={t.servicesPage.facilitySection.infrastructureImages[2]} fill sizes="(max-width: 639px) 100vw, 40vw" className="object-cover" />
+                  <Image src="/images/real-facility/forklifts-loading-bay.jpg" alt={t.servicesPage.facilitySection.infrastructureImages[2]} fill sizes="(max-width: 639px) 100vw, 40vw" className="object-cover" />
                   <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0A2340]/90 to-transparent px-5 pb-4 pt-10 font-semibold text-white">{t.servicesPage.facilitySection.infrastructureImages[2]}</figcaption>
                 </figure>
               </div>
@@ -550,9 +550,9 @@ export default function ServicesPage() {
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {[
-                { label: t.servicesPage.continueFacilityLinks[0], href: "#facility-infrastructure", image: "/images/about-cold-storage-room.webp" },
-                { label: t.servicesPage.continueFacilityLinks[1], href: "/temperature-regimes", image: "/images/temperature-storage.jpg" },
-                { label: t.servicesPage.continueFacilityLinks[2], href: "/monitoring", image: "/images/refrigeration-tech.jpg" },
+                { label: t.servicesPage.continueFacilityLinks[0], href: "#facility-infrastructure", image: "/images/real-facility/corridor-numbered-doors.jpg" },
+                { label: t.servicesPage.continueFacilityLinks[1], href: "/temperature-regimes", image: "/images/real-facility/storage-chamber-clean.jpg" },
+                { label: t.servicesPage.continueFacilityLinks[2], href: "/monitoring", image: "/images/real-facility/control-room.jpg" },
               ].map((item) => <a key={item.label} href={item.href} className="group relative flex min-h-[220px] items-end overflow-hidden rounded-lg border border-[#DDE3E8] sm:min-h-[260px]">
                 <Image src={item.image} alt={item.label} fill sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                 <span className="absolute inset-0 bg-gradient-to-t from-[#0A2340]/85 via-[#0A2340]/15 to-transparent" />
@@ -679,7 +679,7 @@ export default function ServicesPage() {
         ====================================================================== */}
         <section
           aria-label={t.contact.directionsHeading}
-          className="w-full border-t border-[#E3E8EC] bg-white"
+          className="w-full  bg-white"
         >
           <div className="w-full">
             <GoogleMapsLocation

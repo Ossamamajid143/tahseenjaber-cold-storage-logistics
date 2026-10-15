@@ -56,20 +56,20 @@ export default function TemperatureRegimesPage() {
           title={isArabic ? "غرف مستقلة التحكم لكل فئة من المنتجات" : "Independently controlled rooms for every product family"}
           badge={isArabic ? "التخزين" : "STORAGE"}
           description={isArabic ? "تدعم فئات التخزين المختلفة متطلبات المنتجات المتنوعة. تواصل مع فريقنا لتحديد ظروف التخزين المناسبة لبضائعك." : "Storage categories support different product requirements. Contact our team to confirm suitable storage conditions for your goods."}
-          imageSrc="/images/temperature-storage.jpg"
+          imageSrc="/images/real-facility/storage-room-symmetrical.jpg"
           imagePosition="center 48%"
           slides={[
-            { src: "/images/temperature-storage.jpg", alt: isArabic ? "منصات مجمدة داخل مستودع التخزين" : "Frozen pallets inside a cold storage warehouse", position: "center 48%", mobilePosition: "60% center" },
-            { src: "/images/refrigeration-tech.jpg", alt: isArabic ? "معدات التبريد في غرفة تخزين مضبوطة الحرارة" : "Refrigeration equipment in a temperature-controlled room", position: "center 52%", mobilePosition: "58% center" },
-            { src: "/images/about-cold-storage-room.webp", alt: isArabic ? "غرفة تخزين نظيفة ومبردة" : "Clean refrigerated storage room", position: "center 50%", mobilePosition: "54% center" },
-            { src: "/images/home-facility-cinematic.png", alt: isArabic ? "مرفق تخزين بارد للمنتجات المعبأة" : "Cold storage facility for packaged goods", position: "center 50%", mobilePosition: "62% center" },
+            { src: "/images/real-facility/storage-room-symmetrical.jpg", alt: isArabic ? "غرفة تخزين مبردة مزودة بمبخرات سقفية" : "Cold-storage room with ceiling evaporators", position: "center 50%", mobilePosition: "54% center" },
+            { src: "/images/real-facility/storage-chamber-clean.jpg", alt: isArabic ? "غرفة تخزين مبردة نظيفة" : "Clean refrigerated storage chamber", position: "center 50%", mobilePosition: "55% center" },
+            { src: "/images/real-facility/corridor-refrigerated.jpg", alt: isArabic ? "ممر غرف التخزين المبردة" : "Corridor between refrigerated storage rooms", position: "center 50%", mobilePosition: "56% center" },
+            { src: "/images/real-facility/corridor-numbered-doors.jpg", alt: isArabic ? "ممر غرف التخزين ذات الأبواب المرقمة" : "Cold-storage corridor with numbered doors", position: "center 50%", mobilePosition: "57% center" },
           ]}
           fogIntensity="soft"
           layout="left"
           overlayGradient="linear-gradient(90deg, rgba(6,22,40,0.78) 0%, rgba(10,35,64,0.45) 58%, rgba(6,22,40,0.18) 100%), linear-gradient(180deg, rgba(6,22,40,0.04) 0%, rgba(6,22,40,0.20) 100%)"
         />
 
-        <section className="border-b border-[#E3E8EC] bg-white py-14 sm:py-20">
+        <section className=" bg-white py-14 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <RevealOnScroll animation="fade-up" duration={800}>
               <div className="mb-8 max-w-4xl sm:mb-10">

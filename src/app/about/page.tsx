@@ -17,13 +17,12 @@ import { PageHero } from "@/components/PageHero";
 import { PatternDivider } from "@/components/ui/PatternDivider";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useLanguage } from "@/context/LanguageContext";
-import { SITE_CONFIG } from "@/data/site-content";
 import { CapabilitiesCards } from "@/components/CapabilitiesCards";
 
 const CONTINUE_IMAGES = [
-  "/images/about-cold-storage-room.webp",
-  "/images/temperature-storage.jpg",
-  "/images/refrigeration-tech.jpg",
+  "/images/real-facility/corridor-numbered-doors.jpg",
+  "/images/real-facility/storage-chamber-clean.jpg",
+  "/images/real-facility/control-room.jpg",
 ] as const;
 const PROCESS_ICONS = [Truck, Snowflake, Thermometer, PackageCheck] as const;
 
@@ -44,20 +43,20 @@ export default function AboutPage() {
         <PageHero
           title={t.about.badge}
           description={t.about.desc}
-          imageSrc="/images/temperature-storage.jpg"
+          imageSrc="/images/real-facility/facility-facade-day.jpg"
           imagePosition="center 48%"
           slides={[
-            { src: "/images/about-cold-storage-room.webp", alt: isArabic ? "غرفة تخزين مبردة مرتبة" : "Organized refrigerated storage room", position: "center 48%", mobilePosition: "58% center" },
-            { src: "/images/temperature-storage.jpg", alt: isArabic ? "منصات مخزنة في مستودع بارد" : "Pallets stored in a cold warehouse", position: "center 46%", mobilePosition: "60% center" },
-            { src: "/images/services-customized.jpg", alt: isArabic ? "فريق يتعامل مع البضائع داخل مستودع" : "Team handling goods inside a warehouse", position: "center 50%", mobilePosition: "62% center" },
-            { src: "/images/home-services-workers.png", alt: isArabic ? "مناولة منتجات في غرفة تخزين مبردة" : "Products handled inside refrigerated storage", position: "center 50%", mobilePosition: "56% center" },
+            { src: "/images/real-facility/facility-facade-day.jpg", alt: isArabic ? "واجهة منشأة تحسين جابر للتخزين المبرد نهاراً" : "Tahseen Jaber Cold Storage facade in daylight", position: "center 48%", mobilePosition: "58% center" },
+            { src: "/images/real-facility/corridor-numbered-doors.jpg", alt: isArabic ? "ممر غرف التخزين المبردة ذات الأبواب المرقمة" : "Corridor of numbered cold-storage rooms", position: "center 50%", mobilePosition: "58% center" },
+            { src: "/images/real-facility/storage-chamber-clean.jpg", alt: isArabic ? "غرفة تخزين مبردة نظيفة" : "Clean refrigerated storage chamber", position: "center 50%", mobilePosition: "55% center" },
+            { src: "/images/real-facility/plant-room-bright.jpg", alt: isArabic ? "معدات غرفة أنظمة التبريد" : "Equipment in the refrigeration plant room", position: "center 50%", mobilePosition: "54% center" },
           ]}
           fogIntensity="soft"
           layout="left"
           overlayGradient="linear-gradient(90deg, rgba(6,22,40,0.78) 0%, rgba(10,35,64,0.48) 58%, rgba(6,22,40,0.18) 100%), linear-gradient(180deg, rgba(6,22,40,0.05) 0%, rgba(6,22,40,0.22) 100%)"
         />
 
-        <section className="py-16 sm:py-24 bg-white border-b border-[#E3E8EC]">
+        <section className="py-16 sm:py-24 bg-white ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
               <RevealOnScroll animation="fade-up" duration={800} className="lg:col-span-5">
@@ -88,7 +87,7 @@ export default function AboutPage() {
             Column 1: Maintain Optimal Conditions / Temperature-Controlled Warehousing
             Column 2: Customized to Your Needs / Flexible Storage Options
         ====================================================================== */}
-        <section className="py-16 sm:py-24 bg-white border-b border-[#E3E8EC]">
+        <section className="py-16 sm:py-24 bg-white ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
               {/* Left Column: Temperature-Controlled Warehousing */}
@@ -127,11 +126,11 @@ export default function AboutPage() {
         </section>
 
         {/* Reliable storage: full-width photo and supporting copy. */}
-        <section className="grid grid-cols-1 lg:min-h-screen lg:grid-cols-2 bg-white border-b border-[#E3E8EC]">
+        <section className="grid grid-cols-1 lg:min-h-screen lg:grid-cols-2 bg-white ">
           <RevealOnScroll animation="fade-in" duration={900} className="h-full">
             <div className="relative h-[min(420px,78vw)] min-h-[300px] overflow-hidden bg-[#EEF5F8] lg:aspect-auto lg:h-full lg:min-h-screen">
               <Image
-                src="/images/about-cold-storage-room.webp"
+                src="/images/home-end-to-end-solutions.png"
                 alt={t.about.storage.imageAlt}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -163,7 +162,7 @@ export default function AboutPage() {
 
         <CapabilitiesCards />
 
-        <section className="overflow-hidden border-b border-[#E3E8EC] bg-white py-16 sm:py-20">
+        <section className="overflow-hidden  bg-white py-16 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <RevealOnScroll animation="fade-up" duration={800}>
               <div className="mb-10 max-w-3xl">
@@ -226,7 +225,7 @@ export default function AboutPage() {
         </section>
 
         {/* Quality and sustainability cards overlap the split photo background. */}
-        <section className="relative overflow-hidden bg-gradient-to-r from-[#EEF5F8] to-[#F7F5F0] border-b border-[#E3E8EC]">
+        <section className="relative overflow-hidden bg-gradient-to-r from-[#EEF5F8] to-[#F7F5F0] ">
           <div className="relative aspect-16/10 lg:absolute lg:inset-y-0 lg:end-0 lg:w-1/2 lg:aspect-auto">
             <Image
               src="/images/cold-storage-operations.jpg"
@@ -280,27 +279,24 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Business contact callout using the existing company logo. */}
-        <section className="bg-white py-10 sm:py-12 border-b border-[#E3E8EC]">
+        {/* Business contact callout using the full Tahseen Jaber logo. */}
+        <section className="bg-white py-10 sm:py-12 ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <RevealOnScroll animation="fade-up" duration={800}>
               <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
-                <div className="relative mb-5 h-[54px] w-[196px] shrink-0 sm:h-[62px] sm:w-[225px]">
-                  <Image
-                    src={SITE_CONFIG.logoPath}
-                    alt="Tahseen Jaber Cold Storage"
-                    width={898}
-                    height={247}
-                    sizes="(max-width: 640px) 196px, 225px"
-                    className="h-full w-full object-contain"
-                  />
-                </div>
                 <p className="font-heading text-xl sm:text-2xl lg:text-[28px] font-normal text-[#B84D1B] leading-[1.35] mb-4">
                   {t.about.desc}
                 </p>
-                <h2 className="font-heading text-base sm:text-lg font-semibold text-[#0A2340]">
-                  {t.about.inventory.brandName}
-                </h2>
+                <div className="relative h-[52px] w-[190px] shrink-0 sm:h-[58px] sm:w-[210px]">
+                  <Image
+                    src="/tahseen-jaber-logo.jpeg"
+                    alt="Tahseen Jaber Cold Storage"
+                    width={898}
+                    height={247}
+                    sizes="(max-width: 640px) 190px, 210px"
+                    className="h-full w-full object-contain"
+                  />
+                </div>
               </div>
             </RevealOnScroll>
           </div>
