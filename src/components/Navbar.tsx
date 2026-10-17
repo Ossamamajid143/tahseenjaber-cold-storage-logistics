@@ -93,13 +93,13 @@ export function Navbar() {
               aria-label="Tahseen Jaber Cold Storage Home"
             >
               <div className="relative h-10 w-[145px] shrink-0 sm:h-12 sm:w-[175px] lg:w-[205px] group-hover:scale-[1.02] transition-transform duration-200">
-                <span aria-hidden="true" className="pointer-events-none absolute inset-x-[18%] inset-y-[20%] rounded-full bg-[radial-gradient(ellipse,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0.08)_48%,transparent_78%)] blur-md" />
+                <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 h-[112%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-[radial-gradient(ellipse,rgba(255,255,255,0.42)_0%,rgba(255,255,255,0.27)_58%,rgba(255,255,255,0.1)_88%,transparent_110%)] blur-sm" />
                 <Image
                   src={SITE_CONFIG.logoPath}
                   alt="Tahseen Jaber Cold Storage"
                   fill
                   sizes="(max-width: 640px) 145px, (max-width: 1023px) 175px, 205px"
-                  className="z-10 object-contain"
+                  className="z-10 object-cover object-[center_46%]"
                   priority
                 />
               </div>

@@ -2,6 +2,25 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Email subscriptions
+
+The footer signup stores subscribers as contacts in [Resend](https://resend.com). Create a Resend API key and add it to your local `.env.local` and production environment:
+
+```bash
+RESEND_API_KEY=re_...
+```
+
+Without this key, the signup endpoint returns an error and does not claim the visitor subscribed. Resend contacts can be used to create and send broadcasts from the Resend dashboard.
+
+Contact forms send messages to `Shuaib@tahseenjaber.com` using Resend. Set both values locally in `.env.local` and in production:
+
+```bash
+RESEND_API_KEY=re_...
+RESEND_FROM_EMAIL="Tahseen Jaber Website <website@your-verified-domain.com>"
+```
+
+Verify the sender domain in Resend and use an address on that verified domain for `RESEND_FROM_EMAIL`. The contact form keeps the visitor's email as the reply-to address. Without these settings, the form will show a send error and will not claim the message was delivered.
+
 First, run the development server:
 
 ```bash

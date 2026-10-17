@@ -18,6 +18,7 @@ import { PageHero } from "@/components/PageHero";
 import { PatternDivider } from "@/components/ui/PatternDivider";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { useLanguage } from "@/context/LanguageContext";
+import { sendContactMessage } from "@/lib/contact-form";
 import { GoogleMapsLocation } from "@/components/GoogleMapsLocation";
 
 const SERVICE_SECTION_IMAGES = [
@@ -124,6 +125,8 @@ export default function ServicesPage() {
   const [pricingModalOpen, setPricingModalOpen] = useState(false);
   const { t, language } = useLanguage();
   const [formIssue, setFormIssue] = useState<"required" | "email" | "backend" | null>(null);
+  const [contactSending, setContactSending] = useState(false);
+  const [contactSent, setContactSent] = useState(false);
   const [specificationsStarted, setSpecificationsStarted] = useState(false);
   const [specificationCounts, setSpecificationCounts] = useState({
     pallets: 0,
@@ -139,7 +142,7 @@ export default function ServicesPage() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setFormIssue("required");
@@ -149,7 +152,16 @@ export default function ServicesPage() {
       setFormIssue("email");
       return;
     }
-    setFormIssue("backend");
+    setContactSending(true);
+    setFormIssue(null);
+    try {
+      await sendContactMessage(formData);
+      setContactSent(true);
+    } catch {
+      setFormIssue("backend");
+    } finally {
+      setContactSending(false);
+    }
   };
 
   const scrollToContact = (e: React.MouseEvent) => {
@@ -660,10 +672,13 @@ export default function ServicesPage() {
 
                 <button
                   type="submit"
-                  className="w-full rounded-xs bg-[#B84D1B] px-6 py-4 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#A34215] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2340] active:scale-[0.99]"
+                  disabled={contactSending || contactSent}
+                  className="w-full rounded-xs bg-[#B84D1B] px-6 py-4 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#A34215] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A2340] active:scale-[0.99] disabled:cursor-wait disabled:opacity-70"
                 >
-                  {t.servicesPage.contactSendBtn}
+                  {contactSent ? t.servicesPage.contactSuccessTitle : contactSending ? t.servicesPage.contactSending : t.servicesPage.contactSendBtn}
                 </button>
+
+                {contactSent && <p role="status" className="text-sm text-emerald-700">{t.servicesPage.contactSuccessDesc}</p>}
 
                 <p className="pt-2 text-sm text-[#8A95A0]">
                   {t.servicesPage.contactConfidential}

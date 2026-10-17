@@ -21,10 +21,13 @@ import { SITE_CONFIG } from "@/data/site-content";
 import { useLanguage } from "@/context/LanguageContext";
 import { GoogleMapsLocation } from "@/components/GoogleMapsLocation";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { sendContactMessage } from "@/lib/contact-form";
 
 export default function ContactPage() {
   const { t, isArabic } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [unlockClicks, setUnlockClicks] = useState(0);
   const [formData, setFormData] = useState({
@@ -33,9 +36,18 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setSendError(false);
+    try {
+      await sendContactMessage(formData);
+      setSubmitted(true);
+    } catch {
+      setSendError(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleLockClick = () => {
@@ -219,9 +231,11 @@ export default function ContactPage() {
                         type="submit"
                         className="w-full bg-[#B84D1B] hover:bg-[#A34215] text-white h-9 flex items-center justify-center rounded-[2px] font-normal text-sm transition-colors shadow-2xs cursor-pointer"
                       >
-                        {t.contact.sendBtn}
+                        {sending ? t.contact.sending : t.contact.sendBtn}
                       </button>
                     </div>
+
+                    {sendError && <p role="alert" className="text-sm text-red-700">{t.contact.sendError}</p>}
 
                     <p className="text-[12px] text-gray-400 text-center pt-1">
                       {t.contact.confidential}

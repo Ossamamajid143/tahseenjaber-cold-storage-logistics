@@ -6,25 +6,29 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { SITE_CONFIG } from "@/data/site-content";
 import { useLanguage } from "@/context/LanguageContext";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { useState } from "react";
 
 const iconButton = "inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 text-slate-300 transition-colors hover:border-[#D86A2D] hover:bg-white/5 hover:text-[#D86A2D]";
 const linkStyle = "block text-sm leading-6 text-slate-300 transition-colors hover:text-[#D86A2D]";
 
 export function Footer() {
   const { isArabic } = useLanguage();
+  const [subscriptionStatus, setSubscriptionStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const copy = isArabic ? {
     description: "مرافق تخزين مبرد وخدمات لوجستية لسلسلة التبريد في بغداد.",
     capabilities: "الخدمات", frozen: "التخزين المجمد والمبرد", pharma: "غرف المنتجات الدوائية", monitoring: "المراقبة",
     contact: "التواصل", facility: "المنشأة", frozenFacility: "المجمد", dryGoods: "البضائع الجافة", chiller: "المبرد", pharmaceutical: "الأدوية", facilityMonitoring: "المراقبة", company: "الشركة", whyChooseUs: "لماذا تختارنا", pricing: "الأسعار", consignmentHours: "استلام الشحنات من 07:00 صباحاً إلى 07:00 مساءً", operatingSince: "العمل منذ 2026",
     book: "ترتيب زيارة للمنشأة", quote: "طلب عرض سعر", contactUs: "اتصل بنا",
-    updates: "تحديثات السعة وسلسلة التبريد", updatesDesc: "رسالة واحدة شهرياً: السعة المتاحة والغرف الجديدة والإرشادات الموسمية.", unavailable: "الاشتراك بالبريد الإلكتروني غير متاح حالياً.", emailPlaceholder: "you@company.com", subscribe: "اشتراك",
+    updates: "تحديثات السعة وسلسلة التبريد", updatesDesc: "رسالة واحدة شهرياً: السعة المتاحة والغرف الجديدة والإرشادات الموسمية.", unavailable: "", emailPlaceholder: "you@company.com", subscribe: "اشتراك",
+    subscribing: "جارٍ الاشتراك...", success: "تم تسجيل بريدك الإلكتروني بنجاح.", error: "تعذر إتمام الاشتراك. يرجى المحاولة مجدداً.",
     copyright: "جميع الحقوق محفوظة.", terms: "شروط الخدمة", privacy: "سياسة الخصوصية", coldChain: "سياسة سلسلة التبريد",
   } : {
     description: "Temperature-controlled warehousing and cold-chain logistics in Baghdad.",
     capabilities: "Capabilities", frozen: "Frozen & chilled storage", pharma: "Pharmaceutical rooms", monitoring: "Monitoring",
     contact: "Contact", facility: "Facility", frozenFacility: "Frozen", dryGoods: "Dry goods", chiller: "Chiller", pharmaceutical: "Pharmaceutical", facilityMonitoring: "Monitoring", company: "Company", whyChooseUs: "Why Choose Us", pricing: "Pricing", consignmentHours: "Accepting consignments from 07:00am to 07:00pm", operatingSince: "Operating since 2026",
     book: "Book a site visit", quote: "Request a quotation", contactUs: "Contact",
-    updates: "Capacity and cold-chain updates", updatesDesc: "One email a month: available capacity, new rooms, seasonal guidance.", unavailable: "Email subscriptions are not available yet.", emailPlaceholder: "you@company.com", subscribe: "Subscribe",
+    updates: "Capacity and cold-chain updates", updatesDesc: "One email a month: available capacity, new rooms, seasonal guidance.", unavailable: "", emailPlaceholder: "you@company.com", subscribe: "Subscribe",
+    subscribing: "Subscribing...", success: "You’re subscribed. Thank you!", error: "We couldn’t complete your subscription. Please try again.",
     copyright: "All rights reserved.", terms: "Terms of service", privacy: "Privacy policy", coldChain: "Cold-chain policy",
   };
   const mapUrl = `https://www.google.com/maps?q=${SITE_CONFIG.googleMapsLocation.latitude},${SITE_CONFIG.googleMapsLocation.longitude}`;
@@ -42,7 +46,10 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-x-10 gap-y-10 border-b border-white/10 pb-10 sm:grid-cols-2 lg:grid-cols-[1.55fr_0.9fr_1fr_1fr] lg:gap-x-12 lg:pb-12">
           <section className="min-w-0">
             <Link href="/" aria-label="Tahseen Jaber Cold Storage home" className="mb-5 inline-flex">
-              <Image src={SITE_CONFIG.logoPath} alt="Tahseen Jaber Cold Storage" width={2170} height={725} sizes="220px" className="h-[62px] w-[220px] object-contain" />
+              <span className="relative inline-flex h-10 w-[145px] shrink-0 items-center justify-center sm:h-12 sm:w-[175px] lg:w-[205px]">
+                <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 h-[112%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-[radial-gradient(ellipse,rgba(255,255,255,0.42)_0%,rgba(255,255,255,0.27)_58%,rgba(255,255,255,0.1)_88%,transparent_110%)] blur-sm" />
+                <Image src={SITE_CONFIG.logoPath} alt="Tahseen Jaber Cold Storage" width={2170} height={725} sizes="(max-width: 640px) 145px, (max-width: 1023px) 175px, 205px" className="relative z-10 h-full w-full object-cover object-[center_46%]" />
+              </span>
             </Link>
             <p className="mb-5 max-w-sm text-sm leading-6 text-slate-300">{copy.description}</p>
             <address className="not-italic text-sm leading-6 text-slate-300">
@@ -104,11 +111,26 @@ export function Footer() {
           <div className="max-w-xl">
             <h2 className="text-sm font-semibold text-white">{copy.updates}</h2>
             <p className="mt-1 text-sm leading-6 text-slate-400">{copy.updatesDesc}</p>
-            <p className="mt-1 text-xs text-slate-500">{copy.unavailable}</p>
+            <p aria-live="polite" className="mt-1 min-h-4 text-xs text-slate-400">{subscriptionStatus === "success" ? copy.success : subscriptionStatus === "error" ? copy.error : ""}</p>
           </div>
-          <form className="flex w-full gap-2 sm:max-w-md" onSubmit={(event) => event.preventDefault()}>
-            <input type="email" disabled aria-label={copy.emailPlaceholder} placeholder={copy.emailPlaceholder} className="h-11 min-w-0 flex-1 rounded-lg border border-white/15 bg-white/5 px-4 text-sm text-white placeholder:text-slate-500 disabled:cursor-not-allowed" />
-            <button type="submit" disabled className="h-11 shrink-0 rounded-lg bg-white px-5 text-sm font-semibold text-[#17304b] disabled:cursor-not-allowed">{copy.subscribe}</button>
+          <form className="flex w-full gap-2 sm:max-w-md" onSubmit={async (event) => {
+            event.preventDefault();
+            const form = event.currentTarget;
+            const data = new FormData(form);
+            if (data.get("website")) return;
+            setSubscriptionStatus("submitting");
+            try {
+              const response = await fetch("/api/subscribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: data.get("email") }) });
+              if (!response.ok) throw new Error("Subscription failed");
+              form.reset();
+              setSubscriptionStatus("success");
+            } catch {
+              setSubscriptionStatus("error");
+            }
+          }}>
+            <input name="email" type="email" required maxLength={254} aria-label={copy.emailPlaceholder} placeholder={copy.emailPlaceholder} className="h-11 min-w-0 flex-1 rounded-lg border border-white/15 bg-white/5 px-4 text-sm text-white placeholder:text-slate-500" />
+            <input name="website" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+            <button type="submit" disabled={subscriptionStatus === "submitting"} className="h-11 shrink-0 rounded-lg bg-white px-5 text-sm font-semibold text-[#17304b] disabled:cursor-wait disabled:opacity-70">{subscriptionStatus === "submitting" ? copy.subscribing : copy.subscribe}</button>
           </form>
         </section>
 

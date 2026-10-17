@@ -9,11 +9,14 @@ import { useNavbarHeight } from "@/components/useNavbarHeight";
 
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { PatternDivider } from "@/components/ui/PatternDivider";
+import { sendContactMessage } from "@/lib/contact-form";
 
 export function HomeContactSection() {
   const { t, isArabic } = useLanguage();
   const navbarHeight = useNavbarHeight();
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [unlockClicks, setUnlockClicks] = useState(0);
   const [formData, setFormData] = useState({
@@ -30,10 +33,19 @@ export function HomeContactSection() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-    setSubmitted(true);
+    setSending(true);
+    setSendError(false);
+    try {
+      await sendContactMessage(formData);
+      setSubmitted(true);
+    } catch {
+      setSendError(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -191,11 +203,13 @@ export function HomeContactSection() {
                 <div className="pt-1">
                   <button
                     type="submit"
-                    className="home-contact-submit flex h-14 w-full cursor-pointer items-center justify-center rounded-[2px] bg-[#B84D1B] text-xs font-semibold text-white transition-colors hover:bg-[#A94316] sm:text-sm"
+                    disabled={sending}
+                    className="home-contact-submit flex h-14 w-full cursor-pointer items-center justify-center rounded-[2px] bg-[#B84D1B] text-xs font-semibold text-white transition-colors hover:bg-[#A94316] disabled:cursor-wait disabled:opacity-70 sm:text-sm"
                   >
-                    {t.home.contactSection.sendBtn}
+                    {sending ? t.home.contactSection.sending : t.home.contactSection.sendBtn}
                   </button>
                 </div>
+                {sendError && <p role="alert" className="text-sm text-red-700">{t.home.contactSection.sendError}</p>}
 
                 {/* Reassurance text */}
                 <p className="pt-1 text-center text-[11px] leading-relaxed text-[#A0A9AE] sm:text-xs">

@@ -141,12 +141,13 @@ export const TRANSLATIONS = {
       contactMessageLabel: "Description",
       contactMessagePlaceholder: "Description",
       contactSendBtn: "Send Message",
+      contactSending: "Sending...",
       contactConfidential:
         "Your information will be treated confidentially and used only to respond to your inquiry.",
       contactRequiredError: "Please complete all required fields.",
       contactEmailError: "Please enter a valid email address.",
       contactBackendNotice:
-        "Message sending is not connected yet. Please contact us by phone or email instead.",
+        "We couldn’t send your message. Please try again or contact us by phone or email.",
       contactSuccessTitle: "Inquiry Received",
       contactSuccessDesc:
         "Thank you for contacting Tahseen Jaber. We will get in touch shortly.",
@@ -254,6 +255,8 @@ export const TRANSLATIONS = {
         unlockedText: "Form unlocked successfully",
         lockedText: "Click lock icon few times to unblock the form",
         sendBtn: "Send message",
+        sending: "Sending...",
+        sendError: "We couldn’t send your message. Please try again.",
         confidential:
           "You are very important to us, all information received will always remain confidential.",
         thankYou: "Thank You",
@@ -532,6 +535,8 @@ export const TRANSLATIONS = {
       emailPlaceholder: "Email Address",
       messagePlaceholder: "Your message or question",
       sendBtn: "Send message",
+      sending: "Sending...",
+      sendError: "We couldn’t send your message. Please try again.",
       confidential:
         "You are very important to us, all information received will always remain confidential.",
       successTitle: "Message Transmitted",
@@ -714,12 +719,13 @@ export const TRANSLATIONS = {
       contactMessageLabel: "الوصف",
       contactMessagePlaceholder: "الوصف",
       contactSendBtn: "إرسال الرسالة",
+      contactSending: "جارٍ الإرسال...",
       contactConfidential:
         "ستُعامل معلوماتك بسرية وستُستخدم فقط للرد على استفسارك.",
       contactRequiredError: "يرجى إكمال جميع الحقول المطلوبة.",
       contactEmailError: "يرجى إدخال عنوان بريد إلكتروني صالح.",
       contactBackendNotice:
-        "إرسال الرسائل عبر هذا النموذج غير متاح حالياً. يرجى التواصل معنا هاتفياً أو عبر البريد الإلكتروني.",
+        "تعذر إرسال رسالتك. يرجى المحاولة مجدداً أو التواصل معنا هاتفياً أو عبر البريد الإلكتروني.",
       contactSuccessTitle: "تم استلام استفسارك بنجاح",
       contactSuccessDesc:
         "شكراً لتواصلك مع شركة تحسين جابر لمخازن التبريد. سيتواصل فريقنا معك في أقرب وقت.",
@@ -827,6 +833,8 @@ export const TRANSLATIONS = {
         unlockedText: "تم فتح النموذج بنجاح",
         lockedText: "انقر فوق أيقونة القفل لتفعيل النموذج",
         sendBtn: "إرسال الرسالة",
+        sending: "جارٍ الإرسال...",
+        sendError: "تعذر إرسال رسالتك. يرجى المحاولة مجدداً.",
         confidential:
           "أنت مهم جداً بالنسبة لنا، وجميع المعلومات المستلمة تبقى سرية ومحمية دائماً.",
         thankYou: "شكراً لك",
@@ -1105,6 +1113,8 @@ export const TRANSLATIONS = {
       emailPlaceholder: "البريد الإلكتروني",
       messagePlaceholder: "رسالتك أو استفسارك",
       sendBtn: "إرسال الرسالة",
+      sending: "جارٍ الإرسال...",
+      sendError: "تعذر إرسال رسالتك. يرجى المحاولة مجدداً.",
       confidential:
         "أنت مهم جداً بالنسبة لنا، وجميع المعلومات المستلمة تبقى سرية ومحمية دائماً.",
       successTitle: "تم إرسال الرسالة بنجاح",
